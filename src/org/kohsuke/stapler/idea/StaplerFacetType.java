@@ -5,6 +5,7 @@ import com.intellij.facet.FacetType;
 import com.intellij.facet.FacetTypeId;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
+import com.intellij.javaee.web.facet.WebFacet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.icons.Icons;
@@ -20,6 +21,8 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
     public final static StaplerFacetType INSTANCE = new StaplerFacetType();
 
     private StaplerFacetType() {
+        // setting the 4th parameter restricits this facet to be only available as
+        // a child of the given facet. For example it could be "WebFacet.ID"
         super(ID, "Stapler", "Stapler");
     }
 
