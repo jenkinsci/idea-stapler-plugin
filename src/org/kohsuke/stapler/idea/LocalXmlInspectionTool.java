@@ -6,9 +6,11 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiReferenceExpression;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlText;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * {@link LocalInspectionTool} with enhancements to handle XML files.
@@ -16,6 +18,15 @@ import org.jetbrains.annotations.NotNull;
  * @author Kohsuke Kawaguchi
  */
 public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
+    protected static boolean shouldCheck(@NotNull PsiElement psiElement) {
+        return getFacet(psiElement) != null;
+    }
+
+    @Nullable
+    protected static StaplerFacet getFacet(@NotNull PsiElement psiElement) {
+        return StaplerFacet.findFacetBySourceFile(psiElement.getProject(), psiElement.getContainingFile().getVirtualFile());
+    }
+
     @NonNls
     @NotNull
     public String getShortName() {

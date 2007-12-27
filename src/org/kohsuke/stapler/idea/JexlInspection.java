@@ -50,6 +50,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
     protected ProblemDescriptor[] checkXmlText(XmlText xmlText, InspectionManager manager, boolean onTheFly) {
         if(!xmlText.getContainingFile().getName().endsWith(".jelly"))
             return EMPTY_ARRAY; // not a jelly script
+        if(shouldCheck(xmlText))
+            return EMPTY_ARRAY; // stapler not enabled
 
         String text = xmlText.getText();
 
