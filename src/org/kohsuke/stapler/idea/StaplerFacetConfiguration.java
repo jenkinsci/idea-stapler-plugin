@@ -13,8 +13,8 @@ import org.jdom.Element;
  */
 public class StaplerFacetConfiguration implements FacetConfiguration {
     public FacetEditorTab[] createEditorTabs(FacetEditorContext editorContext, FacetValidatorsManager validatorsManager) {
-        // TODO
-        throw new UnsupportedOperationException();
+        // nothing to configure
+        return new FacetEditorTab[0];
     }
 
     public void readExternal(Element element) throws InvalidDataException {

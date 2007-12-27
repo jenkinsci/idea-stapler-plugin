@@ -1,7 +1,6 @@
 package org.kohsuke.stapler.idea;
 
 import com.intellij.facet.impl.ui.FacetTypeFrameworkSupportProvider;
-import com.intellij.javaee.web.facet.WebFacet;
 import com.intellij.openapi.roots.ModifiableRootModel;
 
 /**
@@ -13,12 +12,11 @@ public class StaplerFrameworkSupport extends FacetTypeFrameworkSupportProvider<S
         super(StaplerFacetType.INSTANCE);
     }
 
-    /**
-     * Returns the list of required facets to use our facet.
-     */
-    public String[] getPrecedingFrameworkProviderIds() {
-        return new String[]{getProviderId(WebFacet.ID)};
-    }
+    // GWT Studio returns this, but I have no idea what this does.
+    // just leaving it here as a note
+//    public String[] getPrecedingFrameworkProviderIds() {
+//        return new String[]{getProviderId(WebFacet.ID)};
+//    }
 
     protected void setupConfiguration(StaplerFacet facet, ModifiableRootModel modifiablerootmodel, String s) {
         // noop?
