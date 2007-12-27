@@ -1,0 +1,12 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin>
+  <name>Stapler plugin for IntelliJ IDEA</name>
+  <description>Stapler plugin for IntelliJ IDEA</description>
+  <version>1.0</version>
+  <vendor>Kohsuke Kawaguchi</vendor>
+  <idea-version since-build="7000"/>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <inspectionToolProvider implementation="org.kohsuke.stapler.idea.JellyInspector" />
+  </extensions>
+</idea-plugin>
