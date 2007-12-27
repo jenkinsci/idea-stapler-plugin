@@ -1,8 +1,8 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.openapi.components.ApplicationComponent;
-import com.intellij.facet.FacetTypeRegistry;
 import com.intellij.codeInspection.InspectionToolProvider;
+import com.intellij.facet.FacetTypeRegistry;
+import com.intellij.openapi.components.ApplicationComponent;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 

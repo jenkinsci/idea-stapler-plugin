@@ -1,14 +1,14 @@
 package org.kohsuke.stapler.idea;
 
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.codeInspection.InspectionManager;
+import com.intellij.codeInspection.LocalInspectionTool;
+import com.intellij.codeInspection.ProblemDescriptor;
+import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiReferenceExpression;
 import com.intellij.psi.xml.XmlText;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.InspectionManager;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@link LocalInspectionTool} with enhancements to handle XML files.

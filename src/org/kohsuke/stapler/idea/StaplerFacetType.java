@@ -1,8 +1,8 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.facet.FacetType;
 import com.intellij.facet.Facet;
-import com.intellij.javaee.web.facet.WebFacet;
+import com.intellij.facet.FacetType;
+import com.intellij.facet.FacetTypeId;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
 import org.jetbrains.annotations.NotNull;
@@ -15,10 +15,12 @@ import javax.swing.*;
  * @author Kohsuke Kawaguchi
  */
 public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacetConfiguration> {
+    public final static FacetTypeId<StaplerFacet> ID = new FacetTypeId<StaplerFacet>("stapler");
+
     public final static StaplerFacetType INSTANCE = new StaplerFacetType();
 
     private StaplerFacetType() {
-        super(StaplerFacet.FACET_TYPE_ID, "Stapler", "Stapler", WebFacet.ID);
+        super(ID, "Stapler", "Stapler");
     }
 
     public StaplerFacetConfiguration createDefaultConfiguration() {
