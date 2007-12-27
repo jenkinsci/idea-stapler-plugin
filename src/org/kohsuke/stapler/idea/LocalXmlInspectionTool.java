@@ -18,12 +18,16 @@ import org.jetbrains.annotations.Nullable;
  * @author Kohsuke Kawaguchi
  */
 public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
-    protected static boolean shouldCheck(@NotNull PsiElement psiElement) {
+    /**
+     * Returns true if local inspection should kick in,
+     * which is when the stapler facet is configured on the current module.
+     */
+    protected final boolean shouldCheck(@NotNull PsiElement psiElement) {
         return getFacet(psiElement) != null;
     }
 
     @Nullable
-    protected static StaplerFacet getFacet(@NotNull PsiElement psiElement) {
+    protected StaplerFacet getFacet(@NotNull PsiElement psiElement) {
         return StaplerFacet.findFacetBySourceFile(psiElement.getProject(), psiElement.getContainingFile().getVirtualFile());
     }
 
