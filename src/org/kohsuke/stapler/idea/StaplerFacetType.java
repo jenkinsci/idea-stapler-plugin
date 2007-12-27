@@ -5,7 +5,6 @@ import com.intellij.facet.FacetType;
 import com.intellij.facet.FacetTypeId;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
-import com.intellij.javaee.web.facet.WebFacet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.icons.Icons;
