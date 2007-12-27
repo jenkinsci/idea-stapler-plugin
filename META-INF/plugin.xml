@@ -7,6 +7,17 @@
   <idea-version since-build="7000"/>
 
   <extensions defaultExtensionNs="com.intellij">
-    <inspectionToolProvider implementation="org.kohsuke.stapler.idea.JellyInspector" />
-  </extensions>
+    <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
+    <!-- it seems like the proper way to do this is by implementing this in application component -->
+    <!--inspectionToolProvider implementation="org.kohsuke.stapler.idea.JellyInspector" /-->
+   </extensions>
+
+  <!-- needed for defining web facet -->
+  <depends>com.intellij.javaee</depends>
+
+  <application-components>
+      <component>
+          <implementation-class>org.kohsuke.stapler.idea.StaplerApplicationComponent</implementation-class>
+      </component>
+  </application-components>
 </idea-plugin>
