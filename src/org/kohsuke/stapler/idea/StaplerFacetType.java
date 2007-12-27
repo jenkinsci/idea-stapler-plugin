@@ -33,6 +33,9 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
         return new StaplerFacet(this, module, name, configuration, underlyingFacet);
     }
 
+    /**
+     * Returning true means only one facet can be configured per a module.
+     */
     @Override
     public boolean isOnlyOneFacetAllowed() {
         return true;
