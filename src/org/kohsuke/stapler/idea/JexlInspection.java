@@ -7,6 +7,7 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.xml.XmlText;
 import com.intellij.codeInsight.daemon.GroupNames;
+import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
 import org.jetbrains.annotations.Nls;
@@ -26,6 +27,11 @@ public class JexlInspection extends LocalXmlInspectionTool {
         return "Checks syntax of JEXL expressions";
     }
 
+    @NotNull
+    public HighlightDisplayLevel getDefaultLevel() {
+        return HighlightDisplayLevel.ERROR;
+    }
+
     /*
      * Copyright 2002,2004 The Apache Software Foundation.
      *
@@ -42,6 +48,9 @@ public class JexlInspection extends LocalXmlInspectionTool {
      * limitations under the License.
      */
     protected ProblemDescriptor[] checkXmlText(XmlText xmlText, InspectionManager manager, boolean onTheFly) {
+        if(!xmlText.getContainingFile().getName().endsWith(".jelly"))
+            return EMPTY_ARRAY; // not a jelly script
+
         String text = xmlText.getText();
 
         int len = text.length();
