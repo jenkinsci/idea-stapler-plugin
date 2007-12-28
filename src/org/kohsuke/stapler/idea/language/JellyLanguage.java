@@ -67,6 +67,9 @@ public final class JellyLanguage extends Language {
             return (JellyFile) psiFile.getViewProvider().getPsi(JellyLanguage.INSTANCE);
     }
 
+    /**
+     * Gets {@link JellyFile} that contains the given {@link PsiElement}
+     */
     public static JellyFile getJellyFile(PsiElement e) {
         return JellyLanguage.getJellyFile(e.getContainingFile());
     }
