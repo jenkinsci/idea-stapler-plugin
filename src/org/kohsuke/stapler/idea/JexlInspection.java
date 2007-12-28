@@ -188,6 +188,10 @@ public class JexlInspection extends LocalXmlInspectionTool {
      */
     private ProblemDescriptor[] parseJexl(InspectionManager manager, XmlText xmlText, TextRange range, String expr) {
         try {
+            if(expr.startsWith("%")) { // property reference
+                // TODO: check the syntax of the property 
+                return EMPTY_ARRAY;
+            }
             ExpressionFactory.createExpression(expr);
             return EMPTY_ARRAY;
         } catch (ParseException e) {
