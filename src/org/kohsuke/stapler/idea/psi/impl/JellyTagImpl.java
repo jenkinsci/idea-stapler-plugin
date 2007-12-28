@@ -1,18 +1,7 @@
 package org.kohsuke.stapler.idea.psi.impl;
 
-import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiReferenceBase;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiPackage;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.xml.XmlTag;
 import org.kohsuke.stapler.idea.psi.JellyPsi;
 import org.kohsuke.stapler.idea.psi.JellyTag;
 import org.kohsuke.stapler.idea.psi.TagDefinition;
@@ -37,6 +26,9 @@ final class JellyTagImpl extends JellyPsiImpl implements JellyTag {
 
     @Override
     public PsiReference getReference() {
-        return new TagReference(getSourceElement());
+        XmlTag src = getSourceElement();
+        if(TagReference.isApplicable(src))
+            return new TagReference(src);
+        return null;
     }
 }

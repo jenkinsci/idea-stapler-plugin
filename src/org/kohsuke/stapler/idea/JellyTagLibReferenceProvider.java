@@ -21,9 +21,8 @@ public class JellyTagLibReferenceProvider implements PsiReferenceProvider {
     public PsiReference[] getReferencesByElement(PsiElement e) {
         if (e instanceof XmlTag) {
             XmlTag t = (XmlTag)e;
-
-            // test
-            return new PsiReference[] {new TagReference(t)};
+            if(TagReference.isApplicable(t))
+                return new PsiReference[] {new TagReference(t)};
         }
         return PsiReference.EMPTY_ARRAY;
     }

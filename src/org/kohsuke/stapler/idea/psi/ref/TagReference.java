@@ -25,6 +25,13 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
     }
 
     /**
+     * Returns true if the given XML tag is a reference to a Jelly tag.
+     */
+    public static boolean isApplicable(XmlTag ref) {
+        return ref.getNamespace().startsWith("/");
+    }
+
+    /**
      * Calculate the text range withtin {@link XmlTag} that represents
      * the tag name.
      */
