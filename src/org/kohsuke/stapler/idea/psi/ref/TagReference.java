@@ -32,7 +32,7 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
         // reference is only for the element name.
         // text range is relative to this element
         TextRange tr = t.getFirstChild().getNextSibling().getTextRange();
-        return tr.shiftRight(t.getTextRange().getStartOffset());
+        return tr.shiftRight(-t.getTextRange().getStartOffset());
 
     }
 
