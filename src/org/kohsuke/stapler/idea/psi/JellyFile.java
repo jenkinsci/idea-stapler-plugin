@@ -13,6 +13,4 @@ import org.kohsuke.stapler.idea.language.JellyLanguage;
 public interface JellyFile extends PsiFile, JellyPsi, PsiNamedElement, ModificationTracker
 {
     XmlFile getSourceElement();
-
-    void clearCaches();
 }

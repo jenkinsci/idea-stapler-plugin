@@ -7,6 +7,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLock;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.xml.XmlAttribute;
+import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlComment;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
@@ -155,12 +156,12 @@ abstract class JellyPsiImpl extends MetadataPsiElementBase implements JellyPsi {
     static JellyPsiImpl wrap(JellyPsi parent, PsiElement e) {
         if (e instanceof XmlTag)
             return new JellyTagImpl(parent, (XmlTag) e);
-
         if(e instanceof XmlComment)
             return new JellyCommentImpl(parent, (XmlComment)e);
-
         if(e instanceof XmlAttribute)
             return new JellyAttributeImpl(parent, (XmlAttribute)e);
+        if(e instanceof XmlAttributeValue)
+            return new JellyAttributeValueImpl(parent, (XmlAttributeValue)e);
 
 
         return null;

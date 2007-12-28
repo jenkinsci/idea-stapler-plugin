@@ -3,6 +3,7 @@ package org.kohsuke.stapler.idea;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiReference;
@@ -24,16 +25,13 @@ public class JellyTagLibReferenceProvider implements PsiReferenceProvider {
      */
     @NotNull
     public PsiReference[] getReferencesByElement(PsiElement e) {
-        if (e instanceof XmlToken) {
-            XmlToken token = (XmlToken) e;
-            if(!(token.getParent() instanceof XmlTag))
-                return PsiReference.EMPTY_ARRAY;
-            XmlTag t = (XmlTag)token.getParent();
+        if (e instanceof XmlTag) {
+            XmlTag t = (XmlTag)e;
 
 
             // test
             return new PsiReference[] {
-                new PsiReferenceBase<XmlTag>(t) {
+                new PsiReferenceBase<XmlTag>(t, new TextRange(2,3)) {
                     public PsiElement resolve() {
                         String localName = myElement.getLocalName();
 
