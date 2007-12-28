@@ -11,6 +11,12 @@
     <!-- it seems like the proper way to do this is by implementing this in application component -->
     <!--inspectionToolProvider implementation="org.kohsuke.stapler.idea.JellyInspector" /-->
    </extensions>
+  <actions>
+    <action id="testGoto" class="org.kohsuke.stapler.idea.test.TestGoToDeclAction" text="testGoto"
+            description="emulate go to decl">
+      <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="GotoDeclaration"/>
+    </action>
+  </actions>
 
   <!-- needed for defining web facet -->
   <depends>com.intellij.javaee</depends>

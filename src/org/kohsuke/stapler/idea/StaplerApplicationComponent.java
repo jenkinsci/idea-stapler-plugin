@@ -3,8 +3,11 @@ package org.kohsuke.stapler.idea;
 import com.intellij.codeInspection.InspectionToolProvider;
 import com.intellij.facet.FacetTypeRegistry;
 import com.intellij.openapi.components.ApplicationComponent;
+import com.intellij.lang.CompositeLanguage;
+import com.intellij.lang.StdLanguages;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.kohsuke.stapler.idea.language.JellyLanguageExtension;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -17,6 +20,10 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
 
     public void initComponent() {
         FacetTypeRegistry.getInstance().registerFacetType(StaplerFacetType.INSTANCE);
+
+        // register a custom vocabulary for Jelly
+        ((CompositeLanguage) StdLanguages.XML).registerLanguageExtension(
+                JellyLanguageExtension.INSTANCE);
     }
 
     public void disposeComponent() {

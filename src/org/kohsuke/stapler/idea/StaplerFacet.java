@@ -1,8 +1,8 @@
 package org.kohsuke.stapler.idea;
 
 import com.intellij.facet.Facet;
-import com.intellij.facet.FacetType;
 import com.intellij.facet.FacetManager;
+import com.intellij.facet.FacetType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;

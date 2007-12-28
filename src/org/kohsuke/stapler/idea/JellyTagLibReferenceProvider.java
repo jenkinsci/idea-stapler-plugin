@@ -1,16 +1,17 @@
 package org.kohsuke.stapler.idea;
 
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtil;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.PsiReference;
+import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.impl.source.resolve.reference.PsiReferenceProvider;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceType;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReferenceBase;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.xml.XmlTag;
+import com.intellij.psi.xml.XmlToken;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,8 +24,11 @@ public class JellyTagLibReferenceProvider implements PsiReferenceProvider {
      */
     @NotNull
     public PsiReference[] getReferencesByElement(PsiElement e) {
-        if (e instanceof XmlTag) {
-            XmlTag t = (XmlTag) e;
+        if (e instanceof XmlToken) {
+            XmlToken token = (XmlToken) e;
+            if(!(token.getParent() instanceof XmlTag))
+                return PsiReference.EMPTY_ARRAY;
+            XmlTag t = (XmlTag)token.getParent();
 
 
             // test
