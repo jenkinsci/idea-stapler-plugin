@@ -15,13 +15,9 @@ import com.intellij.psi.PsiLock;
 import com.intellij.psi.xml.XmlDocument;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
-import com.intellij.util.Alarm;
 import org.kohsuke.stapler.idea.language.JellyLanguage;
 import org.kohsuke.stapler.idea.psi.JellyFile;
 import org.kohsuke.stapler.idea.psi.JellyPsi;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * This code is responsible for invalidating Jelly PSI tree whenever a change is made.
@@ -38,7 +34,7 @@ public class ChangeVisitorImpl implements XmlChangeVisitor {
 
     public void visitDocumentChanged(XmlDocumentChanged xmlDocumentChanged) {
         XmlDocument doc = xmlDocumentChanged.getDocument();
-        JellyFile j = getAntFile(doc);
+        JellyFile j = JellyLanguage.getJellyFile(doc);
         if (j != null)
             j.clearCaches();
     }
@@ -68,10 +64,11 @@ public class ChangeVisitorImpl implements XmlChangeVisitor {
     }
 
     private static void clearParentCaches(XmlElement el) {
-        TextRange textRange = el.getTextRange();
-        JellyFile file = getAntFile(el);
+        JellyFile file = JellyLanguage.getJellyFile(el);
         if (file == null)
             return;
+
+        TextRange textRange = el.getTextRange();
         PsiElement element = file.findElementAt(textRange.getStartOffset());
 
         if (element != null)
@@ -84,9 +81,5 @@ public class ChangeVisitorImpl implements XmlChangeVisitor {
         synchronized (PsiLock.LOCK) {
             ((JellyPsi) element).clearCaches();
         }
-    }
-
-    private static JellyFile getAntFile(XmlElement el) {
-        return JellyLanguage.getJellyFile(el.getContainingFile());
     }
 }

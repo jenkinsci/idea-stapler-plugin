@@ -12,6 +12,8 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.refactoring.NamesValidator;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.xml.XmlElement;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.psi.JellyFile;
 
@@ -63,6 +65,10 @@ public final class JellyLanguage extends Language {
             return (JellyFile) psiFile;
         else
             return (JellyFile) psiFile.getViewProvider().getPsi(JellyLanguage.INSTANCE);
+    }
+
+    public static JellyFile getJellyFile(PsiElement e) {
+        return JellyLanguage.getJellyFile(e.getContainingFile());
     }
 
     public StructureViewBuilder getStructureViewBuilder(PsiFile psiFile) {
