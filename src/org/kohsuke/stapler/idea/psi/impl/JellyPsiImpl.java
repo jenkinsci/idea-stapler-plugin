@@ -1,14 +1,15 @@
 package org.kohsuke.stapler.idea.psi.impl;
 
 import com.intellij.extapi.psi.MetadataPsiElementBase;
+import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLock;
 import com.intellij.psi.PsiManager;
+import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlComment;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
-import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.language.JellyLanguage;
@@ -152,12 +153,16 @@ abstract class JellyPsiImpl extends MetadataPsiElementBase implements JellyPsi {
     }
 
     static JellyPsiImpl wrap(JellyPsi parent, PsiElement e) {
+        if (e instanceof XmlTag)
+            return new JellyTagImpl(parent, (XmlTag) e);
+
         if(e instanceof XmlComment)
             return new JellyCommentImpl(parent, (XmlComment)e);
-        if(!(e instanceof XmlTag))
-            return null;
-        XmlTag tag = (XmlTag)e;
 
-        return new JellyTagImpl(parent,tag);
+        if(e instanceof XmlAttribute)
+            return new JellyAttributeImpl(parent, (XmlAttribute)e);
+
+
+        return null;
     }
 }
