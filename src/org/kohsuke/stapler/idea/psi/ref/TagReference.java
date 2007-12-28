@@ -39,28 +39,31 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
     public PsiElement resolve() {
         String localName = myElement.getLocalName();
         String nsUri = myElement.getNamespace();
+        if(nsUri.length()==0)   return null;
 
         Module m = ModuleUtil.findModuleForPsiElement(myElement);
-        if(m!=null) {// just trying to be defensive
-            PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
+        if(m==null) return null; // just trying to be defensive
 
-            String pkgName = nsUri.substring(1).replace('/', '.');
-            // this invocation below successfully finds packages that includes
-            // invalid characters like 'a-b-c'
-            PsiPackage pkg = psiManager.findPackage(pkgName);
-            PsiDirectory[] dirs = pkg.getDirectories(GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m, false));
+        PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
 
-            for (PsiDirectory dir : dirs) {
-                PsiFile tagFile = dir.findFile(localName + ".jelly");
-                if(tagFile!=null)   return tagFile;
-            }
+        String pkgName = nsUri.substring(1).replace('/', '.');
+        // this invocation below successfully finds packages that includes
+        // invalid characters like 'a-b-c'
+        PsiPackage pkg = psiManager.findPackage(pkgName);
+        if(pkg==null)   return null;
 
-            // TODO: this is just a test
-            VirtualFile module = m.getModuleFile().getParent();
-            VirtualFile child = module.findChild(localName + ".txt");
-            if(child!=null)
-                return psiManager.findFile(child);
+        PsiDirectory[] dirs = pkg.getDirectories(GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m, false));
+
+        for (PsiDirectory dir : dirs) {
+            PsiFile tagFile = dir.findFile(localName + ".jelly");
+            if(tagFile!=null)   return tagFile;
         }
+
+        // TODO: this is just a test
+        VirtualFile module = m.getModuleFile().getParent();
+        VirtualFile child = module.findChild(localName + ".txt");
+        if(child!=null)
+            return psiManager.findFile(child);
 
         return null;
     }
