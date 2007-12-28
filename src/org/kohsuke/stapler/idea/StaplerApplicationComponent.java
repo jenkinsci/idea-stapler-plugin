@@ -22,8 +22,8 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
         FacetTypeRegistry.getInstance().registerFacetType(StaplerFacetType.INSTANCE);
 
         // register a custom vocabulary for Jelly
-        ((CompositeLanguage) StdLanguages.XML).registerLanguageExtension(
-                JellyLanguageExtension.INSTANCE);
+//        ((CompositeLanguage) StdLanguages.XML).registerLanguageExtension(
+//                JellyLanguageExtension.INSTANCE);
     }
 
     public void disposeComponent() {

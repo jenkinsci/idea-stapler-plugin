@@ -64,7 +64,7 @@ public class StaplerProjectComponent implements ProjectComponent {
         // since the first two parameters are null, this reference provider applies everywhere
         // this was actually not what I was looking for --- this defines reference from the
         // content of an XML element, not from an XML element name.
-//        registry.registerXmlTagReferenceProvider(null,null,true/*what is this?*/,new JellyTagLibReferenceProvider());
+        registry.registerXmlTagReferenceProvider(null,null,true/*what is this?*/,new JellyTagLibReferenceProvider());
 
         // this doesn't call us back at all
 //        registry.registerReferenceProvider(XmlToken.class,new JellyTagLibReferenceProvider());

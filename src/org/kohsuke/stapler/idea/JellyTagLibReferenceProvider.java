@@ -1,19 +1,13 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.impl.source.resolve.reference.PsiReferenceProvider;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceType;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.xml.XmlTag;
-import com.intellij.psi.xml.XmlToken;
 import org.jetbrains.annotations.NotNull;
+import org.kohsuke.stapler.idea.psi.ref.TagReference;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -28,31 +22,8 @@ public class JellyTagLibReferenceProvider implements PsiReferenceProvider {
         if (e instanceof XmlTag) {
             XmlTag t = (XmlTag)e;
 
-
             // test
-            return new PsiReference[] {
-                new PsiReferenceBase<XmlTag>(t, new TextRange(2,3)) {
-                    public PsiElement resolve() {
-                        String localName = myElement.getLocalName();
-
-                        Module m = ModuleUtil.findModuleForPsiElement(myElement);
-                        if(m!=null) {// just trying to be defensive
-                            PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
-                            VirtualFile module = m.getModuleFile().getParent();
-                            VirtualFile child = module.findChild(localName + ".txt");
-                            if(child!=null)
-                                return psiManager.findFile(child);
-                        }
-
-                        return null;
-                    }
-
-                    public Object[] getVariants() {
-                        // not sure how to use this
-                        return new String[]{"abc","def","ghi"};
-                    }
-                }
-            };
+            return new PsiReference[] {new TagReference(t)};
         }
         return PsiReference.EMPTY_ARRAY;
     }
