@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiReferenceExpression;
 import com.intellij.psi.xml.XmlText;
+import com.intellij.psi.xml.XmlAttributeValue;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -49,6 +50,10 @@ public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
                 addDescriptors(checkXmlText(text, holder.getManager(), isOnTheFly));
             }
 
+            public void visitXmlAttributeValue(XmlAttributeValue value) {
+                addDescriptors(checkXmlAttributeValue(value, holder.getManager(), isOnTheFly));
+            }
+
             public void visitReferenceExpression(PsiReferenceExpression expression) {
             }
 
@@ -61,6 +66,10 @@ public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
     }
 
     protected ProblemDescriptor[] checkXmlText(XmlText text, InspectionManager manager, boolean onTheFly) {
+        return EMPTY_ARRAY;
+    }
+
+    protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
         return EMPTY_ARRAY;
     }
 

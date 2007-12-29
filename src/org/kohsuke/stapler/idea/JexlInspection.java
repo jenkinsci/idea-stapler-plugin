@@ -8,6 +8,8 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.xml.XmlText;
+import com.intellij.psi.xml.XmlElement;
+import com.intellij.psi.xml.XmlAttributeValue;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
 import org.jetbrains.annotations.Nls;
@@ -32,6 +34,14 @@ public class JexlInspection extends LocalXmlInspectionTool {
         return HighlightDisplayLevel.ERROR;
     }
 
+    protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
+        return check(text,manager,text.getValue(),text.getValueTextRange());
+    }
+
+    protected ProblemDescriptor[] checkXmlText(XmlText xmlText, InspectionManager manager, boolean onTheFly) {
+        return check(xmlText,manager,xmlText.getText(),xmlText.getTextRange());
+    }
+
     /*
      * Copyright 2002,2004 The Apache Software Foundation.
      *
@@ -47,13 +57,19 @@ public class JexlInspection extends LocalXmlInspectionTool {
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-    protected ProblemDescriptor[] checkXmlText(XmlText xmlText, InspectionManager manager, boolean onTheFly) {
-        if(!xmlText.getContainingFile().getName().endsWith(".jelly"))
+    /**
+     * Checks JEXL expresisons and return problem descriptors if found.
+     *
+     * @param text
+     *      The text value that may contain JEXL expressions.
+     * @param range
+     *      Text range in the document that the 'text' parameter represents
+     */
+    protected ProblemDescriptor[] check(XmlElement psi, InspectionManager manager, String text, TextRange range) {
+        if(!psi.getContainingFile().getName().endsWith(".jelly"))
             return EMPTY_ARRAY; // not a jelly script
-        if(shouldCheck(xmlText))
+        if(shouldCheck(psi))
             return EMPTY_ARRAY; // stapler not enabled
-
-        String text = xmlText.getText();
 
         int len = text.length();
 
@@ -63,19 +79,22 @@ public class JexlInspection extends LocalXmlInspectionTool {
             return EMPTY_ARRAY;
         }
 
+        // convert range to be relative to the PSI element
+        range = range.shiftRight(-psi.getTextRange().getStartOffset());
+
         int endIndex = text.indexOf( "}", startIndex+2 );
 
         if ( endIndex < 0 )
             return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(xmlText,
-                        createSubRange(startIndex,len),
+                manager.createProblemDescriptor(psi,
+                        new TextRange(startIndex, len),
                         "Missing '}' character at the end of expression: ",
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                         LocalQuickFix.EMPTY_ARRAY)
             };
 
         if ( startIndex == 0 && endIndex == len - 1 )
-            return parseJexl(manager,xmlText,createSubRange(0,len),text.substring(2, endIndex));
+            return parseJexl(manager,psi,shrink(range,2,1),text.substring(2, endIndex));
 
         int cur = 0;
         char c;
@@ -149,8 +168,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                     } // while
                                     break;
                                 case '}':
-                                    ProblemDescriptor[] r = parseJexl(manager,xmlText,
-                                            createSubRange(cur-expr.length()-2, cur+1),
+                                    ProblemDescriptor[] r = parseJexl(manager,psi,
+                                            new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
                                             expr.toString());
                                     // for now let's abort if we find one issue
                                     if(r.length!=0) return r;
@@ -165,8 +184,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                             }
 
                             return new ProblemDescriptor[] {
-                                manager.createProblemDescriptor(xmlText,
-                                        createSubRange(cur-expr.length()-2, cur+1),
+                                manager.createProblemDescriptor(psi,
+                                        new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
                                         "Missing '}' character at the end of expression: ",
                                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                                         LocalQuickFix.EMPTY_ARRAY)
@@ -183,10 +202,19 @@ public class JexlInspection extends LocalXmlInspectionTool {
         return EMPTY_ARRAY;
     }
 
+    private TextRange shrink(TextRange range, int l, int r) {
+        return new TextRange(range.getStartOffset()-l, range.getEndOffset()-r);
+    }
+
     /**
      * Parses the expression to JEXL and report back any error.
+     *
+     * @param psi
+     *      PSI element that contains the given text.
+     * @param range
+     *      Range in the 'psi' that represents 'expr'
      */
-    private ProblemDescriptor[] parseJexl(InspectionManager manager, XmlText xmlText, TextRange range, String expr) {
+    private ProblemDescriptor[] parseJexl(InspectionManager manager, XmlElement psi, TextRange range, String expr) {
         try {
             if(expr.startsWith("%")) { // property reference
                 // TODO: check the syntax of the property 
@@ -215,18 +243,14 @@ public class JexlInspection extends LocalXmlInspectionTool {
             }
 
             return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(xmlText,range,"Expecting "+expected,
+                manager.createProblemDescriptor(psi,range,"Expecting "+expected,
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
             };
         } catch (Exception e) {
             return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(xmlText,range,e.getMessage(),
+                manager.createProblemDescriptor(psi,range,e.getMessage(),
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
             };
         }
-    }
-
-    private TextRange createSubRange(int startIndex, int end) {
-        return new TextRange(startIndex,end);
     }
 }
