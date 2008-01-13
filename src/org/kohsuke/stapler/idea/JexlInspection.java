@@ -217,40 +217,115 @@ public class JexlInspection extends LocalXmlInspectionTool {
     private ProblemDescriptor[] parseJexl(InspectionManager manager, XmlElement psi, TextRange range, String expr) {
         try {
             if(expr.startsWith("%")) { // property reference
-                // TODO: check the syntax of the property 
+                int idx = expr.indexOf('(');
+                if(idx<0)
+                    // no arguments
+                    return EMPTY_ARRAY;
+
+                if(idx==1) {
+                    // no property name given
+                    range = new TextRange( // +3 to skip "${%"
+                            range.getStartOffset()+3,
+                            range.getStartOffset()+4);
+
+                    return new ProblemDescriptor[] {
+                        manager.createProblemDescriptor(psi,range,"Property name is empty",
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
+                    };
+                }
+
+                int offset = range.getStartOffset()+2+idx+1;
+                expr = expr.substring(idx+1);   // at this point text="arg,arg)"
+                while(expr.length()>0) {
+                    String token = tokenize(expr);
+                    if(token==null)
+                        return new ProblemDescriptor[] {
+                            manager.createProblemDescriptor(psi,range,"Missing ')' at the end",
+                                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
+                        };
+
+                    try {
+                        ExpressionFactory.createExpression(token);
+                    } catch (ParseException e) {
+                        return handleParseException(manager, psi, e, offset);
+                    }
+                    expr = expr.substring(token.length()+1);
+                    offset += token.length()+1;
+                }
+                // OK
+                return EMPTY_ARRAY;
+            } else {
+                ExpressionFactory.createExpression(expr);
                 return EMPTY_ARRAY;
             }
-            ExpressionFactory.createExpression(expr);
-            return EMPTY_ARRAY;
         } catch (ParseException e) {
-            range = new TextRange( // +2 to skip "${"
-                    range.getStartOffset()+2+e.currentToken.next.beginColumn-1, // column is 1 origin
-                    range.getStartOffset()+2+e.currentToken.next.endColumn);   // end origin is inclusive
-
-            StringBuffer expected = new StringBuffer();
-            int maxSize = 0;
-            for (int i = 0; i < e.expectedTokenSequences.length; i++) {
-              if (maxSize < e.expectedTokenSequences[i].length) {
-                maxSize = e.expectedTokenSequences[i].length;
-              }
-              for (int j = 0; j < e.expectedTokenSequences[i].length; j++) {
-                expected.append(e.tokenImage[e.expectedTokenSequences[i][j]]).append(" ");
-              }
-              if (e.expectedTokenSequences[i][e.expectedTokenSequences[i].length - 1] != 0) {
-                expected.append("...");
-              }
-              expected.append(", ");
-            }
-
-            return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(psi,range,"Expecting "+expected,
-                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
-            };
+            return handleParseException(manager, psi, e, range.getStartOffset()+2); // +2 to skip "${"
         } catch (Exception e) {
+            String msg = e.getMessage();
+            if(msg==null)   msg=e.toString();
             return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(psi,range,e.getMessage(),
+                manager.createProblemDescriptor(psi,range,msg,
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
             };
         }
+    }
+
+    private ProblemDescriptor[] handleParseException(InspectionManager manager, XmlElement psi, ParseException e, int offset) {
+        TextRange range;
+        range = new TextRange(
+                offset +e.currentToken.next.beginColumn-1, // column is 1 origin
+                offset +e.currentToken.next.endColumn);   // end origin is inclusive
+
+        StringBuffer expected = new StringBuffer();
+        int maxSize = 0;
+        for (int i = 0; i < e.expectedTokenSequences.length; i++) {
+          if (maxSize < e.expectedTokenSequences[i].length) {
+            maxSize = e.expectedTokenSequences[i].length;
+          }
+          for (int j = 0; j < e.expectedTokenSequences[i].length; j++) {
+            expected.append(e.tokenImage[e.expectedTokenSequences[i][j]]).append(" ");
+          }
+          if (e.expectedTokenSequences[i][e.expectedTokenSequences[i].length - 1] != 0) {
+            expected.append("...");
+          }
+          expected.append(", ");
+        }
+
+        return new ProblemDescriptor[] {
+            manager.createProblemDescriptor(psi,range,"Expecting "+expected,
+                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
+        };
+    }
+
+    private String tokenize(String text) {
+        int parenthesis=0;
+        for(int idx=0;idx<text.length();idx++) {
+            char ch = text.charAt(idx);
+            switch (ch) {
+            case ',':
+                if(parenthesis==0)
+                    return text.substring(0,idx);
+                break;
+            case '(':
+            case '{':
+            case '[':
+                parenthesis++;
+                break;
+            case ')':
+                if(parenthesis==0)
+                    return text.substring(0,idx);
+                // fall through
+            case '}':
+            case ']':
+                parenthesis--;
+                break;
+            case '"':
+            case '\'':
+                // skip strings
+                idx = text.indexOf(ch,idx+1);
+                break;
+            }
+        }
+        return null;
     }
 }
