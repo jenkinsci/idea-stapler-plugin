@@ -94,7 +94,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
             };
 
         if ( startIndex == 0 && endIndex == len - 1 )
-            return parseJexl(manager,psi,shrink(range,2,1),text.substring(2, endIndex));
+            return toArray(parseJexl(manager,psi,shrink(range,2,1),text.substring(2, endIndex)));
 
         int cur = 0;
         char c;
@@ -168,9 +168,9 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                     } // while
                                     break;
                                 case '}':
-                                    ProblemDescriptor[] r = parseJexl(manager,psi,
+                                    ProblemDescriptor[] r = toArray(parseJexl(manager,psi,
                                             new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
-                                            expr.toString());
+                                            expr.toString()));
                                     // for now let's abort if we find one issue
                                     if(r.length!=0) return r;
 
@@ -202,6 +202,11 @@ public class JexlInspection extends LocalXmlInspectionTool {
         return EMPTY_ARRAY;
     }
 
+    private ProblemDescriptor[] toArray(ProblemDescriptor p) {
+        if(p==null) return EMPTY_ARRAY;
+        return new ProblemDescriptor[]{p};
+    }
+
     private TextRange shrink(TextRange range, int l, int r) {
         return new TextRange(range.getStartOffset()-l, range.getEndOffset()-r);
     }
@@ -214,13 +219,13 @@ public class JexlInspection extends LocalXmlInspectionTool {
      * @param range
      *      Range in the 'psi' that represents 'expr'
      */
-    private ProblemDescriptor[] parseJexl(InspectionManager manager, XmlElement psi, TextRange range, String expr) {
+    private ProblemDescriptor parseJexl(InspectionManager manager, XmlElement psi, TextRange range, String expr) {
         try {
             if(expr.startsWith("%")) { // property reference
                 int idx = expr.indexOf('(');
                 if(idx<0)
                     // no arguments
-                    return EMPTY_ARRAY;
+                    return null;
 
                 if(idx==1) {
                     // no property name given
@@ -228,10 +233,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                             range.getStartOffset()+3,
                             range.getStartOffset()+4);
 
-                    return new ProblemDescriptor[] {
-                        manager.createProblemDescriptor(psi,range,"Property name is empty",
-                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
-                    };
+                    return manager.createProblemDescriptor(psi,range,"Property name is empty",
+                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
                 }
 
                 int offset = range.getStartOffset()+2+idx+1;
@@ -239,10 +242,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                 while(expr.length()>0) {
                     String token = tokenize(expr);
                     if(token==null)
-                        return new ProblemDescriptor[] {
-                            manager.createProblemDescriptor(psi,range,"Missing ')' at the end",
-                                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
-                        };
+                        return manager.createProblemDescriptor(psi,range,"Missing ')' at the end",
+                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
 
                     try {
                         ExpressionFactory.createExpression(token);
@@ -253,24 +254,22 @@ public class JexlInspection extends LocalXmlInspectionTool {
                     offset += token.length()+1;
                 }
                 // OK
-                return EMPTY_ARRAY;
+                return null;
             } else {
                 ExpressionFactory.createExpression(expr);
-                return EMPTY_ARRAY;
+                return null;
             }
         } catch (ParseException e) {
             return handleParseException(manager, psi, e, range.getStartOffset()+2); // +2 to skip "${"
         } catch (Exception e) {
             String msg = e.getMessage();
             if(msg==null)   msg=e.toString();
-            return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(psi,range,msg,
-                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
-            };
+            return manager.createProblemDescriptor(psi,range,msg,
+                ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
         }
     }
 
-    private ProblemDescriptor[] handleParseException(InspectionManager manager, XmlElement psi, ParseException e, int offset) {
+    private ProblemDescriptor handleParseException(InspectionManager manager, XmlElement psi, ParseException e, int offset) {
         TextRange range;
         range = new TextRange(
                 offset +e.currentToken.next.beginColumn-1, // column is 1 origin
@@ -291,10 +290,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
           expected.append(", ");
         }
 
-        return new ProblemDescriptor[] {
-            manager.createProblemDescriptor(psi,range,"Expecting "+expected,
-                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY)
-        };
+        return manager.createProblemDescriptor(psi,range,"Expecting "+expected,
+                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
     }
 
     private String tokenize(String text) {
