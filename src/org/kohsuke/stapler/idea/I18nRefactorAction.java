@@ -220,7 +220,7 @@ public class I18nRefactorAction extends EditorAction {
                 while(true) {
                     PsiElement p = e.getParent();
                     TextRange tr = p.getTextRange();
-                    if(selectionModel.getSelectionEnd()<tr.getEndOffset())
+                    if(selectionModel.getSelectionEnd()<=tr.getEndOffset())
                         return e;
                     e = p;
                 }
