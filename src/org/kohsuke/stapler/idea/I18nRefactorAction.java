@@ -222,11 +222,10 @@ public class I18nRefactorAction extends EditorAction {
                 if(e==null) return null;
 
                 while(true) {
-                    PsiElement p = e.getParent();
-                    TextRange tr = p.getTextRange();
+                    TextRange tr = e.getTextRange();
                     if(selectionModel.getSelectionEnd()<=tr.getEndOffset())
                         return e;
-                    e = p;
+                    e = e.getParent();
                 }
             }
 
