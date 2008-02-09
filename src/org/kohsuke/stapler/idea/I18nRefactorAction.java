@@ -3,6 +3,7 @@ package org.kohsuke.stapler.idea;
 import com.intellij.lang.properties.psi.PropertiesElementFactory;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.openapi.editor.SelectionModel;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 public class I18nRefactorAction extends EditorAction {
     public I18nRefactorAction() {
         super(new EditorActionHandler() {
-            public void execute(Editor editor, DataContext dataContext) {
+            public void execute(final Editor editor, DataContext dataContext) {
                 if (editor == null) // be defensive
                     return;
 
@@ -65,7 +66,7 @@ public class I18nRefactorAction extends EditorAction {
                     Messages.showErrorDialog("Messages.properties is not a property file","stapler i18n");
                     return;
                 }
-                PropertiesFile propsFile = (PropertiesFile) props;
+                final PropertiesFile propsFile = (PropertiesFile) props;
 
                 // find the expression currently selected
                 PsiElement e = findSelectedPsiElement(selectionModel, javaFile);
@@ -86,8 +87,8 @@ public class I18nRefactorAction extends EditorAction {
                     return;
                 }
 
-                String key = Messages.showInputDialog("Message resource name?", "stapler 18n", null);
-                if(key==null || key.length()==0)   return; // cancelled
+                final String key = getResourceName(javaFile);
+                if(key==null)   return; // cancelled
 
                 // property value
                 final StringBuilder propertyValue = new StringBuilder();
@@ -145,21 +146,38 @@ public class I18nRefactorAction extends EditorAction {
                     }
                 }.run();
 
-                try {
-                    propsFile.addProperty(
-                        PropertiesElementFactory.createProperty(project,key,propertyValue.toString()));
-                } catch (IncorrectOperationException x) {
-                    Messages.showErrorDialog(x.getMessage(),"Unable to add property");
-                    return;
-                }
+                // IDEA bomed out saying I need to wrap the addProperty into this.
+                ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    public void run() {
+                        try {
+                            propsFile.addProperty(
+                                PropertiesElementFactory.createProperty(project,key,propertyValue.toString()));
+                        } catch (IncorrectOperationException x) {
+                            Messages.showErrorDialog(x.getMessage(),"Unable to add property");
+                            return;
+                        }
 
-                // wrap the arguments into "Messages.KEY(...)"
-                expression.insert(0,"Messages."+toJavaIdentifier(key)+"(");
-                expression.append(")");
+                        // wrap the arguments into "Messages.KEY(...)"
+                        expression.insert(0,"Messages."+toJavaIdentifier(key)+"(");
+                        expression.append(")");
 
-                TextRange tr = exp.getTextRange();
-                editor.getDocument().deleteString(tr.getStartOffset(),tr.getEndOffset());
-                EditorModificationUtil.insertStringAtCaret(editor,expression.toString());
+                        TextRange tr = exp.getTextRange();
+                        editor.getDocument().deleteString(tr.getStartOffset(),tr.getEndOffset());
+                        EditorModificationUtil.insertStringAtCaret(editor,expression.toString());
+                    }
+                });
+            }
+
+            private String getResourceName(PsiJavaFile javaFile) {
+                String key = Messages.showInputDialog("Message resource name?", "stapler 18n", null);
+                if(key==null || key.length()==0)    return null; // cancelled
+                return getMainClassName(javaFile.getName())+'.'+key;
+            }
+
+            private String getMainClassName(String name) {
+                if(name.endsWith(".java"))
+                    return name.substring(name.length()-5);
+                return name;
             }
 
             /**
