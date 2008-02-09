@@ -142,6 +142,10 @@ public class I18nRefactorAction extends EditorAction {
                             case '}':
                                 propertyValue.append('\'').append(ch).append('\'');
                                 break;
+                            case ' ':
+                                if(propertyValue.length()==0)
+                                    propertyValue.append('\\');
+                                // fall through
                             default:
                                 propertyValue.append(ch);
                             }
