@@ -2,6 +2,7 @@ package org.kohsuke.stapler.idea;
 
 import com.intellij.lang.properties.psi.PropertiesElementFactory;
 import com.intellij.lang.properties.psi.PropertiesFile;
+import com.intellij.lang.properties.psi.Property;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Editor;
@@ -27,6 +28,8 @@ import com.intellij.psi.PsiPackage;
 import com.intellij.psi.PsiType;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Internationalize the current selected text.
@@ -150,8 +153,9 @@ public class I18nRefactorAction extends EditorAction {
                 ApplicationManager.getApplication().runWriteAction(new Runnable() {
                     public void run() {
                         try {
-                            propsFile.addProperty(
-                                PropertiesElementFactory.createProperty(project,key,propertyValue.toString()));
+                            propsFile.addPropertyAfter(
+                                PropertiesElementFactory.createProperty(project,key,propertyValue.toString()),
+                                findAnchor(propsFile,key));
                         } catch (IncorrectOperationException x) {
                             Messages.showErrorDialog(x.getMessage(),"Unable to add property");
                             return;
@@ -165,6 +169,19 @@ public class I18nRefactorAction extends EditorAction {
                         editor.getDocument().deleteString(tr.getStartOffset(),tr.getEndOffset());
                         EditorModificationUtil.insertStringAtCaret(editor,expression.toString());
                     }
+
+                    private Property findAnchor(PropertiesFile propsFile, String key) {
+                        List<Property> list = propsFile.getProperties();
+                        for(int i=0; i<list.size()-1; i++) {
+                            Property prev = list.get(i);
+                            Property next = list.get(i+1);
+                            if(prev.getKey().compareTo(key)<0 && key.compareTo(next.getKey())<0)
+                                return prev;
+                        }
+                        // pick up the last
+                        if(list.isEmpty())  return null;
+                        return list.get(list.size()-1);
+                    }
                 });
             }
 
@@ -176,7 +193,7 @@ public class I18nRefactorAction extends EditorAction {
 
             private String getMainClassName(String name) {
                 if(name.endsWith(".java"))
-                    return name.substring(name.length()-5);
+                    return name.substring(0,name.length()-5);
                 return name;
             }
 
