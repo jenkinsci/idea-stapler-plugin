@@ -26,6 +26,7 @@ import com.intellij.psi.PsiLiteralExpression;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiPackage;
 import com.intellij.psi.PsiType;
+import com.intellij.psi.JavaPsiFacade;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.Nullable;
 
@@ -205,7 +206,7 @@ public class I18nRefactorAction extends EditorAction {
              * Locates <tt>Messages.properties</tt> in the same package
              */
             private PsiFile findMessagesDotProperties(Project project, PsiJavaFile javaFile) {
-                PsiPackage pkg = PsiManager.getInstance(project).findPackage(javaFile.getPackageName());
+                PsiPackage pkg = JavaPsiFacade.getInstance(project).findPackage(javaFile.getPackageName());
                 for(PsiDirectory dir : pkg.getDirectories()) {
                     PsiFile props = dir.findFile("Messages.properties");
                     if(props!=null) return props;
