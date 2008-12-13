@@ -9,10 +9,11 @@ import com.intellij.psi.xml.XmlFile;
  *
  * @author Kohsuke Kawaguchi
  */
-public final class JellyLanguageExtension implements LanguageExtension {
+public final class JellyLanguageExtension extends LanguageExtension {
     public static final JellyLanguageExtension INSTANCE = new JellyLanguageExtension();
     
     private JellyLanguageExtension() {
+        super(JellyLanguageExtension.class.getName());
     }
 
     public boolean isRelevantForFile(PsiFile psi) {

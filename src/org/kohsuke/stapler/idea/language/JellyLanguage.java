@@ -1,19 +1,17 @@
 package org.kohsuke.stapler.idea.language;
 
 import com.intellij.ide.structureView.StructureViewBuilder;
-import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
+import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
 import com.intellij.ide.structureView.impl.xml.XmlStructureViewTreeModel;
 import com.intellij.lang.Commenter;
 import com.intellij.lang.Language;
-import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.StdLanguages;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.refactoring.NamesValidator;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.xml.XmlElement;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.psi.JellyFile;
 
@@ -37,8 +35,9 @@ public final class JellyLanguage extends Language {
         super("Jelly");
     }
 
-    public ParserDefinition getParserDefinition() {
-        return JellyParserDefinition.INSTANCE;
+    @Override
+    public Language getBaseLanguage() {
+        return StdLanguages.XML;
     }
 
     public Annotator getAnnotator() {
@@ -48,10 +47,6 @@ public final class JellyLanguage extends Language {
     @NotNull
     public NamesValidator getNamesValidator() {
         return myNamesValidator;
-    }
-
-    public Commenter getCommenter() {
-        return StdLanguages.XML.getCommenter();
     }
 
     // TODO

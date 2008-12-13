@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry;
 import com.intellij.psi.xml.XmlToken;
 import com.intellij.psi.xml.XmlFile;
+import com.intellij.psi.xml.XmlTag;
 import com.intellij.pom.event.PomModelListener;
 import com.intellij.pom.event.PomModelEvent;
 import com.intellij.pom.event.PomChangeSet;
@@ -13,6 +14,8 @@ import com.intellij.pom.xml.XmlAspect;
 import com.intellij.pom.xml.events.XmlChange;
 import com.intellij.pom.PomModelAspect;
 import com.intellij.pom.PomModel;
+import com.intellij.patterns.ElementPattern;
+import com.intellij.patterns.StandardPatterns;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.psi.impl.ChangeVisitorImpl;
@@ -34,12 +37,13 @@ public class StaplerProjectComponent implements ProjectComponent {
                 PomChangeSet changeSet = event.getChangeSet(xmlAspect);
                 if (changeSet instanceof XmlChangeSet) {
                     XmlChangeSet xmlChangeSet = (XmlChangeSet) changeSet;
-                    XmlFile file = xmlChangeSet.getChangedFile();
-                    if (file == null || !file.getName().endsWith(".jelly"))
-                        return;
+                    for( XmlFile file : xmlChangeSet.getChangedFiles()) {
+                        if (!file.getName().endsWith(".jelly"))
+                            continue;
 
-                    for (XmlChange c : xmlChangeSet.getChanges())
-                        c.accept(ChangeVisitorImpl.INSTANCE);
+                        for (XmlChange c : xmlChangeSet.getChanges())
+                            c.accept(ChangeVisitorImpl.INSTANCE);
+                    }
                 }
             }
 
@@ -64,7 +68,8 @@ public class StaplerProjectComponent implements ProjectComponent {
         // since the first two parameters are null, this reference provider applies everywhere
         // this was actually not what I was looking for --- this defines reference from the
         // content of an XML element, not from an XML element name.
-        registry.registerXmlTagReferenceProvider(null,null,true/*what is this?*/,new JellyTagLibReferenceProvider());
+        registry.registerReferenceProvider(StandardPatterns.instanceOf(XmlTag.class),new JellyTagLibReferenceProvider());
+//        registry.registerXmlTagReferenceProvider(null,null,true/*what is this?*/,new JellyTagLibReferenceProvider());
 
         // this doesn't call us back at all
 //        registry.registerReferenceProvider(XmlToken.class,new JellyTagLibReferenceProvider());

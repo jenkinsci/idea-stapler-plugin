@@ -5,6 +5,7 @@ import com.intellij.facet.FacetType;
 import com.intellij.facet.FacetTypeId;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.JavaModuleType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.icons.Icons;
@@ -48,7 +49,7 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
 
     @Override
     public boolean isSuitableModuleType(ModuleType moduleType) {
-        return moduleType == ModuleType.JAVA;
+        return moduleType instanceof JavaModuleType;
     }
 
     // if we can auto-detect the facet from a project
