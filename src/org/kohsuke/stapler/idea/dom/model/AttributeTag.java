@@ -14,6 +14,9 @@ public interface AttributeTag extends DomElement {
     @Attribute
     GenericAttributeValue<String> getName();
 
+    @Attribute
+    GenericAttributeValue<String> getUse();
+
     /**
      * Return the name attribute value, except that if it's not specified,
      * this method returns "" to avoid NPE.
@@ -21,12 +24,18 @@ public interface AttributeTag extends DomElement {
     @NotNull
     String getSafeName();
 
+    boolean isRequired();
+
     public static abstract class Impl implements AttributeTag {
         @NotNull
         public String getSafeName() {
             String s = getName().getStringValue();
             if(s==null) return "";
             return s;
+        }
+
+        public boolean isRequired() {
+            return "required".equals(getUse().getStringValue());
         }
     }
 }

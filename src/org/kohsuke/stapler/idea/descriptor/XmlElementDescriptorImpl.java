@@ -9,10 +9,13 @@ import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
+import com.intellij.util.xml.DomManager;
 
 import java.util.HashMap;
+import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.kohsuke.stapler.idea.dom.model.JellyTag;
+import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -31,63 +34,14 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
-        return new XmlAttributeDescriptor[] {
-              new XmlAttributeDescriptor() {
-                  public boolean isRequired() {
-                      return true;
-                  }
-
-                  public boolean isFixed() {
-                      return false;
-                  }
-
-                  public boolean hasIdType() {
-                      return false;
-                  }
-
-                  public boolean hasIdRefType() {
-                      return false;
-                  }
-
-                  public String getDefaultValue() {
-                      return null;
-                  }
-
-                  public boolean isEnumerated() {
-                      return false;
-                  }
-
-                  public String[] getEnumeratedValues() {
-                      return new String[0];
-                  }
-
-                  public String validateValue(XmlElement context, String value) {
-                      if(value.length()%2==1)
-                          return "Even length";
-                      return null;
-                  }
-
-                  public PsiElement getDeclaration() {
-                      // TODO
-                      return tagFile;
-                  }
-
-                  public String getName(PsiElement context) {
-                      return getName();
-                  }
-
-                  public String getName() {
-                      return "att1";
-                  }
-
-                  public void init(PsiElement element) {
-                  }
-
-                  public Object[] getDependences() {
-                      return ArrayUtils.EMPTY_OBJECT_ARRAY;
-                  }
-              }
-        };
+        JellyTag tag = DomManager.getDomManager(tagFile.getProject()).getFileElement(tagFile, JellyTag.class).getRootElement();
+        List<AttributeTag> atts = tag.getDocumentation().getAttributes();
+        XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
+        int i=0;
+        for (AttributeTag a : atts) {
+            descriptors[i++] = new XmlAttributeDescriptorImpl(this,a);
+        }
+        return descriptors;
     }
 
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {
@@ -149,4 +103,5 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     public Object[] getDependences() {
         return new Object[] {nsDescriptor,tagFile};
     }
+
 }
