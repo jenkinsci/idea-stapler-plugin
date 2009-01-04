@@ -28,7 +28,7 @@ import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 public class JellyCompletionContributer extends CompletionContributor {
     public JellyCompletionContributer() {
         extend(CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
-                XML_ATTRIBUTE_NAME_PATTERN/* TODO: use withXXX to restrict the completion target */,
+                XML_ATTRIBUTE_NAME_PATTERN,
                 new CompletionProvider<CompletionParameters>(false, true) {
                     // REFERENCE: spring plugin adds CompletionContributor as well.
                     protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {
