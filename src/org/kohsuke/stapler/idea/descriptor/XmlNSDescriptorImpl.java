@@ -8,6 +8,11 @@ import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiPackage;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,5 +72,35 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
 
     public Object[] getDependences() {
         return new Object[]{dir};
+    }
+
+    public static XmlNSDescriptorImpl get(XmlTag tag) {
+        if(!tag.getContainingFile().getName().endsWith(".jelly"))
+            return null;    // this tag is not in a jelly script
+
+        String nsUri = tag.getNamespace();
+        if(nsUri.length()==0)   return null;
+
+        Module m = ModuleUtil.findModuleForPsiElement(tag);
+        if(m==null) return null; // just trying to be defensive
+
+        JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(tag.getProject());
+
+        String pkgName = nsUri.substring(1).replace('/', '.');
+        // this invocation below successfully finds packages that includes
+        // invalid characters like 'a-b-c'
+        PsiPackage pkg = javaPsi.findPackage(pkgName);
+        if(pkg==null)   return null;
+
+        PsiDirectory[] dirs = pkg.getDirectories(GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m, false));
+
+        for (PsiDirectory dir : dirs) {
+            if(dir.findFile("taglib")!=null) {
+                // this is a tag library
+                return new XmlNSDescriptorImpl(nsUri,dir);
+            }
+        }
+
+        return null;
     }
 }

@@ -25,6 +25,12 @@ class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
         this.def = def;
     }
 
+    /**
+     * This only seems to be used when a new tag is inserted,
+     * to automatically complete all required attributes.
+     *
+     * But not having a required attribute missing in XML doesn't automatically flag an error annotation.
+     */
     public boolean isRequired() {
         return def.isRequired();
     }

@@ -1,21 +1,22 @@
 package org.kohsuke.stapler.idea.descriptor;
 
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.util.xml.DomManager;
 import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
-import com.intellij.util.xml.DomManager;
+import com.intellij.xml.impl.schema.NullElementDescriptor;
+import org.kohsuke.stapler.idea.dom.model.AttributeTag;
+import org.kohsuke.stapler.idea.dom.model.JellyTag;
 
 import java.util.HashMap;
 import java.util.List;
-
-import org.kohsuke.stapler.idea.dom.model.JellyTag;
-import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -27,6 +28,35 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     public XmlElementDescriptorImpl(XmlNSDescriptorImpl nsDescriptor, XmlFile tagFile) {
         this.nsDescriptor = nsDescriptor;
         this.tagFile = tagFile;
+    }
+
+    @Override
+    public XmlElementDescriptor getElementDescriptor(XmlTag child, XmlTag context) {
+        XmlNSDescriptorImpl ns = XmlNSDescriptorImpl.get(child);
+        if(ns==null) {
+            {// here I'm trying to return a descriptor that allows anything/
+                /*
+                This didn't work --- it works on elements on non-empty namespaces,
+                but empty namespaces are marked as errors.
+
+                return NullElementDescriptor.getInstance();
+                */
+
+                /*
+                This didn't work either.
+                XmlNSDescriptor nsd = tagFile.getDocument().getDefaultNSDescriptor(child.getNamespace(), false);
+                XmlElementDescriptor d = nsd.getElementDescriptor(child);
+                return d;
+                */
+                
+                PsiFile f = child.getContainingFile();
+                XmlNSDescriptor nsd = ((XmlFile)f).getDocument().getDefaultNSDescriptor(child.getNamespace(), false);
+                XmlElementDescriptor d = nsd.getElementDescriptor(child);
+                return d;
+            }
+
+        } else
+            return ns.getElementDescriptor(child);
     }
 
     protected XmlElementDescriptor[] doCollectXmlDescriptors(XmlTag xmlTag) {
@@ -73,7 +103,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
 
     public int getContentType() {
         // TODO
-        return CONTENT_TYPE_MIXED;
+        return CONTENT_TYPE_ANY;
     }
 
     public PsiElement getDeclaration() {
