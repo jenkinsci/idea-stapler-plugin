@@ -3,16 +3,14 @@ package org.kohsuke.stapler.idea.psi.ref;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiPackage;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceBase;
-import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 
 /**
@@ -44,7 +42,7 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
 
     }
 
-    public PsiElement resolve() {
+    public XmlFile resolve() {
         String localName = myElement.getLocalName();
         String nsUri = myElement.getNamespace();
         if(nsUri.length()==0)   return null;
@@ -52,7 +50,6 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
         Module m = ModuleUtil.findModuleForPsiElement(myElement);
         if(m==null) return null; // just trying to be defensive
 
-        PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
         JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(myElement.getProject());
 
         String pkgName = nsUri.substring(1).replace('/', '.');
@@ -65,14 +62,16 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
 
         for (PsiDirectory dir : dirs) {
             PsiFile tagFile = dir.findFile(localName + ".jelly");
-            if(tagFile!=null)   return tagFile;
+            if (tagFile instanceof XmlFile)
+                return (XmlFile) tagFile;
         }
 
-        // TODO: this is just a test
-        VirtualFile module = m.getModuleFile().getParent();
-        VirtualFile child = module.findChild(localName + ".txt");
-        if(child!=null)
-            return psiManager.findFile(child);
+//        // TODO: this is just a test
+//        PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
+//        VirtualFile module = m.getModuleFile().getParent();
+//        VirtualFile child = module.findChild(localName + ".txt");
+//        if(child!=null)
+//            return psiManager.findFile(child);
 
         return null;
     }
