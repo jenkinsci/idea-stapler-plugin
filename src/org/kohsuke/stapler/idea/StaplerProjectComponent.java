@@ -66,6 +66,9 @@ public class StaplerProjectComponent implements ProjectComponent {
     }
 
     public void initComponent() {
+    /*
+        With a custom XmlElementDescriptor, a custom reference provider is no longer necessary.
+
         // since the first two parameters are null, this reference provider applies everywhere
         // this was actually not what I was looking for --- this defines reference from the
         // content of an XML element, not from an XML element name.
@@ -75,6 +78,7 @@ public class StaplerProjectComponent implements ProjectComponent {
 
         // this doesn't call us back at all
 //        registry.registerReferenceProvider(XmlToken.class,new JellyTagLibReferenceProvider());
+*/
     }
 
     public void disposeComponent() {

@@ -17,7 +17,10 @@
     <!-- it seems like the proper way to do this is by implementing this in application component -->
     <!--inspectionToolProvider implementation="org.kohsuke.stapler.idea.JellyInspector" /-->
     <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>
-    <completion.contributor implementation="org.kohsuke.stapler.idea.JellyCompletionContributer" order="before aop"/>
+    <!-- commenting out while we test XmlElementDescriptor. XmlCompletionContributor provides completion for us from descriptor.
+    <completion.contributor implementation="org.kohsuke.stapler.idea.JellyCompletionContributer" />
+    -->
+    <xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />
     <!-- I initially thought of using this to drive auto-completion,
       but it doesn't really work as I hoped for. So I'm switching to CompletionContribuer.
     <dom.extender domClass=     "org.kohsuke.stapler.idea.dom.model.JellyTag"
