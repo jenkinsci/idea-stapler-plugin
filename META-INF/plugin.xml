@@ -7,9 +7,22 @@
   <idea-version since-build="9000"/>
 
   <extensions defaultExtensionNs="com.intellij">
+    <!--
+      REFERENCE:
+      to find out how to register a given extension point,
+      check the ExtensionPointName.create call in the extension point, and use its name
+      as the element name (modulo the part defined in @defaultExtensionNs above.)
+    -->
     <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
     <!-- it seems like the proper way to do this is by implementing this in application component -->
     <!--inspectionToolProvider implementation="org.kohsuke.stapler.idea.JellyInspector" /-->
+    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>
+    <completion.contributor implementation="org.kohsuke.stapler.idea.JellyCompletionContributer" order="before aop"/>
+    <!-- I initially thought of using this to drive auto-completion,
+      but it doesn't really work as I hoped for. So I'm switching to CompletionContribuer.
+    <dom.extender domClass=     "org.kohsuke.stapler.idea.dom.model.JellyTag"
+                  extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
+    -->
    </extensions>
   <actions>
     <!--action id="testGoto" class="org.kohsuke.stapler.idea.test.TestGoToDeclAction" text="testGoto"

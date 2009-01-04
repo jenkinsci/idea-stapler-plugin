@@ -31,6 +31,7 @@
       <entry name="?*.html" />
       <entry name="?*.dtd" />
       <entry name="?*.tld" />
+      <entry name="?*.xsd" />
     </wildcardResourcePatterns>
   </component>
   <component name="DependenciesAnalyzeManager">
@@ -294,8 +295,5 @@
       <setting name="state" value="2" />
     </Base>
   </component>
-  <UsedPathMacros>
-    <macro name="TEMPLATE" />
-  </UsedPathMacros>
 </project>
 
