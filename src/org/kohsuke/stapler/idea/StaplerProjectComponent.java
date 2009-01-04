@@ -6,6 +6,7 @@ import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.xml.XmlToken;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.pom.event.PomModelListener;
 import com.intellij.pom.event.PomModelEvent;
 import com.intellij.pom.event.PomChangeSet;
@@ -68,8 +69,9 @@ public class StaplerProjectComponent implements ProjectComponent {
         // since the first two parameters are null, this reference provider applies everywhere
         // this was actually not what I was looking for --- this defines reference from the
         // content of an XML element, not from an XML element name.
-        registry.registerReferenceProvider(StandardPatterns.instanceOf(XmlTag.class),new JellyTagLibReferenceProvider());
-//        registry.registerXmlTagReferenceProvider(null,null,true/*what is this?*/,new JellyTagLibReferenceProvider());
+        JellyTagLibReferenceProvider p = new JellyTagLibReferenceProvider();
+        registry.registerReferenceProvider(StandardPatterns.instanceOf(XmlTag.class), p);
+        registry.registerReferenceProvider(StandardPatterns.instanceOf(XmlAttribute.class), p);
 
         // this doesn't call us back at all
 //        registry.registerReferenceProvider(XmlToken.class,new JellyTagLibReferenceProvider());

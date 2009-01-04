@@ -77,9 +77,10 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
     }
 
     public Object[] getVariants() {
-        // not sure how to use this
-        // -> this is used apparently as a quick completion.
-        // try typing "<a" then hit Ctrl+SPACE.
-        return new String[]{"abc","def","ghi"};
+//        // not sure how to use this
+//        // -> this is used apparently as a quick completion.
+//        // try typing "<a" then hit Ctrl+SPACE.
+//        return new String[]{"abc","def","ghi"};
+        return new Object[0];
     }
 }

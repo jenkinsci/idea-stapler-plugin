@@ -39,6 +39,7 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
         }
 
         // register a custom vocabulary for Jelly
+        // still experimenting.
 //        ((CompositeLanguage) StdLanguages.XML).registerLanguageExtension(
 //                JellyLanguageExtension.INSTANCE);
     }
