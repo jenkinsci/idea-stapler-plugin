@@ -35,7 +35,7 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
 
         {// register schemas for Jelly
             ExternalResourceManager erm = ExternalResourceManager.getInstance();
-            String[] schemas = {"ant","antlr","bean","beanshell","betwixt","bsf","core","define","dynabean","email","fmt","html","http","interaction","jaxme","jetty","jface","jms","jmx","jsl","junit","log","memory","ojb","quartz","regexp","soap","sql","swing","swt","threads","util","validate","velocity","xml","xmlunit"};
+            String[] schemas = {"ant","antlr","bean","beanshell","betwixt","bsf","core","define","dynabean","email","fmt","html","http","interaction","jaxme","jetty","jface","jms","jmx","jsl","junit","log","memory","ojb","quartz","regexp","soap","sql","swing","swt","threads","util","validate","velocity","xml","xmlunit","stapler"};
             for( String s: schemas )
                 erm.addStdResource(
                         "jelly:"+s,  // namespace URI
