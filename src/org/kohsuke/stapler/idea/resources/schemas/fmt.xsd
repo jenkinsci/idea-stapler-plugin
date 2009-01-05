@@ -7,39 +7,39 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;setLocale&gt;, the bundle settingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="basename" use="optional">
+      <xsd:attribute name="basename">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="scope" use="optional">
+      <xsd:attribute name="scope">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -50,81 +50,81 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;formatDate&gt;, the date and time formattingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
         <tasktag>i18n exception message</tasktag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="value" use="optional">
+      <xsd:attribute name="value">
         <xsd:annotation>
           <xsd:documentation>Setter for property value.
           <paramtag>value New value of property value.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="type" use="optional">
+      <xsd:attribute name="type">
         <xsd:annotation>
           <xsd:documentation>Setter for property type.
           <paramtag>type New value of property type.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="dateStyle" use="optional">
+      <xsd:attribute name="dateStyle">
         <xsd:annotation>
           <xsd:documentation>Setter for property dataStyle.
           <paramtag>dataStyle New value of property dataStyle.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="timeStyle" use="optional">
+      <xsd:attribute name="timeStyle">
         <xsd:annotation>
           <xsd:documentation>Setter for property timeStyle.
           <paramtag>timeStyle New value of property timeStyle.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="pattern" use="optional">
+      <xsd:attribute name="pattern">
         <xsd:annotation>
           <xsd:documentation>Setter for property pattern.
           <paramtag>pattern New value of property pattern.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="timeZone" use="optional">
+      <xsd:attribute name="timeZone">
         <xsd:annotation>
           <xsd:documentation>Setter for property timeZone.
           <paramtag>timeZone New value of property timeZone.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Setter for property var.
           <paramtag>var New value of property var.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="scope" use="optional">
+      <xsd:attribute name="scope">
         <xsd:annotation>
           <xsd:documentation>Setter for property scope.
           <paramtag>scope New value of property scope.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -135,39 +135,39 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;setTimeZone&gt;, the time zone settingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="value" use="optional">
+      <xsd:attribute name="value">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="scope" use="optional">
+      <xsd:attribute name="scope">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -182,28 +182,28 @@
         <tasktag>handle body content trimming</tasktag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="value" use="optional">
+      <xsd:attribute name="value">
         <xsd:annotation>
           <xsd:documentation>Setter for property value.
           <paramtag>value New value of property value.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -218,36 +218,36 @@
         <tasktag>decide how to implement setResponseLocale</tasktag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="value" use="optional">
+      <xsd:attribute name="value">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="variant" use="optional">
+      <xsd:attribute name="variant">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="scope" use="optional">
+      <xsd:attribute name="scope">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -258,32 +258,32 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;timeZone&gt;, the time zone loadingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
         <tasktag>decide how to implement setResponseLocale</tasktag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="value" use="optional">
+      <xsd:attribute name="value">
         <xsd:annotation>
           <xsd:documentation>Setter for property value.
           <paramtag>value New value of property value.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -298,35 +298,35 @@
         <todotag>decide how to implement setResponseLocale</todotag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="basename" use="optional">
+      <xsd:attribute name="basename">
         <xsd:annotation>
           <xsd:documentation>Setter for property basename.
           <paramtag>basename New value of property basename.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="prefix" use="optional">
+      <xsd:attribute name="prefix">
         <xsd:annotation>
           <xsd:documentation>Setter for property prefix.
           <paramtag>prefix New value of property prefix.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -341,49 +341,49 @@
         <tasktag>decide how to implement setResponseLocale</tasktag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="key" use="optional">
+      <xsd:attribute name="key">
         <xsd:annotation>
           <xsd:documentation>Setter for property key.
           <paramtag>key New value of property key.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="bundle" use="optional">
+      <xsd:attribute name="bundle">
         <xsd:annotation>
           <xsd:documentation>Setter for property bundle.
           <paramtag>bundle New value of property bundle.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Setter for property var.
           <paramtag>var New value of property var.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="scope" use="optional">
+      <xsd:attribute name="scope">
         <xsd:annotation>
           <xsd:documentation>Setter for property scope.
           <paramtag>scope New value of property scope.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

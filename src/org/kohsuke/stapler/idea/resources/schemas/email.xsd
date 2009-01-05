@@ -10,64 +10,64 @@
       <xsd:documentation>Basic tag for sending an email. Supports one attachment, multiple to addresses delimited by ";",multiple cc addresses, etc.
         <authortag>Jason Horman</authortag>
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Id: email.xsd 810 2009-01-04 14:36:51Z kohsuke $</versiontag>
+        <versiontag>$Id: email.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="server" use="optional">
+      <xsd:attribute name="server">
         <xsd:annotation>
           <xsd:documentation>Set the smtp server for the message. If not set the systemproperty "mail.smtp.host" will be used.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="from" use="optional">
+      <xsd:attribute name="from">
         <xsd:annotation>
           <xsd:documentation>Set the from address for the message</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="to" use="optional">
+      <xsd:attribute name="to">
         <xsd:annotation>
           <xsd:documentation>";" seperated list of people to send to</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="CC" use="optional">
+      <xsd:attribute name="CC">
         <xsd:annotation>
           <xsd:documentation>";" seperated list of people to cc</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="subject" use="optional">
+      <xsd:attribute name="subject">
         <xsd:annotation>
           <xsd:documentation>Set the email subject</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="message" use="optional">
+      <xsd:attribute name="message">
         <xsd:annotation>
           <xsd:documentation>Set the message body. This will override the Jelly tag body</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="attach" use="optional">
+      <xsd:attribute name="attach">
         <xsd:annotation>
           <xsd:documentation>Set the email attachment for the message. Only 1 attachment is supported right now</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encodeXML" use="optional">
+      <xsd:attribute name="encodeXML">
         <xsd:annotation>
           <xsd:documentation>Sets whether we should encode the XML body as text or not. The defaultis false so that the body will assumed to be valid XML</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

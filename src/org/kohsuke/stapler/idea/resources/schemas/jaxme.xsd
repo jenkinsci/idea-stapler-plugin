@@ -13,34 +13,34 @@
       <xsd:documentation>Generates java objects using JaxMe.This object can be marshalled into xml and the results unmarshalled using JaxMe.
         <authortag>&lt;a href="mailto:joe@ispsoft.de"&gt;Jochen Wiedmann&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:dev at commons.apache.org"&gt;Apache Commons Development Team&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="schemaUrl" use="optional">
+      <xsd:attribute name="schemaUrl">
         <xsd:annotation>
           <xsd:documentation>Defines the schema against which the java object representationsshould be generated.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="target" use="optional">
+      <xsd:attribute name="target">
         <xsd:annotation>
           <xsd:documentation>Defines the target directory into which the generated objects will be placed.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -54,34 +54,34 @@
         <p>The result is placed into the processed content for further processing by enclosing tags.</p>
         <authortag>&lt;a href="mailto:joe@ispsoft.de"&gt;Jochen Wiedmann&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:dev at commons.apache.org"&gt;Apache Commons Development Team&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="packages" use="optional">
+      <xsd:attribute name="packages">
         <xsd:annotation>
           <xsd:documentation>Defines the generated objects which will be marshalled by specifying the package name.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="object" use="optional">
+      <xsd:attribute name="object">
         <xsd:annotation>
           <xsd:documentation>Defines the object to be unmarshalled into xml by specifying a jelly variable name.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -95,34 +95,34 @@
         <p>This tag unmarshalls the xml content contained into the JaxMe generated java objects in the packages specified.</p>
         <authortag>&lt;a href="mailto:joe@ispsoft.de"&gt;Jochen Wiedmann&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:dev at commons.apache.org"&gt;Apache Commons Development Team&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="packages" use="optional">
+      <xsd:attribute name="packages">
         <xsd:annotation>
           <xsd:documentation>Defines the generated objects to which the xml should be unmarshalled.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the jelly variable to which the unmarshalled java object should be bound.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

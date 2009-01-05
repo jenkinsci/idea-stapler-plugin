@@ -12,40 +12,40 @@
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the Ant task property to set.
           <paramtag>name The name of the Ant task property to set</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="value" use="optional">
+      <xsd:attribute name="value">
         <xsd:annotation>
           <xsd:documentation>Sets the value of the Ant task property to set.
           <paramtag>value The value of the Ant task property to set</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="default" use="optional">
+      <xsd:attribute name="default">
         <xsd:annotation>
           <xsd:documentation>Sets the default value to be used if the specified value is empty.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -56,29 +56,29 @@
     <xsd:annotation>
       <xsd:documentation>A tag which creates a new FileScanner bean instance that can be used toiterate over fileSets
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the variable exported by this tag</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -92,28 +92,28 @@
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="object" use="optional">
+      <xsd:attribute name="object">
         <xsd:annotation>
           <xsd:documentation>Set the object underlying this tag.
           <paramtag>object The object.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

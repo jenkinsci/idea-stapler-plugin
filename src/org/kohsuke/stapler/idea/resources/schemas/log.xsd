@@ -11,39 +11,39 @@
     <xsd:annotation>
       <xsd:documentation>A tag which generates ERROR level logging statement usingthe given category name.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the logger to use</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="log" use="optional">
+      <xsd:attribute name="log">
         <xsd:annotation>
           <xsd:documentation>Sets the Log instance to use for logging.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encode" use="optional">
+      <xsd:attribute name="encode">
         <xsd:annotation>
           <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -54,39 +54,39 @@
     <xsd:annotation>
       <xsd:documentation>A tag which generates TRACE level logging statement usingthe given category name.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the logger to use</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="log" use="optional">
+      <xsd:attribute name="log">
         <xsd:annotation>
           <xsd:documentation>Sets the Log instance to use for logging.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encode" use="optional">
+      <xsd:attribute name="encode">
         <xsd:annotation>
           <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -97,39 +97,39 @@
     <xsd:annotation>
       <xsd:documentation>A tag which generates INFO level logging statement usingthe given category name.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the logger to use</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="log" use="optional">
+      <xsd:attribute name="log">
         <xsd:annotation>
           <xsd:documentation>Sets the Log instance to use for logging.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encode" use="optional">
+      <xsd:attribute name="encode">
         <xsd:annotation>
           <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -140,39 +140,39 @@
     <xsd:annotation>
       <xsd:documentation>A tag which generates DEBUG level logging statement usingthe given category name.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the logger to use</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="log" use="optional">
+      <xsd:attribute name="log">
         <xsd:annotation>
           <xsd:documentation>Sets the Log instance to use for logging.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encode" use="optional">
+      <xsd:attribute name="encode">
         <xsd:annotation>
           <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -183,39 +183,39 @@
     <xsd:annotation>
       <xsd:documentation>A tag which generates FATAL level logging statement usingthe given category name.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the logger to use</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="log" use="optional">
+      <xsd:attribute name="log">
         <xsd:annotation>
           <xsd:documentation>Sets the Log instance to use for logging.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encode" use="optional">
+      <xsd:attribute name="encode">
         <xsd:annotation>
           <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -226,39 +226,39 @@
     <xsd:annotation>
       <xsd:documentation>A tag which generates WARN level logging statement usingthe given category name.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the logger to use</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="log" use="optional">
+      <xsd:attribute name="log">
         <xsd:annotation>
           <xsd:documentation>Sets the Log instance to use for logging.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="encode" use="optional">
+      <xsd:attribute name="encode">
         <xsd:annotation>
           <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

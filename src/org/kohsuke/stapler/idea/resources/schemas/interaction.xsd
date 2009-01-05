@@ -11,63 +11,63 @@
         <authortag>&lt;a href="mailto:smor@hasgard.net"&gt;StÃ©phane Mor &lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="question" use="optional">
+      <xsd:attribute name="question">
         <xsd:annotation>
           <xsd:documentation>Sets the question to ask to the user. If a "default" attribute ispresent, it will appear inside [].
           <paramtag>question The question to ask to the user</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="answer" use="optional">
+      <xsd:attribute name="answer">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the variable that will hold the answer. This defaults to "interact.answer".
           <paramtag>answer the name of the variable that will hold the answer</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="default" use="optional">
+      <xsd:attribute name="default">
         <xsd:annotation>
           <xsd:documentation>Sets the default answer to the question. If it is present, it will appearinside [].
           <paramtag>defaultInput the default answer to the question</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="prompt" use="optional">
+      <xsd:attribute name="prompt">
         <xsd:annotation>
           <xsd:documentation>Sets the prompt that will be displayed before the user's input.
           <paramtag>prompt the prompt that will be displayed before the user's input.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="completor" use="optional">
+      <xsd:attribute name="completor">
         <xsd:annotation>
           <xsd:documentation>Sets the list of predefined commands.
           <paramtag>list the list of commands used for tab completion.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="useHistoryCompletor" use="optional">
+      <xsd:attribute name="useHistoryCompletor">
         <xsd:annotation>
           <xsd:documentation>Whether the completion should also happen on previouslyentered lines (default true).
           <paramtag>should whether it should</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

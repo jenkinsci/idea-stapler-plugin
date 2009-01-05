@@ -12,39 +12,39 @@
     <xsd:annotation>
       <xsd:documentation>This tag validates its body using a schema Verifier which canvalidate against DTDs, XML Schema, RelaxNG, Relax or TREX.Any JARV compliant Verifier could be used.The error messages are output as XML events so that they can be styled by the parent tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="verifier" use="optional">
+      <xsd:attribute name="verifier">
         <xsd:annotation>
           <xsd:documentation>Sets the schema Verifier that this tag will use to verify its body</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="errorHandler" use="optional">
+      <xsd:attribute name="errorHandler">
         <xsd:annotation>
           <xsd:documentation>Sets the SAX ErrorHandler which is used to captureXML validation events.If an ErrorHandler is specifiedthen this tag will output its body and redirect all error messagesto the ErrorHandler.If no ErrorHandler is specified then this tag will just output theerror messages as XML events</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the variable that will contain a boolean flag for whether ornot the XML is valid.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -55,39 +55,39 @@
     <xsd:annotation>
       <xsd:documentation>This tag performs an assertion that the tags body contains XMLwhich matches a givem schema validation. This tag is used withJellyUnit to implement an assertion.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="verifier" use="optional">
+      <xsd:attribute name="verifier">
         <xsd:annotation>
           <xsd:documentation>Sets the schema Verifier that this tag will use to verify its body</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="errorHandler" use="optional">
+      <xsd:attribute name="errorHandler">
         <xsd:annotation>
           <xsd:documentation>Sets the SAX ErrorHandler which is used to captureXML validation events.If an ErrorHandler is specifiedthen this tag will output its body and redirect all error messagesto the ErrorHandler.If no ErrorHandler is specified then this tag will just output theerror messages as XML events</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the variable that will contain a boolean flag for whether ornot the XML is valid.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -98,49 +98,49 @@
     <xsd:annotation>
       <xsd:documentation>This tag creates a new Verifier of a schema as a variableso that it can be used by a &lt;validate&gt;tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the variable that will be set to the new Verifier</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="uri" use="optional">
+      <xsd:attribute name="uri">
         <xsd:annotation>
           <xsd:documentation>Sets the URI of the schema file to parse. If no URI and no file isspecified then the body of this tag is used as the source of the schema</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="file" use="optional">
+      <xsd:attribute name="file">
         <xsd:annotation>
           <xsd:documentation>Sets the java.io.Fileof the schema to parse. If no URI and no file isspecified then the body of this tag is used as the source of the schema</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="systemId" use="optional">
+      <xsd:attribute name="systemId">
         <xsd:annotation>
           <xsd:documentation>Sets the system ID used when parsing the schema</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="factory" use="optional">
+      <xsd:attribute name="factory">
         <xsd:annotation>
           <xsd:documentation>Sets the factory used to create new schema verifier objects.If none is provided then the default MSV factory is used.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

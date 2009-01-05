@@ -13,35 +13,35 @@
         <authortag>&lt;a href="mailto:bob@eng.werken.com"&gt;bob mcwhirter&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Set the name of this job.
           <paramtag>name The name of this job.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="group" use="optional">
+      <xsd:attribute name="group">
         <xsd:annotation>
           <xsd:documentation>Set the group of this job.
           <paramtag>group The group of this job.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -54,56 +54,56 @@
         <authortag>&lt;a href="mailto:bob@eng.werken.com"&gt;bob mcwhirter&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Set the name.
           <paramtag>name.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="group" use="optional">
+      <xsd:attribute name="group">
         <xsd:annotation>
           <xsd:documentation>Set the group
           <paramtag>group The group</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="spec" use="optional">
+      <xsd:attribute name="spec">
         <xsd:annotation>
           <xsd:documentation>Set the cron time spec.
           <paramtag>spec The cron time spec.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="jobName" use="optional">
+      <xsd:attribute name="jobName">
         <xsd:annotation>
           <xsd:documentation>Set the job name.
           <paramtag>jobName The job name.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="jobGroup" use="optional">
+      <xsd:attribute name="jobGroup">
         <xsd:annotation>
           <xsd:documentation>Set the job group.
           <paramtag>jobGroup The job group.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -116,21 +116,21 @@
         <authortag>&lt;a href="mailto:bob@eng.werken.com"&gt;bob mcwhirter&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

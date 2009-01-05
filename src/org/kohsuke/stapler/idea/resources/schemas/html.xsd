@@ -11,58 +11,58 @@
     <xsd:annotation>
       <xsd:documentation>A tag which parses some HTML and defines a variable with the parsed Document.The HTML can either be specified as its body or can be passed in via thehtml property which can be a Reader, InputStream, URL or String URI.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 810 $</versiontag>
+        <versiontag>$Revision: 827 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="html" use="optional">
+      <xsd:attribute name="html">
         <xsd:annotation>
           <xsd:documentation>Sets the source of the HTML which is either a String URI, Reader or InputStream</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="attribute" use="optional">
+      <xsd:attribute name="attribute">
         <xsd:annotation>
           <xsd:documentation>Sets whether attributes should be converted to a different case.Possible values are "upper", "lower" or "no-change"
           <paramtag>attribute The processing mode of attributes</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="element" use="optional">
+      <xsd:attribute name="element">
         <xsd:annotation>
           <xsd:documentation>Sets whether elements should be converted to a different casePossible values are "upper", "lower" or "match"
           <paramtag>element The processing mode of elements</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="text" use="optional">
+      <xsd:attribute name="text">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="SAXReader" use="optional">
+      <xsd:attribute name="SAXReader">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

@@ -11,28 +11,28 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="for" use="optional">
+      <xsd:attribute name="for">
         <xsd:annotation>
           <xsd:documentation>How long to put the thread to sleep for
           <paramtag>howLong in millis</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -45,26 +45,26 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Set the variable name to store the thread group in</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -78,62 +78,62 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the variable name to export, optional
           <paramtag>var The variable name</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="name" use="optional">
+      <xsd:attribute name="name">
         <xsd:annotation>
           <xsd:documentation>Sets the name of the thread.
           <paramtag>name The name to set</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="priority" use="optional">
+      <xsd:attribute name="priority">
         <xsd:annotation>
           <xsd:documentation>Set the threads priority. Defaults to Thread.NORM_PRIORITY</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="daemon" use="optional">
+      <xsd:attribute name="daemon">
         <xsd:annotation>
           <xsd:documentation>Sets the thread to be a daemon thread if true</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="xmlOutput" use="optional">
+      <xsd:attribute name="xmlOutput">
         <xsd:annotation>
           <xsd:documentation>Sets the destination of output</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="file" use="optional">
+      <xsd:attribute name="file">
         <xsd:annotation>
           <xsd:documentation>Set the file which is generated from the output
           <paramtag>name The output file name</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="newContext" use="optional">
+      <xsd:attribute name="newContext">
         <xsd:annotation>
           <xsd:documentation>Should a new context be created for this thread?</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -146,23 +146,23 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="thread" use="optional">
+      <xsd:attribute name="thread">
         <xsd:annotation>
           <xsd:documentation>Set the thread to use in some way.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="threadGroup" use="optional">
+      <xsd:attribute name="threadGroup">
         <xsd:annotation>
           <xsd:documentation>Set the thread group to "use".
           <paramtag>threadGroup The threadGroup created with the &lt;i&gt;group&lt;/i&gt; tag.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="searchForParentThread" use="optional">
+      <xsd:attribute name="searchForParentThread">
         <xsd:annotation>
           <xsd:documentation>If true the tag will search for a parent thread tag to "use" ifno thread was set via
           <i>setThread</i>. This is
@@ -170,17 +170,17 @@
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -193,31 +193,31 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="notifyAll" use="optional">
+      <xsd:attribute name="notifyAll">
         <xsd:annotation>
           <xsd:documentation>If set to true the notify will notify all waiting threads</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="mutex" use="optional">
+      <xsd:attribute name="mutex">
         <xsd:annotation>
           <xsd:documentation>Set the mutex. Any object can be used as a mutex.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -230,28 +230,28 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="var" use="optional">
+      <xsd:attribute name="var">
         <xsd:annotation>
           <xsd:documentation>Sets the variable name to export
           <paramtag>var The variable name</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -264,26 +264,26 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="mutex" use="optional">
+      <xsd:attribute name="mutex">
         <xsd:annotation>
           <xsd:documentation>Set the mutex. Any object can be used as a mutex.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -296,33 +296,33 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="timeout" use="optional">
+      <xsd:attribute name="timeout">
         <xsd:annotation>
           <xsd:documentation>Set how long the wait should last. If &lt;= 0 the wait will lastuntil a notify occurs.
           <paramtag>timeout in millis</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="mutex" use="optional">
+      <xsd:attribute name="mutex">
         <xsd:annotation>
           <xsd:documentation>Set the mutex. Any object can be used as a mutex.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -335,30 +335,30 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="timeout" use="optional">
+      <xsd:attribute name="timeout">
         <xsd:annotation>
           <xsd:documentation>How long should the join wait. If &lt;= 0 the join waits until thethread is dead.
           <paramtag>timeout in millis</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="thread" use="optional">
+      <xsd:attribute name="thread">
         <xsd:annotation>
           <xsd:documentation>Set the thread to use in some way.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="threadGroup" use="optional">
+      <xsd:attribute name="threadGroup">
         <xsd:annotation>
           <xsd:documentation>Set the thread group to "use".
           <paramtag>threadGroup The threadGroup created with the &lt;i&gt;group&lt;/i&gt; tag.</paramtag>
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="searchForParentThread" use="optional">
+      <xsd:attribute name="searchForParentThread">
         <xsd:annotation>
           <xsd:documentation>If true the tag will search for a parent thread tag to "use" ifno thread was set via
           <i>setThread</i>. This is
@@ -366,17 +366,17 @@
         </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -389,41 +389,41 @@
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexType>
+    <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="status" use="optional">
+      <xsd:attribute name="status">
         <xsd:annotation>
           <xsd:documentation>Wait for a specific status. "SUCCESS", "FAILURE", "TIMED_OUT", or "AVOIDED". Ifwaiting on a thread group each thread in the group will have to have this statusset.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="thread" use="optional">
+      <xsd:attribute name="thread">
         <xsd:annotation>
           <xsd:documentation>Which thread will this tag check the status of</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="group" use="optional">
+      <xsd:attribute name="group">
         <xsd:annotation>
           <xsd:documentation>Set the group of threads to wait on</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="onlyWait" use="optional">
+      <xsd:attribute name="onlyWait">
         <xsd:annotation>
           <xsd:documentation>Set how long to wait for the thread to finish. If waiting for a groupthis will be the time to wait for each thread in the group to finish.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="trim" use="optional">
+      <xsd:attribute name="trim">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib" use="optional">
+      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="escapeText" use="optional">
+      <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
