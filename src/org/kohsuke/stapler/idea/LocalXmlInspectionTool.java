@@ -7,6 +7,7 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiReferenceExpression;
+import com.intellij.psi.XmlElementVisitor;
 import com.intellij.psi.xml.XmlText;
 import com.intellij.psi.xml.XmlAttributeValue;
 import org.jetbrains.annotations.NonNls;
@@ -45,16 +46,15 @@ public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
 
     @NotNull
     public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, final boolean isOnTheFly) {
-        return new PsiElementVisitor() {
+        return new XmlElementVisitor() {
+            @Override
             public void visitXmlText(XmlText text) {
                 addDescriptors(checkXmlText(text, holder.getManager(), isOnTheFly));
             }
 
+            @Override
             public void visitXmlAttributeValue(XmlAttributeValue value) {
                 addDescriptors(checkXmlAttributeValue(value, holder.getManager(), isOnTheFly));
-            }
-
-            public void visitReferenceExpression(PsiReferenceExpression expression) {
             }
 
             private void addDescriptors(final ProblemDescriptor[] descriptors) {
