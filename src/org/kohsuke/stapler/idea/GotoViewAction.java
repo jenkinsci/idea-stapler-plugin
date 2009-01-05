@@ -46,13 +46,29 @@ public class GotoViewAction extends GotoActionBase {
         PsiFile file = PsiUtilBase.getPsiFileInEditor(editor, project);
         if(!(file instanceof PsiJavaFile))  return; // not a Java file
 
+        JavaPsiFacade facade = JavaPsiFacade.getInstance(project);
+
         // from which class are we invoked?
         PsiElement e = PsiUtilBase.getElementAtOffset(file, editor.getCaretModel().getOffset());
-        final PsiClass clazz = PsiTreeUtil.getParentOfType(e, PsiClass.class);
-        if(clazz==null)     return; // not from a class
+        PsiClass clazz = PsiTreeUtil.getParentOfType(e, PsiClass.class);
+
+        // if we are invoked from inside anonymous class, go up the tree
+        // until we find a named class.
+        while(clazz!=null && clazz.getQualifiedName()==null)
+            clazz = PsiTreeUtil.getParentOfType(clazz,PsiClass.class);
+
+        // build up packages that contain jelly views, in the order of preference
+        // through inheritance hierarchy of the class
+        final List<PsiPackage> viewPackages = new ArrayList<PsiPackage>();
+        while(clazz!=null) {
+            PsiPackage pkg = facade.findPackage(clazz.getQualifiedName());
+            if(pkg!=null)   viewPackages.add(pkg);
+            clazz = clazz.getSuperClass();
+        }
+
+        if(viewPackages.isEmpty())  return; // no views
 
         ChooseByNameModel model = new ChooseByNameModel() {
-            PsiPackage pkg = JavaPsiFacade.getInstance(project).findPackage(clazz.getQualifiedName());
 
             public String getPromptText() {
                 return "Enter view name:";
@@ -87,27 +103,26 @@ public class GotoViewAction extends GotoActionBase {
             }
 
             public String[] getNames(boolean checkBoxState) {
-                if(pkg==null)       return ArrayUtils.EMPTY_STRING_ARRAY; // no view
-
                 List<String> r = new ArrayList<String>();
-                for (PsiDirectory dir : pkg.getDirectories()) {
-                    for (PsiFile file : dir.getFiles()) {
-                        String name = file.getName();
-                        if(name.endsWith(".jelly"))
-                            r.add(name.substring(0,name.length()-6));
+                for (PsiPackage pkg : viewPackages) {
+                    for (PsiDirectory dir : pkg.getDirectories()) {
+                        for (PsiFile file : dir.getFiles()) {
+                            String name = file.getName();
+                            if(name.endsWith(".jelly"))
+                                r.add(name.substring(0,name.length()-6));
+                        }
                     }
                 }
                 return r.toArray(new String[r.size()]);
             }
 
             public Object[] getElementsByName(String name, boolean checkBoxState, String pattern) {
-                if(pkg==null)       return ArrayUtils.EMPTY_STRING_ARRAY; // no view
-
-                List<String> r = new ArrayList<String>();
-                for (PsiDirectory dir : pkg.getDirectories()) {
-                    for (PsiFile file : dir.getFiles()) {
-                        if(file.getName().equals(name+".jelly"))
-                            return new Object[]{file};
+                for (PsiPackage pkg : viewPackages) {
+                    for (PsiDirectory dir : pkg.getDirectories()) {
+                        for (PsiFile file : dir.getFiles()) {
+                            if(file.getName().equals(name+".jelly"))
+                                return new Object[]{file};
+                        }
                     }
                 }
                 return EMPTY_ARRAY;
