@@ -4,8 +4,11 @@ import com.intellij.lang.documentation.DocumentationProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.xml.XmlElementDescriptor;
+import com.intellij.xml.XmlAttributeDescriptor;
 import org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorImpl;
+import org.kohsuke.stapler.idea.descriptor.XmlAttributeDescriptorImpl;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
 /**
@@ -41,6 +44,14 @@ public class JellyDocumentationProvider implements DocumentationProvider {
                 XmlElementDescriptorImpl dd = (XmlElementDescriptorImpl) d;
                 DocumentationTag doc = dd.getModel().getDocumentation();
                 return doc.generateHtmlDoc();
+            }
+        }
+        if (p instanceof XmlAttribute) {
+            XmlAttribute a = (XmlAttribute) p;
+            XmlAttributeDescriptor ad = a.getDescriptor();
+            if (ad instanceof XmlAttributeDescriptorImpl) {
+                XmlAttributeDescriptorImpl o = (XmlAttributeDescriptorImpl) ad;
+                return o.getModel().generateHtmlDoc();
             }
         }
         return null;

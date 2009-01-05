@@ -4,6 +4,7 @@ import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.Attribute;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.Implementation;
+import com.intellij.psi.xml.XmlTag;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,6 +27,11 @@ public interface AttributeTag extends DomElement {
 
     boolean isRequired();
 
+    /**
+     * Generates documentation in HTML.
+     */
+    String generateHtmlDoc();
+
     public static abstract class Impl implements AttributeTag {
         @NotNull
         public String getSafeName() {
@@ -36,6 +42,13 @@ public interface AttributeTag extends DomElement {
 
         public boolean isRequired() {
             return "required".equals(getUse().getStringValue());
+        }
+
+        public String generateHtmlDoc() {
+            XmlTag t = getXmlTag();
+            if(t==null)     return null;
+
+            return t.getValue().getText();
         }
     }
 }

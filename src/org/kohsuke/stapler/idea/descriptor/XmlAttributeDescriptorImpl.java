@@ -10,7 +10,7 @@ import org.kohsuke.stapler.idea.dom.model.AttributeTag;
  *
  * @author Kohsuke Kawaguchi
 */
-class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
+public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
     /**
      * Which element do we belong?
      */
@@ -23,6 +23,10 @@ class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
     XmlAttributeDescriptorImpl(XmlElementDescriptorImpl element, AttributeTag def) {
         this.element = element;
         this.def = def;
+    }
+
+    public AttributeTag getModel() {
+        return def;
     }
 
     /**
