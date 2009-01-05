@@ -72,6 +72,10 @@ public class JellyCompletionContributer extends CompletionContributor {
                     protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {
                         XmlElement name = (XmlElement)parameters.getPosition();
 
+                        // do this only inside Jelly files
+                        if(!name.getContainingFile().getName().endsWith(".jelly"))
+                            return;
+
                         // this pseudo-tag represents the tag being completed.
                         XmlTag tag = (XmlTag) name.getParent();
                         Module module = ModuleUtil.findModuleForPsiElement(tag);
