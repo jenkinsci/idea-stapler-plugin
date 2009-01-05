@@ -6,12 +6,12 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
-import com.intellij.xml.impl.schema.NullElementDescriptor;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 import org.kohsuke.stapler.idea.dom.model.JellyTag;
 
@@ -64,7 +64,11 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
-        JellyTag tag = DomManager.getDomManager(tagFile.getProject()).getFileElement(tagFile, JellyTag.class).getRootElement();
+        DomFileElement<JellyTag> root = DomManager.getDomManager(tagFile.getProject()).getFileElement(tagFile, JellyTag.class);
+        if(root==null)
+            // huh?
+            throw new AssertionError(tagFile);
+        JellyTag tag = root.getRootElement();
         List<AttributeTag> atts = tag.getDocumentation().getAttributes();
         XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
         int i=0;
