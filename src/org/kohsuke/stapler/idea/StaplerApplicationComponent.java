@@ -10,6 +10,9 @@ import com.intellij.psi.filters.ClassFilter;
 import com.intellij.psi.filters.position.NamespaceFilter;
 import com.intellij.psi.meta.MetaDataRegistrar;
 import com.intellij.psi.xml.XmlDocument;
+import com.intellij.lang.LanguageAnnotators;
+import com.intellij.lang.Language;
+import com.intellij.lang.xml.XMLLanguage;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.XmlNSDescriptorImpl;
@@ -49,6 +52,9 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
                 new NamespaceFilter(DUMMY_SCHEMA_URL)),
             XmlNSDescriptorImpl.class
         );
+
+        LanguageAnnotators.INSTANCE.addExplicitExtension(
+                XMLLanguage.INSTANCE, new JellyAnnotator());
 
         // register a custom vocabulary for Jelly
         // still experimenting.
