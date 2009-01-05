@@ -4,6 +4,7 @@ import com.intellij.codeInspection.InspectionToolProvider;
 import com.intellij.facet.FacetTypeRegistry;
 import com.intellij.javaee.ExternalResourceManager;
 import com.intellij.lang.LanguageAnnotators;
+import com.intellij.lang.LanguageDocumentation;
 import com.intellij.lang.xml.XMLLanguage;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.fileTypes.FileTypeManager;
@@ -54,6 +55,10 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
 
         LanguageAnnotators.INSTANCE.addExplicitExtension(
                 XMLLanguage.INSTANCE, new JellyAnnotator());
+
+        LanguageDocumentation.INSTANCE.addExplicitExtension(
+                XMLLanguage.INSTANCE, new JellyDocumentationProvider()
+        );
 
         // register a custom vocabulary for Jelly
         // still experimenting.

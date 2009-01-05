@@ -64,11 +64,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
-        DomFileElement<JellyTag> root = DomManager.getDomManager(tagFile.getProject()).getFileElement(tagFile, JellyTag.class);
-        if(root==null)
-            // huh?
-            throw new AssertionError(tagFile);
-        JellyTag tag = root.getRootElement();
+        JellyTag tag = getModel();
         List<AttributeTag> atts = tag.getDocumentation().getAttributes();
         XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
         int i=0;
@@ -76,6 +72,16 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
             descriptors[i++] = new XmlAttributeDescriptorImpl(this,a);
         }
         return descriptors;
+    }
+
+    public JellyTag getModel() {
+        assert tagFile!=null;
+        DomFileElement<JellyTag> root = DomManager.getDomManager(tagFile.getProject()).getFileElement(tagFile, JellyTag.class);
+        if(root==null)
+            // huh?
+            throw new AssertionError(tagFile);
+        JellyTag tag = root.getRootElement();
+        return tag;
     }
 
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {
