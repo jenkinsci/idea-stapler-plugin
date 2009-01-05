@@ -16,6 +16,9 @@ import com.intellij.openapi.module.ModuleUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * @author Kohsuke Kawaguchi
  */
@@ -23,16 +26,28 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
     /**
      * Namespace URI of a tag library.
      */
-    public final String uri;
+    private String uri;
 
     /**
      * Directory full of tag files that defines this namespace.
      */
-    public final PsiDirectory dir;
+    private PsiDirectory dir;
 
     public XmlNSDescriptorImpl(String uri, PsiDirectory dir) {
         this.uri = uri;
         this.dir = dir;
+    }
+
+    /**
+     * @deprecated
+     *      Should be only invoked by IDEA.
+     *      {@link #init(PsiElement)} call follows immediately.
+     */
+    public XmlNSDescriptorImpl() {
+    }
+
+    public PsiDirectory getDir() {
+        return dir;
     }
 
     public XmlElementDescriptor getElementDescriptor(@NotNull XmlTag tag) {
@@ -42,9 +57,22 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return null;
     }
 
+    /**
+     * Returns all the possible root elements.
+     *
+     * <p>
+     * This appears to be used for code completion. When I returned
+     * an empty array, the code completion didn't show me anything. 
+     */
     @NotNull
     public XmlElementDescriptor[] getRootElementsDescriptors(@Nullable XmlDocument document) {
-        return new XmlElementDescriptor[0];
+        List<XmlElementDescriptor> r = new ArrayList<XmlElementDescriptor>();
+        for(PsiFile f : dir.getFiles()) {
+            if(!f.getName().endsWith(".jelly"))     continue;
+            if (f instanceof XmlFile)
+                r.add(new XmlElementDescriptorImpl(this, (XmlFile)f));
+        }
+        return r.toArray(new XmlElementDescriptor[r.size()]);
     }
 
     public XmlFile getDescriptorFile() {
@@ -67,7 +95,16 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return uri;
     }
 
+    /**
+     * This method is called when this object is instanciated by IDEA as metadata
+     * to existing object.
+     * <p>
+     * This special pseudo document has to be &lt;schema uri="..." xmlns="dummy-schema-url"/> 
+     */
     public void init(PsiElement element) {
+        XmlDocument doc = (XmlDocument) element;
+        dir = doc.getContainingFile().getUserData(XmlSchemaProviderImpl.MODULE);
+        uri = doc.getRootTag().getAttribute("uri","").getValue();
     }
 
     public Object[] getDependences() {
@@ -79,12 +116,15 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
             return null;    // this tag is not in a jelly script
 
         String nsUri = tag.getNamespace();
+        return get(nsUri, ModuleUtil.findModuleForPsiElement(tag));
+    }
+
+    public static XmlNSDescriptorImpl get(String nsUri, Module module) {
+        // just trying to be defensive
+        if(module==null) return null;
         if(nsUri.length()==0)   return null;
 
-        Module m = ModuleUtil.findModuleForPsiElement(tag);
-        if(m==null) return null; // just trying to be defensive
-
-        JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(tag.getProject());
+        JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(module.getProject());
 
         String pkgName = nsUri.substring(1).replace('/', '.');
         // this invocation below successfully finds packages that includes
@@ -92,14 +132,12 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         PsiPackage pkg = javaPsi.findPackage(pkgName);
         if(pkg==null)   return null;
 
-        PsiDirectory[] dirs = pkg.getDirectories(GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m, false));
+        PsiDirectory[] dirs = pkg.getDirectories(GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, false));
 
-        for (PsiDirectory dir : dirs) {
-            if(dir.findFile("taglib")!=null) {
+        for (PsiDirectory dir : dirs)
+            if(dir.findFile("taglib")!=null)
                 // this is a tag library
                 return new XmlNSDescriptorImpl(nsUri,dir);
-            }
-        }
 
         return null;
     }

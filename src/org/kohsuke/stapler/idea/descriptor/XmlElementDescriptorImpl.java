@@ -115,7 +115,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         if (context instanceof XmlElement) {
             XmlTag xmltag = PsiTreeUtil.getParentOfType(context, XmlTag.class, false);
             if (xmltag != null) {
-                String prefix = xmltag.getPrefixByNamespace(nsDescriptor.uri);
+                String prefix = xmltag.getPrefixByNamespace(nsDescriptor.getName());
                 if (prefix != null && prefix.length() > 0)
                     return prefix + ':' + n;
             }
@@ -124,7 +124,8 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     public String getName() {
-        return tagFile.getName();
+        String fileName = tagFile.getName();
+        return fileName.substring(0,fileName.length()-6); // cut off extension
     }
 
     public void init(PsiElement element) {

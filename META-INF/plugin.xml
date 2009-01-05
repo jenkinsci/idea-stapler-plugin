@@ -26,6 +26,7 @@
     <dom.extender domClass=     "org.kohsuke.stapler.idea.dom.model.JellyTag"
                   extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
     -->
+    <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlSchemaProviderImpl" />
    </extensions>
   <actions>
     <!--action id="testGoto" class="org.kohsuke.stapler.idea.test.TestGoToDeclAction" text="testGoto"
