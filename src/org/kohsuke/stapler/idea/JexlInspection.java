@@ -68,7 +68,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
     protected ProblemDescriptor[] check(XmlElement psi, InspectionManager manager, String text, TextRange range) {
         if(!psi.getContainingFile().getName().endsWith(".jelly"))
             return EMPTY_ARRAY; // not a jelly script
-        if(shouldCheck(psi))
+        if(!shouldCheck(psi))
             return EMPTY_ARRAY; // stapler not enabled
 
         int len = text.length();
