@@ -4,11 +4,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceProvider;
 import com.intellij.psi.xml.XmlTag;
-import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.psi.ref.TagReference;
-import org.kohsuke.stapler.idea.psi.ref.TagAttributeReference;
 
 /**
  * Let IDEA know that the use of Jelly tags are referencing their definitions.

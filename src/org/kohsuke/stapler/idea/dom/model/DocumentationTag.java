@@ -6,48 +6,36 @@ import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlTagChild;
 
 import java.util.List;
+import java.util.ArrayList;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
- * &lt;st:documentation> element.
+ * Wraps {@link XmlTag} for &lt;st:documentation> element.
  *
  * @author Kohsuke Kawaguchi
  */
-@Implementation(DocumentationTag.Impl.class)
-public interface DocumentationTag extends DomElement {
-    List<AttributeTag> getAttributes();
+public final class DocumentationTag extends TagWithHtmlContent {
+    public DocumentationTag(@NotNull XmlTag tag) {
+        super(tag);
+    }
+
+    public List<AttributeTag> getAttributes() {
+        List<AttributeTag> r = new ArrayList<AttributeTag>();
+        for( XmlTag a : tag.findSubTags("attribute","jelly:stapler") )
+            r.add(new AttributeTag(a));
+        return r;
+    }
 
     /**
-     * Looks up {@link AttributeTag} by their {@link AttributeTag#getSafeName()}.
+     * Looks up {@link AttributeTag} by their {@link AttributeTag#getName()}.
      */
-    AttributeTag getAttributeByName(String name);
-
-    /**
-     * Generates documentation in HTML.
-     */
-    String generateHtmlDoc();
-
-    public static abstract class Impl implements DocumentationTag {
-        public AttributeTag getAttributeByName(String name) {
-            for(AttributeTag a : getAttributes())
-                if(a.getSafeName().equals(name))
-                    return a;
-            return null;
+    public AttributeTag getAttribute(String name) {
+        for( XmlTag a : tag.findSubTags("attribute","jelly:stapler") ) {
+            AttributeTag x = new AttributeTag(a);
+            if(x.getName().equals(name))
+                return x;
         }
-
-        public String generateHtmlDoc() {
-            XmlTag tag = getXmlTag();
-            if(tag==null)   return null; // being defensive
-
-            StringBuilder buf = new StringBuilder();
-            for (XmlTagChild child : tag.getValue().getChildren()) {
-                if (child instanceof XmlTag) {
-                    XmlTag childTag = (XmlTag) child;
-                    if(childTag.getLocalName().equals("attribute") && childTag.getNamespace().equals("jelly:stapler"))
-                        continue; // skip <st:attribute />
-                }
-                buf.append(child.getText());
-            }
-            return buf.toString();
-        }
+        return null;
     }
 }

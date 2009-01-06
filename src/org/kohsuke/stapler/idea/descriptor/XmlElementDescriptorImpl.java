@@ -3,18 +3,17 @@ package org.kohsuke.stapler.idea.descriptor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.xml.XmlDocument;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
-import com.intellij.util.xml.DomFileElement;
-import com.intellij.util.xml.DomManager;
 import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
-import org.kohsuke.stapler.idea.dom.model.JellyTag;
+import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,9 +64,9 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
-        JellyTag tag = getModel();
+        DocumentationTag tag = getModel();
         if(tag==null)   return XmlAttributeDescriptor.EMPTY;
-        List<AttributeTag> atts = tag.getDocumentation().getAttributes();
+        List<AttributeTag> atts = tag.getAttributes();
         XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
         int i=0;
         for (AttributeTag a : atts) {
@@ -77,16 +76,16 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     @Nullable
-    public JellyTag getModel() {
+    public DocumentationTag getModel() {
         assert tagFile!=null;
-        DomManager m = DomManager.getDomManager(tagFile.getProject());
-        DomFileElement<JellyTag> root = m.getFileElement(tagFile, JellyTag.class);
-        if(root==null) {
-            // not sure exactly when this happens, but this happens frequently enough.
-            // exact reproduction steps are unknown.
-            return null;
-        }
-        return root.getRootElement();
+        XmlDocument doc = tagFile.getDocument();
+        if(doc==null)   return null;
+        XmlTag root = doc.getRootTag();
+        if(root==null)  return null;
+        XmlTag[] docs = root.findSubTags("documentation", "jelly:stapler");
+        if(docs.length==0)  return null;
+
+        return new DocumentationTag(docs[0]);
     }
 
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {

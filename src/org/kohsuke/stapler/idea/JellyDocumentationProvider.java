@@ -10,7 +10,6 @@ import com.intellij.xml.XmlAttributeDescriptor;
 import org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorImpl;
 import org.kohsuke.stapler.idea.descriptor.XmlAttributeDescriptorImpl;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
-import org.kohsuke.stapler.idea.dom.model.JellyTag;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -43,10 +42,9 @@ public class JellyDocumentationProvider implements DocumentationProvider {
             XmlElementDescriptor d = t.getDescriptor();
             if (d instanceof XmlElementDescriptorImpl) {
                 XmlElementDescriptorImpl dd = (XmlElementDescriptorImpl) d;
-                JellyTag m = dd.getModel();
+                DocumentationTag m = dd.getModel();
                 if(m==null)     return null;
-                DocumentationTag doc = m.getDocumentation();
-                return doc.generateHtmlDoc();
+                return m.generateHtmlDoc();
             }
         }
         if (p instanceof XmlAttribute) {

@@ -71,7 +71,7 @@ public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
     }
 
     public PsiElement getDeclaration() {
-        return def.getXmlTag();
+        return def.tag;
     }
 
     public String getName(PsiElement context) {
@@ -79,13 +79,13 @@ public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
     }
 
     public String getName() {
-        return def.getSafeName();
+        return def.getName();
     }
 
     public void init(PsiElement element) {
     }
 
     public Object[] getDependences() {
-        return new Object[]{def.getXmlTag()};
+        return new Object[]{def.tag};
     }
 }
