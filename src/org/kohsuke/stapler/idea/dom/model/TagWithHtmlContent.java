@@ -21,7 +21,7 @@ public abstract class TagWithHtmlContent {
 
     /**
      * Generates documentation in HTML.
-     */l
+     */
     public String generateHtmlDoc() {
         StringBuilder buf = new StringBuilder();
         for (XmlTagChild child : tag.getValue().getChildren()) {
