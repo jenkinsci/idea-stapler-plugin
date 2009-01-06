@@ -6,6 +6,7 @@ import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupItem;
+import com.intellij.codeInsight.TailType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.patterns.ElementPattern;
@@ -105,7 +106,19 @@ public class JellyCompletionContributer extends CompletionContributor {
                             XmlNSDescriptorImpl d = XmlNSDescriptorImpl.get(uri, module);
                             if(d!=null) {
                                 for( XmlElementDescriptor e : d.getRootElementsDescriptors(null/*I'm not using this parameter*/)) {
-                                    result.addElement(LookupItem.fromString(prefix+e.getName()));
+                                    LookupItem item = LookupItem.fromString(prefix + e.getName());
+                                    /*
+                                        In some context (see completion-test.jelly in particular),
+                                        I noticed that contributions from here and XmlCompletionContributer
+                                        overlaps and the user ends up seeing the same candidate twice.
+                                        To fix this, we need to create the LookupItem such that
+                                        its equals() method returns true when compared with the ones
+                                        from XmlCompletionContributer.
+
+                                        So I'm not sure what the TailType means but this is why we do this.
+                                     */
+                                    item.setTailType(TailType.UNKNOWN);
+                                    result.addElement(item);
                                 }
                             }
                         }

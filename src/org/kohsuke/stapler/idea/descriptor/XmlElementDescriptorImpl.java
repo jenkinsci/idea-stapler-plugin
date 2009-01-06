@@ -12,6 +12,7 @@ import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
+import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 import org.kohsuke.stapler.idea.dom.model.JellyTag;
 
@@ -65,6 +66,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
 
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
         JellyTag tag = getModel();
+        if(tag==null)   return XmlAttributeDescriptor.EMPTY;
         List<AttributeTag> atts = tag.getDocumentation().getAttributes();
         XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
         int i=0;
@@ -74,14 +76,17 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         return descriptors;
     }
 
+    @Nullable
     public JellyTag getModel() {
         assert tagFile!=null;
-        DomFileElement<JellyTag> root = DomManager.getDomManager(tagFile.getProject()).getFileElement(tagFile, JellyTag.class);
-        if(root==null)
-            // huh?
-            throw new AssertionError(tagFile);
-        JellyTag tag = root.getRootElement();
-        return tag;
+        DomManager m = DomManager.getDomManager(tagFile.getProject());
+        DomFileElement<JellyTag> root = m.getFileElement(tagFile, JellyTag.class);
+        if(root==null) {
+            // not sure exactly when this happens, but this happens frequently enough.
+            // exact reproduction steps are unknown.
+            return null;
+        }
+        return root.getRootElement();
     }
 
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {
