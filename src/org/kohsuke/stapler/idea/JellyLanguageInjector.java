@@ -47,17 +47,26 @@ public class JellyLanguageInjector implements MultiHostInjector {
         
         // inject JavaScript to <script>
         if (context instanceof XmlTag) {
+            /*
+                IntelliJ reports an assertion error if the we didn't call any addPlace
+                between startInjecting/doneInjection, so we need to call them lazily.
+             */
+            final boolean[] started = new boolean[1];
+
             XmlTag t = (XmlTag) context;
             if(!t.getName().equals("script"))
                 return; // not a script element
 
-            Language language = findLanguage("JavaScript");
+            final Language language = findLanguage("JavaScript");
             if (language == null) return;
 
-            registrar.startInjecting(language);
             t.acceptChildren(new XmlElementVisitor() {
                 @Override
                 public void visitXmlText(XmlText text) {
+                    if(!started[0]) {
+                        started[0] = true;
+                        registrar.startInjecting(language);
+                    }
                     int len = text.getTextLength();
                     if(len ==0) return;
                     registrar.addPlace(null,null,
@@ -65,7 +74,8 @@ public class JellyLanguageInjector implements MultiHostInjector {
                             TextRange.from(0, len));
                 }
             });
-            registrar.doneInjecting();
+            if(started[0])
+                registrar.doneInjecting();
         }
     }
 
