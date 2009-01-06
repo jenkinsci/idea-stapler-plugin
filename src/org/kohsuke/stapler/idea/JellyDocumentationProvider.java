@@ -3,6 +3,7 @@ package org.kohsuke.stapler.idea;
 import com.intellij.lang.documentation.DocumentationProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.xml.XmlElementDescriptor;
@@ -46,7 +47,7 @@ public class JellyDocumentationProvider implements DocumentationProvider {
                 if(m==null)     return null;
                 return m.generateHtmlDoc();
             }
-        }
+        } else
         if (p instanceof XmlAttribute) {
             XmlAttribute a = (XmlAttribute) p;
             XmlAttributeDescriptor ad = a.getDescriptor();
@@ -54,7 +55,28 @@ public class JellyDocumentationProvider implements DocumentationProvider {
                 XmlAttributeDescriptorImpl o = (XmlAttributeDescriptorImpl) ad;
                 return o.getModel().generateHtmlDoc();
             }
+        } else {
+            // if the nearest namespaced tag is <st:documentation> or <st:attribute>,
+            // render that document. This is just like what happens when you hit Ctrl+Q
+            // inside javadoc.
+            for( XmlTag tag = PsiTreeUtil.getParentOfType(usage, XmlTag.class);
+                 tag!=null;
+                 tag = tag.getParentTag() ) {
+                String ns = tag.getNamespace();
+                if(ns.equals("jelly:stapler")) {
+                    String ln = tag.getLocalName();
+                    if(ln.equals("documentation") || ln.equals("attribute")) {
+                        // to be pedantic, it could be new AttributeTag as well,
+                        // but that doesn't make any difference in the end result.
+                        return new DocumentationTag(tag).generateHtmlDoc();
+                    }
+                }
+                if(!ns.equals(""))
+                    break;
+            }
         }
+
+
         return null;
     }
 
