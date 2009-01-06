@@ -3,6 +3,11 @@ package org.kohsuke.stapler.idea.dom.model;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlTagChild;
 import org.jetbrains.annotations.NotNull;
+import net.java.textilej.parser.MarkupParser;
+import net.java.textilej.parser.builder.HtmlDocumentBuilder;
+import net.java.textilej.parser.markup.confluence.ConfluenceDialect;
+
+import java.io.StringWriter;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -16,7 +21,7 @@ public abstract class TagWithHtmlContent {
 
     /**
      * Generates documentation in HTML.
-     */
+     */l
     public String generateHtmlDoc() {
         StringBuilder buf = new StringBuilder();
         for (XmlTagChild child : tag.getValue().getChildren()) {
@@ -27,6 +32,28 @@ public abstract class TagWithHtmlContent {
             }
             buf.append(child.getText());
         }
-        return buf.toString();
+        // PSI returns "&lt;" in XML as "&lt;" instead of its proper infose '<',
+        // so we have to take care of them here:
+        int idx;
+        while((idx=buf.indexOf("&lt;"))>=0)
+            buf.replace(idx,idx+4,"<");
+        while((idx=buf.indexOf("&gt;"))>=0)
+            buf.replace(idx,idx+4,">");
+        while((idx=buf.indexOf("&amp;"))>=0)
+            buf.replace(idx,idx+4,"&");
+
+        StringWriter w = new StringWriter();
+        MarkupParser parser = new MarkupParser(new ConfluenceDialect());
+        HtmlDocumentBuilder builder = new HtmlDocumentBuilder(w) {
+            @Override
+            public void lineBreak() {
+                // no line break since IDEs usually don't wrap text. 
+            }
+        };
+
+        builder.setEmitAsDocument(false);
+        parser.setBuilder(builder);
+        parser.parse(buf.toString());
+        return w.toString();
     }
 }
