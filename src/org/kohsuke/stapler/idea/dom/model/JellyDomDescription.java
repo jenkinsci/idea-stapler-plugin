@@ -1,9 +1,8 @@
 package org.kohsuke.stapler.idea.dom.model;
 
-import com.intellij.util.xml.DomFileDescription;
-import com.intellij.psi.xml.XmlFile;
 import com.intellij.openapi.module.Module;
-import org.kohsuke.stapler.idea.dom.model.JellyTag;
+import com.intellij.psi.xml.XmlFile;
+import com.intellij.util.xml.DomFileDescription;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
