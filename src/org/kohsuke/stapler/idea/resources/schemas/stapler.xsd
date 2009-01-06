@@ -15,7 +15,7 @@
 <xsd:complexType mixed="true">
 <xsd:attribute name="value" use="required">
 <xsd:annotation>
-<xsd:documentation/>
+<xsd:documentation>HTTP status code to send back.</xsd:documentation>
 </xsd:annotation>
 </xsd:attribute>
 <xsd:attribute name="trim">
@@ -37,7 +37,8 @@
 <xsd:complexType mixed="true">
 <xsd:attribute name="url" use="required">
 <xsd:annotation>
-<xsd:documentation>Sets the target URL to redirect to.</xsd:documentation>
+<xsd:documentation>Sets the target URL to redirect to. This just gets passed
+ to org.kohsuke.stapler.StaplerResponse.sendRedirect2(String).</xsd:documentation>
 </xsd:annotation>
 </xsd:attribute>
 <xsd:attribute name="trim">
@@ -213,12 +214,12 @@
 <xsd:complexType mixed="true">
 <xsd:attribute name="name" use="required">
 <xsd:annotation>
-<xsd:documentation/>
+<xsd:documentation>Header name.</xsd:documentation>
 </xsd:annotation>
 </xsd:attribute>
 <xsd:attribute name="value" use="required">
 <xsd:annotation>
-<xsd:documentation/>
+<xsd:documentation>Header value.</xsd:documentation>
 </xsd:annotation>
 </xsd:attribute>
 <xsd:attribute name="trim">
@@ -398,6 +399,12 @@
 <xsd:annotation>
 <xsd:documentation>If it makes sense, describe the Java type that the attribute
  expects as values.</xsd:documentation>
+</xsd:annotation>
+</xsd:attribute>
+<xsd:attribute name="deprecated">
+<xsd:annotation>
+<xsd:documentation>If the attribute is deprecated, set to true.
+ Use of the deprecated attribute will cause a warning.</xsd:documentation>
 </xsd:annotation>
 </xsd:attribute>
 <xsd:attribute name="trim">
