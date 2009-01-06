@@ -379,6 +379,9 @@
  the meaning of an attribute in a natural language.</xsd:documentation>
 </xsd:annotation>
 <xsd:complexType mixed="true">
+<xsd:sequence>
+<xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence>
 <xsd:attribute name="name" use="required">
 <xsd:annotation>
 <xsd:documentation>Name of the attribute.</xsd:documentation>
