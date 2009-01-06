@@ -13,7 +13,7 @@
       <xsd:documentation>Generates java objects using JaxMe.This object can be marshalled into xml and the results unmarshalled using JaxMe.
         <authortag>&lt;a href="mailto:joe@ispsoft.de"&gt;Jochen Wiedmann&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:dev at commons.apache.org"&gt;Apache Commons Development Team&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -54,7 +54,7 @@
         <p>The result is placed into the processed content for further processing by enclosing tags.</p>
         <authortag>&lt;a href="mailto:joe@ispsoft.de"&gt;Jochen Wiedmann&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:dev at commons.apache.org"&gt;Apache Commons Development Team&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -95,7 +95,7 @@
         <p>This tag unmarshalls the xml content contained into the JaxMe generated java objects in the packages specified.</p>
         <authortag>&lt;a href="mailto:joe@ispsoft.de"&gt;Jochen Wiedmann&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:dev at commons.apache.org"&gt;Apache Commons Development Team&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

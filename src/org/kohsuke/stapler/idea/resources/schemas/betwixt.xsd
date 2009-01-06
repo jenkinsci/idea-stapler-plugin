@@ -11,7 +11,7 @@
     <xsd:annotation>
       <xsd:documentation>Parses some XML specified via the given URI (which can be relative or an absolute URL) and outputs theparsed object. Typically this tag is customized by setting the introspector attribute or nesting a childintrospector tag inside it.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -74,7 +74,7 @@
     <xsd:annotation>
       <xsd:documentation>Creates a Betwixt XMLIntrospector instance that can be used by the other Betwixt tags.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

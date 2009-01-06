@@ -11,7 +11,7 @@
     <xsd:annotation>
       <xsd:documentation>Invokes a web service
         <authortag>&lt;a href="mailto:jim@bnainc.net"&gt;James Birchfield&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -79,7 +79,7 @@
     <xsd:annotation>
       <xsd:documentation>Invokes a web service
         <authortag>&lt;a href="mailto:jim@bnainc.net"&gt;James Birchfield&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

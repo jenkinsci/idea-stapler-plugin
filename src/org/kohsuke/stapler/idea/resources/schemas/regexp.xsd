@@ -7,7 +7,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag checks whether a regexp contains a string.
         <authortag>&lt;a href="mailto:christian@inx-soft.com"&gt;Christian Amor Kvalheim&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -55,7 +55,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag checks whether a regexp matches a string.
         <authortag>&lt;a href="mailto:christian@inx-soft.com"&gt;Christian Amor Kvalheim&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

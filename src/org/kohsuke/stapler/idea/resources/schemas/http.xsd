@@ -9,7 +9,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag to hold request headers
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -51,7 +51,7 @@
     <xsd:annotation>
       <xsd:documentation>A http get tag
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -213,7 +213,7 @@
     <xsd:annotation>
       <xsd:documentation>A http put
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -329,7 +329,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag to hold parameters
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -441,7 +441,7 @@
     <xsd:annotation>
       <xsd:documentation>A http delete tag
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -580,7 +580,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag to set the body for posts and puts etc
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -608,7 +608,7 @@
     <xsd:annotation>
       <xsd:documentation>A http get tag
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -678,7 +678,7 @@
     <xsd:annotation>
       <xsd:documentation>A http get tag
         <authortag>dion</authortag>
-        <versiontag>$Id: http.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: http.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

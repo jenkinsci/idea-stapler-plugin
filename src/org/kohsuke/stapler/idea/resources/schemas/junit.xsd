@@ -17,7 +17,7 @@
     <xsd:annotation>
       <xsd:documentation>Performs an assertion that a given boolean expression, or XPath expression istrue. If the expression returns false then this test fails.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -55,7 +55,7 @@
     <xsd:annotation>
       <xsd:documentation>Represents a collection of TestCases.. This tag is analagous toJUnit's TestSuite class.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -93,7 +93,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag will run the given Test which could be an individual TestCase or a TestSuite.The TestResult can be specified to capture the output, otherwise the results are outputas XML so that they can be formatted in some custom manner.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -142,7 +142,7 @@
     <xsd:annotation>
       <xsd:documentation>Checks that a file exists, and if not, then the test will fail.
         <authortag>&lt;a href="mailto:dion@apache.org"&gt;Dion Gillard&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -177,7 +177,7 @@
     <xsd:annotation>
       <xsd:documentation>Compares an actual object against an expected object and if they are differentthen the test will fail.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -215,7 +215,7 @@
     <xsd:annotation>
       <xsd:documentation>Represents a single test case in a test suite; this tag is analagous toJUnit's TestCase class.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -248,7 +248,7 @@
     <xsd:annotation>
       <xsd:documentation>Checks that a file cant be found.
         <authortag>&lt;a href="mailto:dion@apache.org"&gt;Dion Gillard&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -283,7 +283,7 @@
     <xsd:annotation>
       <xsd:documentation>Checks that a file exists, and if not, then the test will fail.
         <authortag>&lt;a href="mailto:dion@apache.org"&gt;Dion Gillard&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -323,7 +323,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag causes a failure message. The message can eitherbe specified in the tags body or via the message attribute.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

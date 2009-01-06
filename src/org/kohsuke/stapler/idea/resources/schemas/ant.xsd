@@ -56,7 +56,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which creates a new FileScanner bean instance that can be used toiterate over fileSets
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

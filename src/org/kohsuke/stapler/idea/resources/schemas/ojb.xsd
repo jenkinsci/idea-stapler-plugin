@@ -12,7 +12,7 @@
       <xsd:documentation>
         <p>This Store tag will store the given object in ObjectBridge usingthe given broker or it will use the parent broker tags broker instance.</p>
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -51,7 +51,7 @@
       <xsd:documentation>
         <p>Tag handler for &lt;Driver&gt;in JSTL, used to createa simple DataSource for prototyping.</p>
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

@@ -12,7 +12,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag validates its body using a schema Verifier which canvalidate against DTDs, XML Schema, RelaxNG, Relax or TREX.Any JARV compliant Verifier could be used.The error messages are output as XML events so that they can be styled by the parent tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -55,7 +55,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag performs an assertion that the tags body contains XMLwhich matches a givem schema validation. This tag is used withJellyUnit to implement an assertion.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -98,7 +98,7 @@
     <xsd:annotation>
       <xsd:documentation>This tag creates a new Verifier of a schema as a variableso that it can be used by a &lt;validate&gt;tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

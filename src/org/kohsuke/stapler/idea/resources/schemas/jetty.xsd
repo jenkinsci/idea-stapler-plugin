@@ -9,7 +9,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare an instance of a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -51,7 +51,7 @@
     <xsd:annotation>
       <xsd:documentation>Respond to a POST request to a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -79,7 +79,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare a user realm for a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -121,7 +121,7 @@
     <xsd:annotation>
       <xsd:documentation>Respond to a DELETE request to a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -149,7 +149,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare a not found resource handler for a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -177,7 +177,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare a security handler for a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -239,7 +239,7 @@
     <xsd:annotation>
       <xsd:documentation>A resource handler that uses Jelly scripts to provide resourcesto a context in a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -267,7 +267,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare a socket listener for a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -375,7 +375,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare a static file resource handler for a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -410,7 +410,7 @@
     <xsd:annotation>
       <xsd:documentation>Respond to a GET request to a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -438,7 +438,7 @@
     <xsd:annotation>
       <xsd:documentation>Declare a context for a Jetty http server
         <authortag>rtl</authortag>
-        <versiontag>$Id: jetty.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: jetty.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

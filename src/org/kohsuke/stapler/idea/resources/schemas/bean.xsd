@@ -10,7 +10,7 @@
       <xsd:documentation>Creates a bean for the given tag which is then either output as a variableor can be added to a parent tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
         <authortag>Christian Sell</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -44,7 +44,7 @@
       <xsd:documentation>Creates a nested property via calling a beans createFoo() method theneither calling the setFoo(value) or addFoo(value) methods in a similar wayto how Ant tags construct themselves.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
         <authortag>Christian Sell</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -77,7 +77,7 @@
     <xsd:annotation>
       <xsd:documentation>Binds a Java bean to the given named Jelly tag so that the attributes ofthe tag set the bean properties..
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

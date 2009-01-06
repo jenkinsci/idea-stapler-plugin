@@ -11,7 +11,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which parses some HTML and defines a variable with the parsed Document.The HTML can either be specified as its body or can be passed in via thehtml property which can be a Reader, InputStream, URL or String URI.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

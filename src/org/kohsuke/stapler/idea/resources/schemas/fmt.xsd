@@ -7,7 +7,7 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;setLocale&gt;, the bundle settingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -50,7 +50,7 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;formatDate&gt;, the date and time formattingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
         <tasktag>i18n exception message</tasktag>
       </xsd:documentation>
     </xsd:annotation>
@@ -135,7 +135,7 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;setTimeZone&gt;, the time zone settingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -258,7 +258,7 @@
     <xsd:annotation>
       <xsd:documentation>Support for tag handlers for &lt;timeZone&gt;, the time zone loadingtag in JSTL.
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
         <tasktag>decide how to implement setResponseLocale</tasktag>
       </xsd:documentation>
     </xsd:annotation>

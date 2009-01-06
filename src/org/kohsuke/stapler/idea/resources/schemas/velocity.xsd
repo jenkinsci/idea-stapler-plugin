@@ -7,7 +7,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag that uses Velocity to render a specified template with theJellyContext storing the results in either a variable in theJellyContext or in a specified file.
         <authortag>&lt;a href="mailto:pete-apache-dev@kazmier.com"&gt;Pete Kazmier&lt;/a&gt;</authortag>
-        <versiontag>$Id: velocity.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: velocity.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

@@ -9,7 +9,7 @@
     <xsd:annotation>
       <xsd:documentation>The &lt;invoke&gt;tag will invoke a given Script instance.It can be used with the &lt;script&gt;tag which defines scriptsas variables that can later be invoked by this &lt;invoke&gt;tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -43,7 +43,7 @@
       <xsd:documentation>&lt;extend&gt;is used to extend a dynamic tag defined in an inheriteddynamic tag library
         <p/>
         <authortag>&lt;a href="mailto:tima@intalio.com"&gt;Tim Anderson&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
         <seetag>SuperTag</seetag>
       </xsd:documentation>
     </xsd:annotation>
@@ -77,7 +77,7 @@
     <xsd:annotation>
       <xsd:documentation>Binds a Java bean to the given named Jelly tag so that the attributes ofthe tag set the bean properties..
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -126,7 +126,7 @@
       <xsd:documentation>Creates a new
         <code>URLClassLoader</code>to dynamicallyload tags froms.
         <authortag>&lt;a href="mailto:stephenh@chase3000.com"&gt;Stephen Haberman&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -188,7 +188,7 @@
     <xsd:annotation>
       <xsd:documentation>&lt;script&gt;tag is used to assign a Script objectto a variable. The script can then be called whenever the user wishesmaybe from inside an expression or more typically via the &lt;invoke&gt;tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -221,7 +221,7 @@
     <xsd:annotation>
       <xsd:documentation>&lt;invokeBody&gt;tag is used inside a &lt;tag&gt;tag(i.e. the definition of a dynamic tag) to invoke the tags body whenthe tag is invoked.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -249,7 +249,7 @@
     <xsd:annotation>
       <xsd:documentation>&lt;super&gt;tag is used to invoke a parent tag implementation, whena tag extends an existing tag
         <authortag>&lt;a href="mailto:tima@intalio.com"&gt;Tim Anderson&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
         <seetag>ExtendTag</seetag>
       </xsd:documentation>
     </xsd:annotation>
@@ -279,7 +279,7 @@
       <xsd:documentation>This tag is bound onto a Java Bean class. When the tag is invoked a bean will be createdusing the tags attributes.The bean may also have an invoke method called invoke(), run(), execute() or some such methodwhich will be invoked after the bean has been configured.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
         <authortag>&lt;a href="mailto:jason@zenplex.com"&gt;Jason van Zyl&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -322,7 +322,7 @@
     <xsd:annotation>
       <xsd:documentation>&lt;tag&gt;is used to define a new tagusing a Jelly script to implement the behaviour of the tag.Parameters can be passed into the new tag using normal XML attributenotations. Inside the body of the tag definition, the attributes canbe accessed as normal Jelly variables.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -355,7 +355,7 @@
     <xsd:annotation>
       <xsd:documentation>Binds a Java bean to the given named Jelly tag so that the attributes ofthe tag set the bean properties..
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -398,7 +398,7 @@
     <xsd:annotation>
       <xsd:documentation>Binds a Java bean to the given named Jelly tag so that the attributes ofthe tag set the bean properties. After the body of this tag is invokedthen the beans invoke() method will be called, if the bean has one.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -451,7 +451,7 @@
     <xsd:annotation>
       <xsd:documentation>The &lt;taglib&gt;tag is used to define a new tag libraryusing a Jelly script. The tag library is identified by its URI.The tags for a taglib are declared using the org.apache.commons.jelly.tags.define.TagTag.You can 'inherit' tags from a previously defined taglib, as well,allowing runtime extension of tag libraries
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

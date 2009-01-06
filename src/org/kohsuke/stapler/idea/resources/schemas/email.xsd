@@ -10,7 +10,7 @@
       <xsd:documentation>Basic tag for sending an email. Supports one attachment, multiple to addresses delimited by ";",multiple cc addresses, etc.
         <authortag>Jason Horman</authortag>
         <authortag>&lt;a href="mailto:willievu@yahoo.com"&gt;Willie Vu&lt;/a&gt;</authortag>
-        <versiontag>$Id: email.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: email.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

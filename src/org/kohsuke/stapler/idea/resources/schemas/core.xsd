@@ -9,7 +9,7 @@
     <xsd:annotation>
       <xsd:documentation>The root Jelly tag which should be evaluated first
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -37,7 +37,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which terminates the execution of the current &lt;forEach&gt;or &amp;lg;while&gt;loop. This tag can take an optional boolean test attribute which if its truethen the break occurs otherwise the loop continues processing.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -81,7 +81,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which sets a variable from the result of an expression
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -144,7 +144,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which calls a method in an object instantied by core:new
         <authortag>Rodney Waldhoff</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -192,7 +192,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which conditionally evaluates its body based on some condition
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -225,7 +225,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which conditionally evaluates its body based on some condition
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -337,7 +337,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which conditionally evaluates its body based on some condition
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -366,7 +366,7 @@
       <xsd:documentation>A tag which performs an iteration while the result of an expression is true.
         <authortag>&lt;a href="mailto:eric@ericalexander.net"&gt;Eric Alexander&lt;/a&gt;</authortag>
         <authortag>dIon Gillard</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -401,7 +401,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which creates a List implementation and optionallyadds all of the elements identified by the items attribute.The exact implementation of List can be specified via theclass attribute
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -438,7 +438,7 @@
         <br/>
         <ul><li>var - The variable to which to assign the resulting value.</li><li>field - The name of the static field to retrieve.</li><li>className - The name of the class containing the static field.</li></ul>Example usage:
         <pre> &lt;j:getStatic var="closeOperation" className="javax.swing.JFrame"field="EXIT_ON_CLOSE"/&gt;</pre>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -487,7 +487,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which creates a new child variable scope for its body.So any variables defined within its body will no longer be in scopeafter this tag.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -515,7 +515,7 @@
     <xsd:annotation>
       <xsd:documentation>A simple tag used to preserve whitespace inside its body
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -543,7 +543,7 @@
     <xsd:annotation>
       <xsd:documentation>An argument to a org.apache.commons.jelly.tags.core.NewTagor org.apache.commons.jelly.tags.core.InvokeTag.This tag MUST be enclosed within an org.apache.commons.jelly.tags.core.ArgTagParentimplementation.
         <authortag>Rodney Waldhoff</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -605,7 +605,7 @@
         <seetag>CaseTag</seetag>
         <seetag>DefaultTag</seetag>
         <authortag>Rodney Waldhoff</authortag>
-        <versiontag>$Revision: 827 $ $Date: 2009-01-04 20:01:11 -0800 (Sun, 04 Jan 2009) $</versiontag>
+        <versiontag>$Revision: 847 $ $Date: 2009-01-05 20:57:19 -0800 (Mon, 05 Jan 2009) $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -641,7 +641,7 @@
       <xsd:documentation>A tag which instantiates an instance of the given classand then sets the properties on the bean.The class can be specified via a java.lang.Classinstance ora String which will be used to load the class using either the currentthread's context class loader or the class loader used to load thisJelly library.This tag can be used it as follows,
         <pre> &lt;j:useBean var="person" class="com.acme.Person" name="James" location="${loc}"/&gt; &lt;j:useBean var="order" class="${orderClass}" amount="12" price="123.456"/&gt;</pre>
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -676,7 +676,7 @@
     <xsd:annotation>
       <xsd:documentation>Parses the output of this tags body or of a given String as a Jelly scriptthen either outputting the Script as a variable or executing the script.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -728,7 +728,7 @@
     <xsd:annotation>
       <xsd:documentation>The otherwise block of a choose/when/otherwise group of tags
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -756,7 +756,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which catches exceptions thrown by its body.This allows conditional logic to be performed based on if exceptionsare thrown or to do some kind of custom exception logging logic.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -804,7 +804,7 @@
       <xsd:documentation>A tag which conditionally evaluates its body ifnone of its preceeding sibling &lt;case&gt;tags have been evaluated.This tag must be contained within the body of some &lt;switch&gt;tag.
         <seetag>SwitchTag</seetag>
         <authortag>Rodney Waldhoff</authortag>
-        <versiontag>$Revision: 827 $ $Date: 2009-01-04 20:01:11 -0800 (Sun, 04 Jan 2009) $</versiontag>
+        <versiontag>$Revision: 847 $ $Date: 2009-01-05 20:57:19 -0800 (Mon, 05 Jan 2009) $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -837,7 +837,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which removes the variable of the given name from the current variable scope.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -917,7 +917,7 @@
       <xsd:documentation>A tag which conditionally evaluates its body ifmy valueattribute equals my ancestor &lt;switch&gt;tag's "on"attribute.This tag must be contained within the body of some &lt;switch&gt;tag.
         <seetag>SwitchTag</seetag>
         <authortag>Rodney Waldhoff</authortag>
-        <versiontag>$Revision: 827 $ $Date: 2009-01-04 20:01:11 -0800 (Sun, 04 Jan 2009) $</versiontag>
+        <versiontag>$Revision: 847 $ $Date: 2009-01-05 20:57:19 -0800 (Mon, 05 Jan 2009) $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -956,7 +956,7 @@
       <xsd:documentation>A tag which executes its body but passing no output.
         <p>Using this tag will still take the time to perform toString on each objectreturned to the output (but this toString value is discarded.A future version should go more internally so that this is avoided.</p>
         <authortag>&lt;a href="mailto:paul@activemath.org"&gt;Paul Libbrecht&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -987,7 +987,7 @@
           <code>inherit</code>attribute.
         </p>
         <authortag>&lt;a href="mailto:bob@eng.werken.com"&gt;bob mcwhirter&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -1034,7 +1034,7 @@
         <a href="http://java.sun.com/products/jsp/jstl/">JSTL</a>
         <code>forEach</code>tag does.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -1099,7 +1099,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which conditionally evaluates its body based on some condition
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -1135,7 +1135,7 @@
       <xsd:documentation>A tag which evaluates an expression
         <tagtag>out</tagtag>
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -1175,7 +1175,7 @@
           <ul><li>var - The variable to assign the return of the method call to</li><li>method - The name of the static method to invoke</li><li>className - The name of the class containing the static method</li></ul>
         </p>
         <authortag>&lt;a href="mailto:robert@bull-enterprises.com&gt;Robert McIntosh&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -1229,7 +1229,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which creates a new object of the given type
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -1284,7 +1284,7 @@
         <pre> &lt;j:new className="com.acme.Person" var="person"/&gt; &lt;j:setProperties object="${person}" name="James" location="${loc}"/&gt;</pre>Then it would set the name and location properties on the bean denoted bythe expression ${person}.
         <p>This tag can also be nested inside a bean tag such as the &lt;useBean&gt;tagor a JellySwing tag to set one or more properties, maybe inside some conditionallogic.</p>
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

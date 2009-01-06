@@ -9,7 +9,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which defines a variable from an XPath expression.This function creates a variable of type java.util.Listor org.dom4j.Node(for example org.dom4j.Elementor org.dom4j.Attribute).Thus, the variable created from xml:set can beused from the other xml library functions.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -72,7 +72,7 @@
       <xsd:documentation>A tag to produce an XML element which can contain other attributesor elements like the
         <code>&lt;xsl:element&gt;</code>tag.
         <authortag>James Strachan</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -137,7 +137,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which outputs a comment to the underlying XMLOutput based on thecontents of its body.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -167,7 +167,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which parses some XML, applies an xslt transform to itand defines a variable with the transformed Document.The XML can either be specified as its body or can be passed in via thexml property which can be a Reader, InputStream, URL or String URI.The XSL can be passed in via thexslt property which can be a Reader, InputStream, URL or String URI.
         <authortag>Robert Leftwich</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -224,7 +224,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which parses some XML and defines a variable with the parsed Document.The XML can either be specified as its body or can be passed in via thexml property which can be a Reader, InputStream, URL or String URI.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -274,7 +274,7 @@
     <xsd:annotation>
       <xsd:documentation>Sets a parameter in the parent transform tag
         <authortag>Robert Leftwich</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -371,7 +371,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag that can sort a list of xml nodes via an xpath expression.
         <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
-        <versiontag>$Id: xml.xsd 827 2009-01-05 04:01:11Z kohsuke $</versiontag>
+        <versiontag>$Id: xml.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -410,7 +410,7 @@
       <xsd:documentation>Adds an XML attribute to the parent element tag likethe
         <code>&lt;xsl:attribute&gt;</code>tag.
         <authortag>James Strachan</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -443,7 +443,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which performs an iteration over the results of an XPath expression
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -486,7 +486,7 @@
     <xsd:annotation>
       <xsd:documentation>Evaluates the XPath expression to be a boolean and only evaluates the bodyif the expression is true.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -514,7 +514,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;in XSLT
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -542,7 +542,7 @@
     <xsd:annotation>
       <xsd:documentation>A tag which outputs a DOCTYPE declaration to the current XML output pipe.Note that there should only be a single DOCTYPE declaration in any XML stream andit should occur before any element content.
         <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 827 $</versiontag>
+        <versiontag>$Revision: 847 $</versiontag>
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
