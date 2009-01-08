@@ -119,7 +119,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
                         if(pkg==null)   return null;
 
                         Module m = ModuleUtil.findModuleForFile(f.getVirtualFile(), f.getProject());
-                        PsiClass c = javaFacade.findClass(pkg.getName(), GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m));
+                        PsiClass c = javaFacade.findClass(pkg.getQualifiedName(), GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m));
                         if(c==null)     return null;
                         c = c.getSuperClass();
                         for( ; c!=null; c=c.getSuperClass()) {
@@ -127,7 +127,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
                             if(pkg!=null) {
                                 for (PsiDirectory dir : pkg.getDirectories()) {
                                     target = dir.findFile(page);
-                                    if(target!=null) return f;
+                                    if(target!=null) return target;
                                 }
                             }
                         }
