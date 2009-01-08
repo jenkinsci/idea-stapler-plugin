@@ -6,6 +6,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.PsiReferenceProvider;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiPackage;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlTag;
@@ -82,11 +84,25 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
             // the page must be coming from the same object
             return array(new PsiReferenceBase<XmlAttributeValue>(xav,
                     TextRange.from(1,xav.getTextLength()-2)) {
+                private final String page = xav.getValue();
                 public PsiFile resolve() {
-                    PsiFile f = xav.getContainingFile();
-                    PsiDirectory p = f.getParent();
-                    if(p==null) return null;
-                    return p.findFile(xav.getValue());
+                    if(page.startsWith("/")) {
+                        // absolute
+                        String pkg = page.substring(1,page.lastIndexOf('/')).replace('/','.');
+                        PsiPackage jpkg = JavaPsiFacade.getInstance(xav.getProject()).findPackage(pkg);
+                        if(jpkg==null)  return null;
+                        for (PsiDirectory dir : jpkg.getDirectories()) {
+                            PsiFile f = dir.findFile(page.substring(page.lastIndexOf('/') + 1));
+                            if(f!=null) return f;
+                        }
+                        return null;
+                    } else {
+                        // relative
+                        PsiFile f = xav.getContainingFile();
+                        PsiDirectory p = f.getParent();
+                        if(p==null) return null;
+                        return p.findFile(page);
+                    }
                 }
 
                 public Object[] getVariants() {
