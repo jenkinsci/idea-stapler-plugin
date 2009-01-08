@@ -30,6 +30,7 @@
             <configuration>
               <tasks>
                 <attachArtifact file="net.java.textilej_2.2.864.jar" />
+                <attachArtifact file="net.java.textilej_2.2.864.jar" classifier="sources" type="jar"/>
               </tasks>
             </configuration>
           </execution>
