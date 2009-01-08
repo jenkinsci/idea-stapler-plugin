@@ -3,7 +3,10 @@ package org.kohsuke.stapler.idea;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry;
+import com.intellij.psi.xml.XmlTag;
+import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.lang.injection.InjectedLanguageManager;
+import com.intellij.patterns.StandardPatterns;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +36,8 @@ public class StaplerProjectComponent implements ProjectComponent {
     }
 
     public void initComponent() {
+        JellyTagLibReferenceProvider p = new JellyTagLibReferenceProvider();
+        registry.registerReferenceProvider(StandardPatterns.instanceOf(XmlAttributeValue.class), p);
     /*
         With a custom XmlElementDescriptor, a custom reference provider is no longer necessary.
 
