@@ -131,6 +131,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
                                 }
                             }
                         }
+                        return null;
                     }
                 }
 
