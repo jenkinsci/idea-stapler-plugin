@@ -119,6 +119,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
                         if(pkg==null)   return null;
 
                         Module m = ModuleUtil.findModuleForFile(f.getVirtualFile(), f.getProject());
+                        if(m==null)     return null;
                         PsiClass c = javaFacade.findClass(pkg.getQualifiedName(), GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m));
                         if(c==null)     return null;
                         c = c.getSuperClass();
