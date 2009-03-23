@@ -63,12 +63,13 @@ public class JellyLanguageInjector implements MultiHostInjector {
             t.acceptChildren(new XmlElementVisitor() {
                 @Override
                 public void visitXmlText(XmlText text) {
+                    int len = text.getTextLength();
+                    if (len==0) return;
+                    
                     if(!started[0]) {
                         started[0] = true;
                         registrar.startInjecting(language);
                     }
-                    int len = text.getTextLength();
-                    if(len ==0) return;
                     registrar.addPlace(null,null,
                             (PsiLanguageInjectionHost)text,
                             TextRange.from(0, len));
