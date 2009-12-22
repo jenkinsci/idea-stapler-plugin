@@ -4,7 +4,7 @@
   <description>Stapler plugin for IntelliJ IDEA</description>
   <version>1.5</version>
   <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
-  <idea-version since-build="9000"/>
+  <idea-version since-build="93.13"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <!--
@@ -45,7 +45,9 @@
   </actions>
 
   <!-- needed for defining web facet -->
-  <depends>com.intellij.javaee</depends>
+  <!--depends>com.intellij.javaee</depends-->
+  <!-- needed for i18n support -->
+  <depends>com.intellij.properties</depends>
   <!-- this is needed for language injection -->
   <!--<depends>org.intellij.intelliLang</depends>-->
 

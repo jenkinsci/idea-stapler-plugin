@@ -154,7 +154,7 @@ public class I18nRefactorAction extends EditorAction {
                     }
                 }.run();
 
-                // IDEA bomed out saying I need to wrap the addProperty into this.
+                // IDEA bombed out saying I need to wrap the addProperty into this.
                 ApplicationManager.getApplication().runWriteAction(new Runnable() {
                     public void run() {
                         try {

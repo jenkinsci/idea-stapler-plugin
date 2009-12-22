@@ -12,6 +12,8 @@ import org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorImpl;
 import org.kohsuke.stapler.idea.descriptor.XmlAttributeDescriptorImpl;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
+import java.util.List;
+
 /**
  * @author Kohsuke Kawaguchi
  */
@@ -24,7 +26,7 @@ public class JellyDocumentationProvider implements DocumentationProvider {
      * Upon returning non-null from {@link #generateDoc(PsiElement, PsiElement)},
      * I noticed that this method is getting invoked.
      */
-    public String getUrlFor(PsiElement element, PsiElement originalElement) {
+    public List<String> getUrlFor(PsiElement element, PsiElement originalElement) {
         return null;
     }
 

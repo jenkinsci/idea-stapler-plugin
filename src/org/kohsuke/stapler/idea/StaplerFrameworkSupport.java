@@ -1,13 +1,14 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.facet.impl.ui.FacetTypeFrameworkSupportProvider;
+import com.intellij.facet.ui.FacetBasedFrameworkSupportProvider;
+import com.intellij.ide.util.frameworkSupport.FrameworkVersion;
 import com.intellij.openapi.roots.ModifiableRootModel;
 
 /**
  * This component exposes "stapler" as a facet to the new project wizard.
  * @author Kohsuke Kawaguchi
  */
-public class StaplerFrameworkSupport extends FacetTypeFrameworkSupportProvider<StaplerFacet> {
+public class StaplerFrameworkSupport extends FacetBasedFrameworkSupportProvider<StaplerFacet> {
     public StaplerFrameworkSupport() {
         super(StaplerFacetType.INSTANCE);
     }
@@ -18,7 +19,8 @@ public class StaplerFrameworkSupport extends FacetTypeFrameworkSupportProvider<S
 //        return new String[]{getProviderId(WebFacet.ID)};
 //    }
 
-    protected void setupConfiguration(StaplerFacet facet, ModifiableRootModel modifiablerootmodel, String s) {
+    @Override
+    protected void setupConfiguration(StaplerFacet facet, ModifiableRootModel rootModel, FrameworkVersion version) {
         // noop?
     }
 }

@@ -68,9 +68,7 @@ public class JellyCompletionContributer extends CompletionContributor {
     public JellyCompletionContributer() {
         extend(CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
                 XML_ELEMENT_NAME_PATTERN,
-                new CompletionProvider<CompletionParameters>(
-                        true, // true means completion from other sources are accepted. false means we'll suppress all the others
-                        true) {
+                new CompletionProvider<CompletionParameters>(true) {
                     // REFERENCE: spring plugin adds CompletionContributor as well.
                     protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {
                         XmlElement name = (XmlElement)parameters.getPosition();

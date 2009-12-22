@@ -149,6 +149,10 @@ public class GotoViewAction extends GotoActionBase {
                     return getElementName(obj);
                 }
             }
+
+            public String getHelpId() {
+                return null;
+            }
         };
 
         PsiDocumentManager.getInstance(project).commitAllDocuments();
