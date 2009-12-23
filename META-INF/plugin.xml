@@ -4,7 +4,7 @@
   <description>Stapler plugin for IntelliJ IDEA</description>
   <version>1.5</version>
   <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
-  <idea-version since-build="93.13"/>
+  <idea-version since-build="93.00"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <!--
