@@ -64,8 +64,8 @@ import org.kohsuke.stapler.idea.descriptor.XmlNSDescriptorImpl;
  *
  * @author Kohsuke Kawaguchi
  */
-public class JellyCompletionContributer extends CompletionContributor {
-    public JellyCompletionContributer() {
+public class JellyCompletionContributor extends CompletionContributor {
+    public JellyCompletionContributor() {
         extend(CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
                 XML_ELEMENT_NAME_PATTERN,
                 new CompletionProvider<CompletionParameters>(true) {
