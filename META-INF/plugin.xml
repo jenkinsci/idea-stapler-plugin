@@ -15,7 +15,7 @@
     -->
     <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
     <com.intellij.dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>
-    <completion.contributor language="XML" implementation="org.kohsuke.stapler.idea.JellyCompletionContributor" />
+    <completion.contributor language="XML" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor" />
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
     <!-- I initially thought of using this to drive auto-completion,
       but it doesn't really work as I hoped for. So I'm switching to CompletionContribuer.
