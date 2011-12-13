@@ -1,10 +1,10 @@
 <!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
 <idea-plugin>
   <name>Stapler plugin for IntelliJ IDEA</name>
-  <description>Stapler plugin for IntelliJ IDEA</description>
-  <version>1.6.2</version>
+  <description>Stapler plugin for IntelliJ IDEA 11</description>
+  <version>1.7</version>
   <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
-  <idea-version since-build="90.00"/>
+  <idea-version since-build="110.00"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <!--
