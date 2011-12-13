@@ -1,5 +1,6 @@
 package org.kohsuke.stapler.idea;
 
+import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesElementFactory;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.lang.properties.psi.Property;
@@ -159,8 +160,8 @@ public class I18nRefactorAction extends EditorAction {
                     public void run() {
                         try {
                             propsFile.addPropertyAfter(
-                                PropertiesElementFactory.createProperty(project,key,propertyValue.toString()),
-                                findAnchor(propsFile,key));
+                                (Property)PropertiesElementFactory.createProperty(project,key,propertyValue.toString()),
+                                (Property)findAnchor(propsFile,key));
                         } catch (IncorrectOperationException x) {
                             Messages.showErrorDialog(x.getMessage(),"Unable to add property");
                             return;
@@ -175,11 +176,11 @@ public class I18nRefactorAction extends EditorAction {
                         EditorModificationUtil.insertStringAtCaret(editor,expression.toString());
                     }
 
-                    private Property findAnchor(PropertiesFile propsFile, String key) {
-                        List<Property> list = propsFile.getProperties();
+                    private IProperty findAnchor(PropertiesFile propsFile, String key) {
+                        List<IProperty> list = propsFile.getProperties();
                         for(int i=0; i<list.size()-1; i++) {
-                            Property prev = list.get(i);
-                            Property next = list.get(i+1);
+                            IProperty prev = list.get(i);
+                            IProperty next = list.get(i+1);
                             if(prev.getKey().compareTo(key)<0 && key.compareTo(next.getKey())<0)
                                 return prev;
                         }

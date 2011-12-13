@@ -89,4 +89,8 @@ public class JellyDocumentationProvider implements DocumentationProvider {
     public PsiElement getDocumentationElementForLink(PsiManager psiManager, String link, PsiElement context) {
         return null;
     }
+
+    public String getQuickNavigateInfo(PsiElement psiElement, PsiElement psiElement1) {
+        return null;
+    }
 }

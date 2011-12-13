@@ -2,6 +2,7 @@ package org.kohsuke.stapler.idea;
 
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
+import com.intellij.psi.PsiReferenceRegistrar;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlAttributeValue;
@@ -20,8 +21,7 @@ public class StaplerProjectComponent implements ProjectComponent {
 
     public StaplerProjectComponent(Project project) {
         this.project = project;
-        registry = ReferenceProvidersRegistry.getInstance(project);
-
+        registry = ReferenceProvidersRegistry.getInstance();
     }
 
     public void projectOpened() {
@@ -36,8 +36,6 @@ public class StaplerProjectComponent implements ProjectComponent {
     }
 
     public void initComponent() {
-        JellyTagLibReferenceProvider p = new JellyTagLibReferenceProvider();
-        registry.registerReferenceProvider(StandardPatterns.instanceOf(XmlAttributeValue.class), p);
     /*
         With a custom XmlElementDescriptor, a custom reference provider is no longer necessary.
 

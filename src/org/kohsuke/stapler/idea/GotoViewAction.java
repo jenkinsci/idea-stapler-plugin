@@ -153,6 +153,10 @@ public class GotoViewAction extends GotoActionBase {
             public String getHelpId() {
                 return null;
             }
+
+            public boolean willOpenEditor() {
+                return true;
+            }
         };
 
         PsiDocumentManager.getInstance(project).commitAllDocuments();

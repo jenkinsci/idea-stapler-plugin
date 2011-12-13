@@ -2,6 +2,7 @@ package org.kohsuke.stapler.idea.descriptor;
 
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlAttributeDescriptor;
+import com.intellij.xml.XmlElementsGroup;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.schema.AnyXmlAttributeDescriptor;
 import com.intellij.psi.xml.XmlTag;
@@ -83,6 +84,11 @@ public class AnyElementDescriptorImpl implements XmlElementDescriptor {
     }
 
     public Object[] getDependences() {
+        // TODO
+        throw new UnsupportedOperationException();
+    }
+
+    public XmlElementsGroup getTopGroup() {
         // TODO
         throw new UnsupportedOperationException();
     }

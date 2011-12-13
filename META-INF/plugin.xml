@@ -34,7 +34,6 @@
     <!-- insert Action from the project view (Alt+1,Alt+INS) to see the possible locations -->
     <action id="GotoStaplerView" class="org.kohsuke.stapler.idea.GotoViewAction"
             text="Goto Stapler View" description="Jump from a Java class to its stapler views">
-            description="Jumps to the view">
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift P"/>
       <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoSuperMethod" />
     </action>
