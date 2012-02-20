@@ -2,7 +2,7 @@
 <idea-plugin>
   <name>Stapler plugin for IntelliJ IDEA</name>
   <description>Stapler plugin for IntelliJ IDEA 11</description>
-  <version>1.7</version>
+  <version>1.7.1</version>
   <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
   <idea-version since-build="110.00"/>
 
