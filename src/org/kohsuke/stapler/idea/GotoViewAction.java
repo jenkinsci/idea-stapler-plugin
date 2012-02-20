@@ -109,7 +109,7 @@ public class GotoViewAction extends GotoActionBase {
                         for (PsiFile file : dir.getFiles()) {
                             String name = file.getName();
                             if(name.endsWith(".jelly") || name.endsWith(".groovy"))
-                                r.add(name.substring(0,name.length()-6));
+                                r.add(name.substring(0,name.lastIndexOf('.')));
                         }
                     }
                 }
