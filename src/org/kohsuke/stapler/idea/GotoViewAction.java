@@ -108,7 +108,7 @@ public class GotoViewAction extends GotoActionBase {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {
                             String name = file.getName();
-                            if(name.endsWith(".jelly"))
+                            if(name.endsWith(".jelly") || name.endsWith(".groovy"))
                                 r.add(name.substring(0,name.length()-6));
                         }
                     }
@@ -120,7 +120,7 @@ public class GotoViewAction extends GotoActionBase {
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {
-                            if(file.getName().equals(name+".jelly"))
+                            if(file.getName().equals(name+".jelly") || file.getName().equals(name+".groovy"))
                                 return new Object[]{file};
                         }
                     }
@@ -173,6 +173,5 @@ public class GotoViewAction extends GotoActionBase {
             }
         }, ModalityState.current(), true);
     }
-
 }
 
