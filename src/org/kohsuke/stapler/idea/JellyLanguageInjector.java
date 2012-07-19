@@ -31,6 +31,9 @@ public class JellyLanguageInjector implements MultiHostInjector {
         if (context instanceof XmlAttributeValue) {
             final XmlAttributeValue value = (XmlAttributeValue)context;
 
+            if (!(value.getParent() instanceof XmlAttribute))
+                return; // not an XML attribute, probably an XML PI
+
             XmlAttribute a = (XmlAttribute) value.getParent();
             if(!a.getName().equals("style"))
                 return; // not a style attribute
@@ -43,6 +46,7 @@ public class JellyLanguageInjector implements MultiHostInjector {
                     (PsiLanguageInjectionHost)value,
                     TextRange.from(1, value.getTextLength() - 2));
             registrar.doneInjecting();
+            return;
         }
         
         // inject JavaScript to <script>
