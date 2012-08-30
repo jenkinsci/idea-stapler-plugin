@@ -92,4 +92,8 @@ public class AnyElementDescriptorImpl implements XmlElementDescriptor {
         // TODO
         throw new UnsupportedOperationException();
     }
+
+    public String getDefaultValue() {
+        return null;
+    }
 }
