@@ -69,6 +69,9 @@ public class GotoViewAction extends GotoActionBase {
         if(viewPackages.isEmpty())  return; // no views
 
         ChooseByNameModel model = new ChooseByNameModel() {
+            public boolean useMiddleMatching() {
+                return false;
+            }
 
             public String getPromptText() {
                 return "Enter view name:";
