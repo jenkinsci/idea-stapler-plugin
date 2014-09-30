@@ -18,6 +18,10 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.XmlNSDescriptorImpl;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -48,9 +52,43 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
                         URL res = getClass().getClassLoader().getResource(name);
                         if (res==null)
                             throw new AssertionError("Failed to find schema resource: "+name);
-                        erm.addResource(
-                                "jelly:"+s,  // namespace URI
-                                res.toExternalForm());
+
+                        { // Mangle Resource URL to match what IntelliJ expects for the location argument
+                            String extForm = res.toExternalForm();
+                            String jarSuffix = "";
+
+                            { // Strip jar: prefix and !-suffix before fixing embedded file: url
+                                if (extForm.startsWith("jar:")) {
+                                    int bangIndex = extForm.indexOf('!');
+                                    if (bangIndex >= 0) {
+                                        jarSuffix = extForm.substring(bangIndex);
+                                        extForm = extForm.substring("jar:".length(), bangIndex);
+                                    } else {
+                                        extForm = extForm.substring("jar:".length());
+                                    }
+                                }
+                            }
+
+                            { // convert file: URL to path, per
+                              // https://weblogs.java.net/blog/kohsuke/archive/2007/04/how_to_convert.html
+                                if (extForm.startsWith("file:")) {
+                                    try {
+                                        extForm = new File(new URI(extForm)).getPath();
+                                    } catch (URISyntaxException e) {
+                                        try {
+                                            extForm = new File(new URL(extForm).getPath()).getPath();
+                                        } catch (MalformedURLException l) {
+                                            extForm = extForm.substring("file:".length());
+                                        }
+                                    }
+
+                                }
+                            }
+                            
+                            erm.addResource(
+                                    "jelly:"+s,  // namespace URI
+                                    extForm + jarSuffix); // re-append !-suffix
+                        }
                     }
                 }
             }
