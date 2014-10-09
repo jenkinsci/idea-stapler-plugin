@@ -45,7 +45,6 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
                 }
 
                 {// register schemas for Jelly
-                    ExternalResourceManager erm = ExternalResourceManager.getInstance();
                     String[] schemas = {"ant","antlr","bean","beanshell","betwixt","bsf","core","define","dynabean","email","fmt","html","http","interaction","jaxme","jetty","jface","jms","jmx","jsl","junit","log","memory","ojb","quartz","regexp","soap","sql","swing","swt","threads","util","validate","velocity","xml","xmlunit","stapler"};
                     for( String s: schemas ) {
                         String name = "/org/kohsuke/stapler/idea/resources/schemas/" + s + ".xsd";
@@ -53,31 +52,47 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
                         if (res==null)
                             throw new AssertionError("Failed to find schema resource: "+name);
 
-                        { // Mangle Resource URL to match what IntelliJ expects for the location argument
-                            String extForm = res.toExternalForm();
-
-                            // the intention was to call URLUtil directly, but there appears to be some build
-                            // incompatibility that is simply easier to work around by copying the method source into
-                            // this class
-                            Pair<String, String> pair = splitJarUrl(extForm);
-                            if (pair != null) {
-
-                                // This procedure is necessary for complete support for this resource in the
-                                // {@link MapExternalResourceDialog}, but is not necessary for Jelly namespace resolution
-                                // in the editor
-                                extForm = pair.first + URLUtil.JAR_SEPARATOR + pair.second;
-                            } else {
-                                // the scheme separator appears to be minimally necessary for the Jelly URLResolver to
-                                // identify this as a proper file: url.
-                                extForm = extForm.replaceAll("file:", "file://");
-                            }
-
-                            erm.addResource(
-                                    "jelly:"+s,  // namespace URI
-                                    URLUtil.unescapePercentSequences(extForm)); // xmlns checking fails without this call
-                        }
+                        registerSchema(s, res);
                     }
                 }
+            }
+
+            /**
+             * Registers the schema file in the given URL for the taglib.
+             *
+             * <p>
+             * {@link ExternalResourceManager} do not expect an URL but instead it wants
+             * "$jarFilePath:$resourcePath" where "$jarFilePath" is a file system path,
+             * and $resourcePath is a relative path within the archive to the file.
+             *
+             * <p>
+             * So we need to decompose the URL into those two fragments.
+             */
+            private void registerSchema(String taglib, URL schema) {
+                ExternalResourceManager erm = ExternalResourceManager.getInstance();
+
+                // Mangle Resource URL to match what IntelliJ expects for the location argument
+                String extForm = schema.toExternalForm();
+
+                // the intention was to call URLUtil directly, but there appears to be some build
+                // incompatibility that is simply easier to work around by copying the method source into
+                // this class
+                Pair<String, String> pair = splitJarUrl(extForm);
+                if (pair != null) {
+
+                    // This procedure is necessary for complete support for this resource in the
+                    // {@link MapExternalResourceDialog}, but is not necessary for Jelly namespace resolution
+                    // in the editor
+                    extForm = pair.first + URLUtil.JAR_SEPARATOR + pair.second;
+                } else {
+                    // the scheme separator appears to be minimally necessary for the Jelly URLResolver to
+                    // identify this as a proper file: url.
+                    extForm = extForm.replaceAll("file:", "file://");
+                }
+
+                erm.addResource(
+                        "jelly:"+taglib,  // namespace URI
+                        URLUtil.unescapePercentSequences(extForm)); // xmlns checking fails without this call
             }
         });
 
