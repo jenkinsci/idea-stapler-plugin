@@ -51,8 +51,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
                 
                 PsiFile f = child.getContainingFile();
                 XmlNSDescriptor nsd = ((XmlFile)f).getDocument().getDefaultNSDescriptor(child.getNamespace(), false);
-                XmlElementDescriptor d = nsd.getElementDescriptor(child);
-                return d;
+                return (nsd == null) ? null : nsd.getElementDescriptor(child);
             }
 
         } else
