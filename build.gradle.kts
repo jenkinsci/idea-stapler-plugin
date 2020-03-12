@@ -28,6 +28,7 @@ configure<JavaPluginConvention> {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>""")
+      Support IDEA 12.<br>
+      Fix NullPointerException.<br>
+      Resolved jelly namespace URIs to embedded XSDs to support syntax completion.""")
 }
