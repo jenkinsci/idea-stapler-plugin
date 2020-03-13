@@ -25,6 +25,7 @@
                   extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
     -->
     <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlSchemaProviderImpl" />
+    <multiHostInjector implementation="org.kohsuke.stapler.idea.JellyLanguageInjector" />
    </extensions>
   <!-- intelli lang plugin isn't needed for just doing injection
   <extensions defaultExtensionNs="org.intellij.intelliLang">
@@ -64,9 +65,4 @@
           <implementation-class>org.kohsuke.stapler.idea.StaplerApplicationComponent</implementation-class>
       </component>
   </application-components>
-  <project-components>
-      <component>
-          <implementation-class>org.kohsuke.stapler.idea.StaplerProjectComponent</implementation-class>
-      </component>
-  </project-components>
 </idea-plugin>
