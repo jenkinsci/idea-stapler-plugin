@@ -16,7 +16,7 @@
       as the element name (modulo the part defined in @defaultExtensionNs above.)
     -->
     <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
-    <com.intellij.dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>
+<!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <completion.contributor language="XML" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor" />
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
     <!-- I initially thought of using this to drive auto-completion,
