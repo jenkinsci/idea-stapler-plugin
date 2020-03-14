@@ -1,11 +1,7 @@
 package org.kohsuke.stapler.idea;
 
 import com.intellij.codeInspection.InspectionToolProvider;
-import com.intellij.facet.FacetTypeRegistry;
 import com.intellij.javaee.ExternalResourceManager;
-import com.intellij.lang.LanguageAnnotators;
-import com.intellij.lang.LanguageDocumentation;
-import com.intellij.lang.xml.XMLLanguage;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.fileTypes.FileTypeManager;
@@ -27,16 +23,13 @@ import java.net.URL;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class StaplerApplicationComponent implements ApplicationComponent, InspectionToolProvider {
+public class StaplerApplicationComponent implements ApplicationComponent {
     @NonNls @NotNull
     public String getComponentName() {
         return getClass().getSimpleName();
     }
 
     public void initComponent() {
-        FacetTypeRegistry.getInstance().registerFacetType(StaplerFacetType.INSTANCE);
-
-
         ApplicationManager.getApplication().runWriteAction(new Runnable() {
             public void run() {
                 {// register the .jelly extension as XML
@@ -105,13 +98,6 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
             XmlNSDescriptorImpl.class
         );
 
-        LanguageAnnotators.INSTANCE.addExplicitExtension(
-                XMLLanguage.INSTANCE, new JellyAnnotator());
-
-        LanguageDocumentation.INSTANCE.addExplicitExtension(
-                XMLLanguage.INSTANCE, new JellyDocumentationProvider()
-        );
-
         // register a custom vocabulary for Jelly
         // still experimenting.
 //        ((CompositeLanguage) StdLanguages.XML).registerLanguageExtension(
@@ -120,10 +106,6 @@ public class StaplerApplicationComponent implements ApplicationComponent, Inspec
 
     public void disposeComponent() {
         // noop
-    }
-
-    public Class[] getInspectionClasses() {
-        return new Class[]{JexlInspection.class};
     }
 
     public static final String DUMMY_SCHEMA_URL = "dummy-schema-url";

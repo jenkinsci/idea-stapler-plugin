@@ -24,20 +24,12 @@ public class JexlInspection extends LocalXmlInspectionTool {
         return GroupNames.BUGS_GROUP_NAME;
     }
 
-    @Nls @NotNull
-    public String getDisplayName() {
-        return "Checks syntax of JEXL expressions";
-    }
-
-    @NotNull
-    public HighlightDisplayLevel getDefaultLevel() {
-        return HighlightDisplayLevel.ERROR;
-    }
-
+    @Override
     protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
         return check(text,manager,text.getValue(),text.getValueTextRange());
     }
 
+    @Override
     protected ProblemDescriptor[] checkXmlText(XmlText xmlText, InspectionManager manager, boolean onTheFly) {
         return check(xmlText,manager,xmlText.getText(),xmlText.getTextRange());
     }

@@ -32,17 +32,6 @@ public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
         return StaplerFacet.findFacetBySourceFile(psiElement.getProject(), psiElement.getContainingFile().getVirtualFile());
     }
 
-    @NonNls
-    @NotNull
-    public String getShortName() {
-        return getClass().getSimpleName();
-    }
-
-    @Override
-    public boolean isEnabledByDefault() {
-        return true;
-    }
-
     @NotNull
     public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, final boolean isOnTheFly) {
         return new XmlElementVisitor() {
