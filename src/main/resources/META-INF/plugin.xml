@@ -31,9 +31,15 @@
     <multiHostInjector implementation="org.kohsuke.stapler.idea.JellyLanguageInjector" />
 
     <localInspection language="XML" enabledByDefault="true" level="ERROR"
-                     displayName="Checks syntax of JEXL expressions"
+                     shortName="JexlInspection" displayName="Checks syntax of JEXL expressions"
                      groupName="Stapler"
                      implementationClass="org.kohsuke.stapler.idea.JexlInspection" />
+<!--
+    <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                     shortName="I18nInspection" displayName="Test something"
+                     groupName="Stapler"
+                     implementationClass="org.kohsuke.stapler.idea.I18nInspection" />
+-->
    </extensions>
   <!-- intelli lang plugin isn't needed for just doing injection
   <extensions defaultExtensionNs="org.intellij.intelliLang">

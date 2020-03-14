@@ -1,7 +1,5 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
-import com.intellij.codeInsight.daemon.GroupNames;
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
@@ -12,17 +10,11 @@ import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlText;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Kohsuke Kawaguchi
  */
 public class JexlInspection extends LocalXmlInspectionTool {
-    @Nls @NotNull
-    public String getGroupDisplayName() {
-        return GroupNames.BUGS_GROUP_NAME;
-    }
 
     @Override
     protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
