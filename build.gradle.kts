@@ -27,6 +27,8 @@ configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
+    sinceBuild("110.00")
+    untilBuild("")
     changeNotes("""
       Support IDEA 12.<br>
       Fix NullPointerException.<br>
