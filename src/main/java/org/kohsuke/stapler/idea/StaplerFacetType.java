@@ -26,10 +26,12 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
         super(ID, "Stapler", "Stapler");
     }
 
+    @Override
     public StaplerFacetConfiguration createDefaultConfiguration() {
         return new StaplerFacetConfiguration();
     }
 
+    @Override
     public StaplerFacet createFacet(@NotNull Module module, String name, @NotNull StaplerFacetConfiguration configuration, @Nullable Facet underlyingFacet) {
         return new StaplerFacet(this, module, name, configuration, underlyingFacet);
     }

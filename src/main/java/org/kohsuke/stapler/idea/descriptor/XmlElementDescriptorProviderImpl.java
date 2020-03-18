@@ -10,6 +10,7 @@ import com.intellij.xml.XmlElementDescriptor;
  * @author Kohsuke Kawaguchi
  */
 public class XmlElementDescriptorProviderImpl implements XmlElementDescriptorProvider {
+    @Override
     public XmlElementDescriptor getDescriptor(XmlTag tag) {
         XmlNSDescriptorImpl ns = XmlNSDescriptorImpl.get(tag);
         if(ns!=null)    return ns.getElementDescriptor(tag);

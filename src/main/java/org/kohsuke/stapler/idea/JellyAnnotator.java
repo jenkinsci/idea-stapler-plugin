@@ -7,6 +7,7 @@ import com.intellij.psi.xml.XmlTag;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.schema.AnyXmlElementDescriptor;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Additional Jelly-specific {@link Annotator}.
@@ -22,7 +23,8 @@ import com.intellij.xml.impl.schema.AnyXmlElementDescriptor;
  * @author Kohsuke Kawaguchi
  */
 public class JellyAnnotator implements Annotator {
-    public void annotate(PsiElement psi, AnnotationHolder holder) {
+    @Override
+    public void annotate(@NotNull PsiElement psi, @NotNull AnnotationHolder holder) {
         if (psi instanceof XmlTag) {
             XmlTag tag = (XmlTag) psi;
 

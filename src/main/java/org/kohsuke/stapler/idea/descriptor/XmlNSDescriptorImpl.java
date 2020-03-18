@@ -50,6 +50,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return dir;
     }
 
+    @Override
     public XmlElementDescriptor getElementDescriptor(@NotNull XmlTag tag) {
         PsiFile f = dir.findFile(tag.getLocalName() + ".jelly");
         if (f instanceof XmlFile)
@@ -64,6 +65,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
      * This appears to be used for code completion. When I returned
      * an empty array, the code completion didn't show me anything. 
      */
+    @Override
     @NotNull
     public XmlElementDescriptor[] getRootElementsDescriptors(@Nullable XmlDocument document) {
         List<XmlElementDescriptor> r = new ArrayList<XmlElementDescriptor>();
@@ -75,6 +77,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return r.toArray(new XmlElementDescriptor[r.size()]);
     }
 
+    @Override
     public XmlFile getDescriptorFile() {
         return null;
     }
@@ -83,14 +86,17 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return true; // ???
     }
 
+    @Override
     public PsiElement getDeclaration() {
         return dir.findFile("taglib");
     }
 
+    @Override
     public String getName(PsiElement context) {
         return uri;
     }
 
+    @Override
     public String getName() {
         return uri;
     }
@@ -101,12 +107,14 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
      * <p>
      * This special pseudo document has to be &lt;schema uri="..." xmlns="dummy-schema-url"/> 
      */
+    @Override
     public void init(PsiElement element) {
         XmlDocument doc = (XmlDocument) element;
         dir = doc.getContainingFile().getUserData(XmlSchemaProviderImpl.MODULE);
         uri = doc.getRootTag().getAttribute("uri","").getValue();
     }
 
+    @Override
     public Object[] getDependences() {
         return new Object[]{dir};
     }

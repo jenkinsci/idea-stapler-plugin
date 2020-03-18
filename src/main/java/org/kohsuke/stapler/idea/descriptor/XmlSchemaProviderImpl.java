@@ -22,6 +22,7 @@ import org.kohsuke.stapler.idea.StaplerApplicationComponent;
  * @author Kohsuke Kawaguchi
  */
 public class XmlSchemaProviderImpl extends XmlSchemaProvider {
+    @Override
     public XmlFile getSchema(@NotNull String url, @Nullable Module module, @NotNull PsiFile baseFile) {
         XmlNSDescriptorImpl d = XmlNSDescriptorImpl.get(url, module);
         if(d==null)     return null;

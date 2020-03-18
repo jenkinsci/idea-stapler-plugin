@@ -70,6 +70,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                 XML_ELEMENT_NAME_PATTERN,
                 new CompletionProvider<CompletionParameters>(true) {
                     // REFERENCE: spring plugin adds CompletionContributor as well.
+                    @Override
                     protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {
                         XmlElement name = (XmlElement)parameters.getPosition();
 

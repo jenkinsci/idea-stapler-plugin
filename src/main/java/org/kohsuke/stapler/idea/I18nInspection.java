@@ -10,6 +10,7 @@ import com.intellij.psi.xml.XmlText;
  * @author Kohsuke Kawaguchi
  */
 public class I18nInspection extends LocalXmlInspectionTool {
+    @Override
     protected ProblemDescriptor[] checkXmlText(XmlText text, InspectionManager manager, boolean onTheFly) {
         if(text.getText().equals("foo")) {
             return new ProblemDescriptor[] {

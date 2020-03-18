@@ -1,6 +1,5 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.codeInspection.InspectionToolProvider;
 import com.intellij.javaee.ExternalResourceManager;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
@@ -9,6 +8,7 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.filters.AndFilter;
 import com.intellij.psi.filters.ClassFilter;
+import com.intellij.psi.filters.position.FilterPattern;
 import com.intellij.psi.filters.position.NamespaceFilter;
 import com.intellij.psi.meta.MetaDataRegistrar;
 import com.intellij.psi.xml.XmlDocument;
@@ -24,13 +24,16 @@ import java.net.URL;
  * @author Kohsuke Kawaguchi
  */
 public class StaplerApplicationComponent implements ApplicationComponent {
+    @Override
     @NonNls @NotNull
     public String getComponentName() {
         return getClass().getSimpleName();
     }
 
+    @Override
     public void initComponent() {
         ApplicationManager.getApplication().runWriteAction(new Runnable() {
+            @Override
             public void run() {
                 {// register the .jelly extension as XML
                     FileTypeManager fm = FileTypeManager.getInstance();
@@ -104,6 +107,7 @@ public class StaplerApplicationComponent implements ApplicationComponent {
 //                JellyLanguageExtension.INSTANCE);
     }
 
+    @Override
     public void disposeComponent() {
         // noop
     }
