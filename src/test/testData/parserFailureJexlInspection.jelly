@@ -1,0 +1,6 @@
+<j:jelly xmlns:j="jelly:core">
+    <!-- Got these from https://github.com/apache/commons-jexl/blob/c8af6a07df91d2a6d6d22adebf7c52ab02d2b74e/src/test/org/apache/commons/jexl/ParseFailuresTest.java -->
+    <j:if test="${?}">
+        ${eq}
+    </j:if>
+</j:jelly>
