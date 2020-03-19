@@ -7,8 +7,13 @@
 <!--  <version>1.8</version>-->
 <!--  <idea-version since-build="110.00"/>-->
 
+  <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
+  <!-- The bare platform shared by all jetbrains products -->
+  <depends>com.intellij.modules.platform</depends>
+  <!-- Jelly is an XML file type -->
+  <depends>com.intellij.modules.xml</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
+  <extensions defaultExtensionNs="com.intellij">
     <!--
       REFERENCE:
       to find out how to register a given extension point,
@@ -17,6 +22,7 @@
     -->
     <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
     <facetType implementation="org.kohsuke.stapler.idea.StaplerFacetType"/>
+    <fileTypeFactory implementation="org.kohsuke.stapler.idea.JellyFileTypeFactory" />
 <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <completion.contributor language="XML" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor" />
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
