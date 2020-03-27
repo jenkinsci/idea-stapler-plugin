@@ -20,26 +20,39 @@
       check the ExtensionPointName.create call in the extension point, and use its name
       as the element name (modulo the part defined in @defaultExtensionNs above.)
     -->
+    <!-- Adds "Stapler" as a framework to the new Project setup wizard -->
     <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
+    <!-- Adds module Facet for Stapler -->
     <facetType implementation="org.kohsuke.stapler.idea.StaplerFacetType"/>
+    <!-- Adds "*.jelly" to the XML file type extensions -->
     <fileTypeFactory implementation="org.kohsuke.stapler.idea.JellyFileTypeFactory" />
+    <!-- ? -->
 <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
+    <!-- Completion for Jelly Tags -->
     <completion.contributor language="XML" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor" />
+    <!-- ? -->
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
     <!-- I initially thought of using this to drive auto-completion,
       but it doesn't really work as I hoped for. So I'm switching to CompletionContribuer.
     <dom.extender domClass=     "org.kohsuke.stapler.idea.dom.model.JellyTag"
                   extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
     -->
+    <!-- Dummy Schema for the Jelly Tag libraries -->
     <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlSchemaProviderImpl" />
+    <!-- Provide Metadata for Dummy Schemas -->
+    <metaDataContributor implementation="org.kohsuke.stapler.idea.descriptor.JellyTaglibMetadataContributor" />
+    <!-- ? -->
     <annotator language="XML" implementationClass="org.kohsuke.stapler.idea.JellyAnnotator" />
+    <!-- ? -->
     <lang.documentationProvider language="XML" implementationClass="org.kohsuke.stapler.idea.JellyDocumentationProvider"/>
+    <!-- Tells IntelliJ that script and style tags inside *.jelly files are JavaScript and CSS correspondingly -->
     <multiHostInjector implementation="org.kohsuke.stapler.idea.JellyLanguageInjector" />
-
+    <!-- Evaluates JEXL and reports any errors -->
     <localInspection language="XML" enabledByDefault="true" level="ERROR"
                      shortName="JexlInspection" displayName="Checks syntax of JEXL expressions"
                      groupName="Stapler"
                      implementationClass="org.kohsuke.stapler.idea.JexlInspection" />
+    <!-- FooBar. No intention described in the javadocs -->
 <!--
     <localInspection language="XML" enabledByDefault="true" level="ERROR"
                      shortName="I18nInspection" displayName="Test something"
