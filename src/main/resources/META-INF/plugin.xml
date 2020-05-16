@@ -2,12 +2,14 @@
 <idea-plugin>
   <name>Stapler Framework Support</name>
   <description>Assists with development of Java web applications using Stapler Framework (e.g. Jenkins plugins)</description>
-  <version>1.8</version>
   <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
   <category>Framework integration</category>
-  <idea-version since-build="110.00"/>
+<!--  Managed from build.gradle.kts -->
+<!--  <version>1.8</version>-->
+<!--  <idea-version since-build="110.00"/>-->
 
-  <extensions defaultExtensionNs="com.intellij">
+
+    <extensions defaultExtensionNs="com.intellij">
     <!--
       REFERENCE:
       to find out how to register a given extension point,
