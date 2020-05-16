@@ -5,6 +5,7 @@ plugins {
 
 group = "org.kohsuke.stapler.idea"
 version = "1.8"
+val ideaVersion: String by project
 
 repositories {
     mavenCentral()
@@ -20,7 +21,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = "2016.3.1"
+    version = ideaVersion
     setPlugins("properties")
 }
 configure<JavaPluginConvention> {
