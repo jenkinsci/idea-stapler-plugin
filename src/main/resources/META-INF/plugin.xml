@@ -1,0 +1,66 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin>
+  <name>Stapler Framework Support</name>
+  <description>Assists with development of Java web applications using Stapler Framework (e.g. Jenkins plugins)</description>
+  <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
+  <category>Framework integration</category>
+<!--  Managed from build.gradle.kts -->
+<!--  <version>1.8</version>-->
+<!--  <idea-version since-build="110.00"/>-->
+
+
+    <extensions defaultExtensionNs="com.intellij">
+    <!--
+      REFERENCE:
+      to find out how to register a given extension point,
+      check the ExtensionPointName.create call in the extension point, and use its name
+      as the element name (modulo the part defined in @defaultExtensionNs above.)
+    -->
+    <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
+    <com.intellij.dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>
+    <completion.contributor language="XML" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor" />
+    <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
+    <!-- I initially thought of using this to drive auto-completion,
+      but it doesn't really work as I hoped for. So I'm switching to CompletionContribuer.
+    <dom.extender domClass=     "org.kohsuke.stapler.idea.dom.model.JellyTag"
+                  extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
+    -->
+    <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlSchemaProviderImpl" />
+   </extensions>
+  <!-- intelli lang plugin isn't needed for just doing injection
+  <extensions defaultExtensionNs="org.intellij.intelliLang">
+    <CustomLanguageInjectorExtension
+            implementation="org.kohsuke.stapler.idea.CustomLanguageInjectorExtensionImpl" />
+  </extensions>
+  -->
+  <actions>
+    <!-- insert Action from the project view (Alt+1,Alt+INS) to see the possible locations -->
+    <action id="GotoStaplerView" class="org.kohsuke.stapler.idea.GotoViewAction"
+            text="Goto Stapler View" description="Jump from a Java class to its stapler views">
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift P"/>
+      <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoSuperMethod" />
+    </action>
+    <action id="stapler-i18n" class="org.kohsuke.stapler.idea.I18nRefactorAction" text="i18n for stapler" description="i18n for stapler">
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt I"/>
+      <add-to-group group-id="RefactoringMenu" anchor="after" relative-to-action="I18nize"/>
+    </action>
+  </actions>
+
+  <!-- needed for defining web facet -->
+  <!--depends>com.intellij.javaee</depends-->
+  <!-- needed for i18n support -->
+  <depends>com.intellij.properties</depends>
+  <!-- this is needed for language injection -->
+  <!--<depends>org.intellij.intelliLang</depends>-->
+
+  <application-components>
+      <component>
+          <implementation-class>org.kohsuke.stapler.idea.StaplerApplicationComponent</implementation-class>
+      </component>
+  </application-components>
+  <project-components>
+      <component>
+          <implementation-class>org.kohsuke.stapler.idea.StaplerProjectComponent</implementation-class>
+      </component>
+  </project-components>
+</idea-plugin>
