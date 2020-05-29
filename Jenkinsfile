@@ -4,7 +4,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '20'))
     }
     stages {
-        stage('BuildAndTest') {
+        stage('Platform Matrix Build') {
             matrix {
                 axes {
                     axis {
@@ -17,10 +17,16 @@ pipeline {
                     timeout(time: 1, unit: 'HOURS')
                 }
                 stages {
-                    stage('Build') {
+                    stage('Build Plugin') {
                         steps {
                             script {
-                                String command = "gradlew --no-daemon clean assemble"
+                                // do no bother launching Gradle Daemon
+                                def gradleOptions = ['--no-daemon']
+                                // do not print the Welcome Gradle message. Seems pointless in CI
+                                gradleOptions += "-Dorg.gradle.internal.launcher.welcomeMessageEnabled=false"
+                                // more logs for troubleshooting
+                                gradleOptions += "--info"
+                                String command = "gradlew ${gradleOptions.join ' '} clean check assemble"
                                 if (isUnix()) {
                                     command = "./" + command
                                 }
