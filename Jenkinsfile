@@ -24,7 +24,7 @@ pipeline {
                                 if (isUnix()) {
                                     command = "./" + command
                                 }
-                                infra.runWithJava(command, "jdk8")
+                                infra.runWithJava(command, "8")
                             }
                         }
                     }
