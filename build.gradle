@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.16'
+}
+
+group = "org.kohsuke.stapler.idea"
+version = "1.8"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://repo.jenkins-ci.org/releases/"
+    }
+}
+
+dependencies {
+    implementation 'org.jenkins-ci:commons-jexl:1.1-jenkins-20111212'
+    implementation 'net.java.dev.textile-j:textile-j:2.2.864'
+
+    //testImplementation("junit", "junit", "4.12") // Not yet used
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version = ideaVersion
+    setPlugins("properties")
+}
+
+patchPluginXml {
+    sinceBuild("110.00")
+    untilBuild("")
+    changeNotes("""
+      Support IDEA 12.<br>
+      Fix NullPointerException.<br>
+      Resolved jelly namespace URIs to embedded XSDs to support syntax completion.""")
+}
