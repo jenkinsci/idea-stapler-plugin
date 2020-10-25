@@ -1,0 +1,20 @@
+# Configuration for Release Drafter: https://github.com/marketplace/actions/release-drafter
+# Adopted from the https://github.com/jenkinsci/.github/blob/master/.github/release-drafter.adoc
+_extends: jenkinsci/.github
+# Older tags pretty much follow SemVer so reverting the version-template
+version-template: '$MAJOR.$MINOR.$PATCH'
+# let us use the version resolver
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+      - 'breaking'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
