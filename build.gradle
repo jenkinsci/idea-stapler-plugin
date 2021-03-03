@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "1.8"
+version = "1.9.0"
 
 sourceCompatibility = 1.8
 
@@ -32,7 +32,6 @@ patchPluginXml {
     sinceBuild("110.00")
     untilBuild("")
     changeNotes("""
-      Support IDEA 12.<br>
-      Fix NullPointerException.<br>
-      Resolved jelly namespace URIs to embedded XSDs to support syntax completion.""")
+      Maintenance Release that should be functinaly equivalent to 1.8.<br>
+    """)
 }
