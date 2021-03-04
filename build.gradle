@@ -23,9 +23,13 @@ dependencies {
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
+
+// https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html
+// https://plugins.jetbrains.com/docs/marketplace/product-versions-in-use-statistics.html
+// https://www.jetbrains.com/idea/download/other.html
 intellij {
     version = ideaVersion
-    setPlugins("properties")
+    plugins = ["properties"]
 }
 
 patchPluginXml {
@@ -34,4 +38,11 @@ patchPluginXml {
     changeNotes("""
       Maintenance Release that should be functinaly equivalent to 1.8.<br>
     """)
+}
+
+runPluginVerifier {
+    // Rather arbitrarily chosen first releases of last three year.
+    // Product version in use statistics say last 3 major releases. It does not define "major release" though but
+    // but educated guess is that `year.version` is what is considered major.
+    ideVersions = ["2019.1.4", "2020.1.3", "2021.1"]
 }
