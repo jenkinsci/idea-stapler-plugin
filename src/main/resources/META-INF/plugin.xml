@@ -46,6 +46,13 @@
     </action>
   </actions>
 
+  <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
+  <!-- The bare platform shared by all jetbrains products -->
+  <depends>com.intellij.modules.platform</depends>
+  <!-- Jelly is an XML file type -->
+  <depends>com.intellij.modules.xml</depends>
+  <!-- Stapler is a Java Framework. And this is required to maintain compatibility past 2019.2 -->
+  <depends>com.intellij.modules.java</depends>
   <!-- needed for defining web facet -->
   <!--depends>com.intellij.javaee</depends-->
   <!-- needed for i18n support -->
