@@ -45,11 +45,14 @@ pipeline {
                                     command = "./" + command
                                 }
                                 infra.runWithJava(command, "8", extraEnv)
-                                if (isUnix()) {
-                                    archiveArtifacts artifacts: '**/build/reports/pluginVerifier/**', fingerprint: false
-                                    // Look for presence of compatibility warnings or problems
-                                    sh "./script/check-plugin-verification.sh"
-                                }
+                            }
+                            archiveArtifacts artifacts: '**/build/reports/pluginVerifier/**', fingerprint: false
+                            // Look for presence of compatibility warnings or problems
+                            sh "./script/check-plugin-verification.sh"
+                        }
+                        when {
+                            expression {
+                                return isUnix()
                             }
                         }
                     }
