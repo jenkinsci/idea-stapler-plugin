@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class GotoViewAction extends GotoActionBase {
 
+    @Override
     public void gotoActionPerformed(AnActionEvent anactionevent) {
         PsiElement context = getPsiContext(anactionevent);
 
@@ -69,42 +70,52 @@ public class GotoViewAction extends GotoActionBase {
         if(viewPackages.isEmpty())  return; // no views
 
         ChooseByNameModel model = new ChooseByNameModel() {
+            @Override
             public boolean useMiddleMatching() {
                 return false;
             }
 
+            @Override
             public String getPromptText() {
                 return "Enter view name:";
             }
 
+            @Override
             public String getNotInMessage() {
                 return "getNotInMessage";
             }
 
+            @Override
             public String getNotFoundMessage() {
                 return "getNotFoundMessage";
             }
 
+            @Override
             public String getCheckBoxName() {
                 return null;    // no check box
             }
 
+            @Override
             public char getCheckBoxMnemonic() {
                 return '\0';
             }
 
+            @Override
             public boolean loadInitialCheckBoxState() {
                 return false;
             }
 
+            @Override
             public void saveInitialCheckBoxState(boolean state) {
                 // noop
             }
 
+            @Override
             public ListCellRenderer getListCellRenderer() {
                 return new DefaultPsiElementCellRenderer();
             }
 
+            @Override
             public String[] getNames(boolean checkBoxState) {
                 List<String> r = new ArrayList<String>();
                 for (PsiPackage pkg : viewPackages) {
@@ -119,6 +130,8 @@ public class GotoViewAction extends GotoActionBase {
                 return r.toArray(new String[r.size()]);
             }
 
+            @Override
+            @NotNull
             public Object[] getElementsByName(String name, boolean checkBoxState, String pattern) {
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
@@ -131,11 +144,13 @@ public class GotoViewAction extends GotoActionBase {
                 return EMPTY_ARRAY;
             }
 
+            @Override
             @NotNull
             public String[] getSeparators() {
                 return ArrayUtils.EMPTY_STRING_ARRAY;
             }
 
+            @Override
             public String getElementName(Object obj) {
                 if (obj instanceof PsiFile) {
                     return ((PsiFile) obj).getName();
@@ -144,6 +159,7 @@ public class GotoViewAction extends GotoActionBase {
                 }
             }
 
+            @Override
             public String getFullName(Object obj) {
                 if (obj instanceof PsiFile) {
                     VirtualFile virtualfile = ((PsiFile) obj).getVirtualFile();
@@ -153,10 +169,12 @@ public class GotoViewAction extends GotoActionBase {
                 }
             }
 
+            @Override
             public String getHelpId() {
                 return null;
             }
 
+            @Override
             public boolean willOpenEditor() {
                 return true;
             }
@@ -166,11 +184,13 @@ public class GotoViewAction extends GotoActionBase {
         ChooseByNamePopup choosebynamepopup = ChooseByNamePopup.createPopup(project,
                 model, context);
         choosebynamepopup.invoke(new Callback() {
+            @Override
             public void onClose() {
                 if (GotoActionBase.myInAction==GotoViewAction.class)
                     GotoActionBase.myInAction = null;
             }
 
+            @Override
             public void elementChosen(Object obj) {
                 ((NavigationItem) obj).navigate(true);
             }

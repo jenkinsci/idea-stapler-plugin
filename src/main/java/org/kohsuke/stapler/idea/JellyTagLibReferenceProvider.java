@@ -34,6 +34,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
         The basic idea of ReferenceProvider is to create a reference speculatively,
         then the reference object will later try to find the target.
      */
+    @Override
     @NotNull
     public PsiReference[] getReferencesByElement(@NotNull PsiElement e, @NotNull ProcessingContext processingContext) {
         /*
@@ -90,6 +91,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
             return array(new PsiReferenceBase<XmlAttributeValue>(xav,
                     TextRange.from(1,xav.getTextLength()-2)) {
                 private final String page = xav.getValue();
+                @Override
                 public PsiFile resolve() {
                     JavaPsiFacade javaFacade = JavaPsiFacade.getInstance(xav.getProject());
                     if(page.startsWith("/")) {
@@ -136,6 +138,8 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
                     }
                 }
 
+                @Override
+                @NotNull
                 public Object[] getVariants() {
                     return ArrayUtils.EMPTY_OBJECT_ARRAY;
                 }

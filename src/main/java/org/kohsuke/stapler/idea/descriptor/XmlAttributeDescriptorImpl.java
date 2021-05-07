@@ -35,30 +35,37 @@ public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
      *
      * But not having a required attribute missing in XML doesn't automatically flag an error annotation.
      */
+    @Override
     public boolean isRequired() {
         return def.isRequired();
     }
 
+    @Override
     public boolean isFixed() {
         return false;
     }
 
+    @Override
     public boolean hasIdType() {
         return false;
     }
 
+    @Override
     public boolean hasIdRefType() {
         return false;
     }
 
+    @Override
     public String getDefaultValue() {
         return null;
     }
 
+    @Override
     public boolean isEnumerated() {
         return false;
     }
 
+    @Override
     public String[] getEnumeratedValues() {
         return new String[0];
     }
@@ -66,25 +73,31 @@ public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
     /**
      * Validates the attribute value and returns an error message, if there's an error.
      */
+    @Override
     public String validateValue(XmlElement context, String value) {
         return null;
     }
 
+    @Override
     public PsiElement getDeclaration() {
         return def.tag;
     }
 
+    @Override
     public String getName(PsiElement context) {
         return getName();
     }
 
+    @Override
     public String getName() {
         return def.getName();
     }
 
+    @Override
     public void init(PsiElement element) {
     }
 
+    @Override
     public Object[] getDependences() {
         return new Object[]{def.tag};
     }

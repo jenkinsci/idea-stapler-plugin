@@ -26,6 +26,7 @@ public class JellyDocumentationProvider implements DocumentationProvider {
      * Upon returning non-null from {@link #generateDoc(PsiElement, PsiElement)},
      * I noticed that this method is getting invoked.
      */
+    @Override
     public List<String> getUrlFor(PsiElement element, PsiElement originalElement) {
         return null;
     }
@@ -38,6 +39,7 @@ public class JellyDocumentationProvider implements DocumentationProvider {
      * @param usage
      *      This is where Ctrl+Q is invoked.
      */
+    @Override
     public String generateDoc(PsiElement element, PsiElement usage) {
         PsiElement p = usage.getParent();
         if (p instanceof XmlTag) {
@@ -82,14 +84,17 @@ public class JellyDocumentationProvider implements DocumentationProvider {
         return null;
     }
 
+    @Override
     public PsiElement getDocumentationElementForLookupItem(PsiManager psiManager, Object object, PsiElement element) {
         return null;
     }
 
+    @Override
     public PsiElement getDocumentationElementForLink(PsiManager psiManager, String link, PsiElement context) {
         return null;
     }
 
+    @Override
     public String getQuickNavigateInfo(PsiElement psiElement, PsiElement psiElement1) {
         return null;
     }

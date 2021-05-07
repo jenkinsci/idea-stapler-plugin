@@ -1,7 +1,5 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
-import com.intellij.codeInsight.daemon.GroupNames;
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
@@ -12,34 +10,20 @@ import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlText;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Kohsuke Kawaguchi
  */
 public class JexlInspection extends LocalXmlInspectionTool {
-    @Nls @NotNull
-    public String getGroupDisplayName() {
-        return GroupNames.BUGS_GROUP_NAME;
-    }
 
-    @Nls @NotNull
-    public String getDisplayName() {
-        return "Checks syntax of JEXL expressions";
-    }
-
-    @NotNull
-    public HighlightDisplayLevel getDefaultLevel() {
-        return HighlightDisplayLevel.ERROR;
-    }
-
+    @Override
     protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
-        return check(text,manager,text.getValue(),text.getValueTextRange());
+        return check(text,manager,text.getValue(),text.getValueTextRange(), onTheFly);
     }
 
+    @Override
     protected ProblemDescriptor[] checkXmlText(XmlText xmlText, InspectionManager manager, boolean onTheFly) {
-        return check(xmlText,manager,xmlText.getText(),xmlText.getTextRange());
+        return check(xmlText,manager,xmlText.getText(),xmlText.getTextRange(), onTheFly);
     }
 
     /*
@@ -59,13 +43,12 @@ public class JexlInspection extends LocalXmlInspectionTool {
      */
     /**
      * Checks JEXL expresisons and return problem descriptors if found.
-     *
-     * @param text
+     *  @param text
      *      The text value that may contain JEXL expressions.
      * @param range
-     *      Text range in the document that the 'text' parameter represents
+     * @param onTheFly
      */
-    protected ProblemDescriptor[] check(XmlElement psi, InspectionManager manager, String text, TextRange range) {
+    protected ProblemDescriptor[] check(XmlElement psi, InspectionManager manager, String text, TextRange range, boolean onTheFly) {
         if(!psi.getContainingFile().getName().endsWith(".jelly"))
             return EMPTY_ARRAY; // not a jelly script
         if(!shouldCheck(psi))
@@ -90,11 +73,12 @@ public class JexlInspection extends LocalXmlInspectionTool {
                         new TextRange(startIndex, len),
                         "Missing '}' character at the end of expression: ",
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                        onTheFly,
                         LocalQuickFix.EMPTY_ARRAY)
             };
 
         if ( startIndex == 0 && endIndex == len - 1 )
-            return toArray(parseJexl(manager,psi,shrink(range,2,1),text.substring(2, endIndex)));
+            return toArray(parseJexl(manager,psi,shrink(range,2,1),text.substring(2, endIndex),onTheFly));
 
         int cur = 0;
         char c;
@@ -170,7 +154,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                 case '}':
                                     ProblemDescriptor[] r = toArray(parseJexl(manager,psi,
                                             new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
-                                            expr.toString()));
+                                            expr.toString(), onTheFly));
                                     // for now let's abort if we find one issue
                                     if(r.length!=0) return r;
 
@@ -188,6 +172,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                         new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
                                         "Missing '}' character at the end of expression: ",
                                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                        onTheFly,
                                         LocalQuickFix.EMPTY_ARRAY)
                             };
                         }
@@ -213,13 +198,12 @@ public class JexlInspection extends LocalXmlInspectionTool {
 
     /**
      * Parses the expression to JEXL and report back any error.
-     *
-     * @param psi
+     *  @param psi
      *      PSI element that contains the given text.
      * @param range
-     *      Range in the 'psi' that represents 'expr'
+     * @param onTheFly
      */
-    private ProblemDescriptor parseJexl(InspectionManager manager, XmlElement psi, TextRange range, String expr) {
+    private ProblemDescriptor parseJexl(InspectionManager manager, XmlElement psi, TextRange range, String expr, boolean onTheFly) {
         try {
             if(expr.startsWith("%")) { // property reference
                 int idx = expr.indexOf('(');
@@ -234,7 +218,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                             range.getStartOffset()+4);
 
                     return manager.createProblemDescriptor(psi,range,"Property name is empty",
-                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
+                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
                 }
 
                 int offset = range.getStartOffset()+2+idx+1;
@@ -243,12 +227,12 @@ public class JexlInspection extends LocalXmlInspectionTool {
                     String token = tokenize(expr);
                     if(token==null)
                         return manager.createProblemDescriptor(psi,range,"Missing ')' at the end",
-                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
+                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
 
                     try {
                         ExpressionFactory.createExpression(token);
                     } catch (ParseException e) {
-                        return handleParseException(manager, psi, e, offset);
+                        return handleParseException(manager, psi, e, offset, onTheFly);
                     }
                     expr = expr.substring(token.length()+1);
                     offset += token.length()+1;
@@ -260,16 +244,16 @@ public class JexlInspection extends LocalXmlInspectionTool {
                 return null;
             }
         } catch (ParseException e) {
-            return handleParseException(manager, psi, e, range.getStartOffset()+2); // +2 to skip "${"
+            return handleParseException(manager, psi, e, range.getStartOffset()+2, onTheFly); // +2 to skip "${"
         } catch (Exception e) {
             String msg = e.getMessage();
             if(msg==null)   msg=e.toString();
             return manager.createProblemDescriptor(psi,range,msg,
-                ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
+                ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
         }
     }
 
-    private ProblemDescriptor handleParseException(InspectionManager manager, XmlElement psi, ParseException e, int offset) {
+    private ProblemDescriptor handleParseException(InspectionManager manager, XmlElement psi, ParseException e, int offset, boolean onTheFly) {
         TextRange range;
         range = new TextRange(
                 offset +e.currentToken.next.beginColumn-1, // column is 1 origin
@@ -291,7 +275,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
         }
 
         return manager.createProblemDescriptor(psi,range,"Expecting "+expected,
-                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, LocalQuickFix.EMPTY_ARRAY);
+                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
     }
 
     private String tokenize(String text) {

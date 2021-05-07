@@ -42,6 +42,7 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
 
     }
 
+    @Override
     public XmlFile resolve() {
         String localName = myElement.getLocalName();
         String nsUri = myElement.getNamespace();
@@ -76,6 +77,7 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
         return null;
     }
 
+    @Override
     public Object[] getVariants() {
 //        // not sure how to use this
 //        // -> this is used apparently as a quick completion.

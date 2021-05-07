@@ -58,10 +58,12 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
             return ns.getElementDescriptor(child);
     }
 
+    @Override
     protected XmlElementDescriptor[] doCollectXmlDescriptors(XmlTag xmlTag) {
         return new XmlElementDescriptor[0];
     }
 
+    @Override
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
         DocumentationTag tag = getModel();
         if(tag==null)   return XmlAttributeDescriptor.EMPTY;
@@ -87,6 +89,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         return new DocumentationTag(docs[0]);
     }
 
+    @Override
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {
         HashMap<String, XmlAttributeDescriptor> r = new HashMap<String, XmlAttributeDescriptor>();
         for (XmlAttributeDescriptor a : getAttributesDescriptors(xmlTag))
@@ -94,6 +97,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         return r;
     }
 
+    @Override
     protected HashMap<String, XmlElementDescriptor> collectElementDescriptorsMap(XmlTag xmlTag) {
         HashMap<String, XmlElementDescriptor> r = new HashMap<String, XmlElementDescriptor>();
         for (XmlElementDescriptor e : getElementsDescriptors(xmlTag))
@@ -101,28 +105,34 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         return r;
     }
 
+    @Override
     public String getQualifiedName() {
         // TODO: how am I supposed to figure out the prefix?
         return getName();
     }
 
+    @Override
     public String getDefaultName() {
         return getQualifiedName();
     }
 
+    @Override
     public XmlNSDescriptor getNSDescriptor() {
         return nsDescriptor;
     }
 
+    @Override
     public int getContentType() {
         // TODO
         return CONTENT_TYPE_ANY;
     }
 
+    @Override
     public PsiElement getDeclaration() {
         return tagFile;
     }
 
+    @Override
     public String getName(PsiElement context) {
         String n = getName();
         if (context instanceof XmlElement) {
@@ -136,14 +146,17 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         return n;
     }
 
+    @Override
     public String getName() {
         String fileName = tagFile.getName();
         return fileName.substring(0,fileName.length()-6); // cut off extension
     }
 
+    @Override
     public void init(PsiElement element) {
     }
 
+    @Override
     public Object[] getDependences() {
         return new Object[] {nsDescriptor,tagFile};
     }

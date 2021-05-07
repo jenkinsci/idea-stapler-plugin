@@ -12,14 +12,17 @@ import org.jdom.Element;
  * @author Kohsuke Kawaguchi
  */
 public class StaplerFacetConfiguration implements FacetConfiguration {
+    @Override
     public FacetEditorTab[] createEditorTabs(FacetEditorContext editorContext, FacetValidatorsManager validatorsManager) {
         // nothing to configure
         return new FacetEditorTab[0];
     }
 
+    @Override
     public void readExternal(Element element) throws InvalidDataException {
     }
 
+    @Override
     public void writeExternal(Element element) throws WriteExternalException {
     }
 }

@@ -1,4 +1,3 @@
-<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
 <idea-plugin>
   <name>Stapler Framework Support</name>
   <description>Assists with development of Java web applications using Stapler Framework (e.g. Jenkins plugins)</description>
@@ -8,25 +7,93 @@
 <!--  <version>1.8</version>-->
 <!--  <idea-version since-build="110.00"/>-->
 
-
-    <extensions defaultExtensionNs="com.intellij">
+  <extensions defaultExtensionNs="com.intellij">
     <!--
       REFERENCE:
       to find out how to register a given extension point,
       check the ExtensionPointName.create call in the extension point, and use its name
       as the element name (modulo the part defined in @defaultExtensionNs above.)
     -->
+    <!-- Adds "Stapler" as a framework to the new Project setup wizard -->
     <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
-    <com.intellij.dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>
+    <!-- Adds module Facet for Stapler -->
+    <facetType implementation="org.kohsuke.stapler.idea.StaplerFacetType"/>
+    <!-- Adds "*.jelly" to the XML file type extensions -->
+    <fileTypeFactory implementation="org.kohsuke.stapler.idea.JellyFileTypeFactory" />
+    <!-- ? -->
+<!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
+    <!-- Completion for Jelly Tags -->
     <completion.contributor language="XML" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor" />
+    <!-- ? -->
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
     <!-- I initially thought of using this to drive auto-completion,
       but it doesn't really work as I hoped for. So I'm switching to CompletionContribuer.
     <dom.extender domClass=     "org.kohsuke.stapler.idea.dom.model.JellyTag"
                   extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
     -->
+    <!-- Dummy Schema for the Jelly Tag libraries -->
     <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlSchemaProviderImpl" />
+    <!-- Provide Metadata for Dummy Schemas -->
+    <metaDataContributor implementation="org.kohsuke.stapler.idea.descriptor.JellyTaglibMetadataContributor" />
+    <!-- ? -->
+    <annotator language="XML" implementationClass="org.kohsuke.stapler.idea.JellyAnnotator" />
+    <!-- ? -->
+    <lang.documentationProvider language="XML" implementationClass="org.kohsuke.stapler.idea.JellyDocumentationProvider"/>
+    <!-- Tells IntelliJ that script and style tags inside *.jelly files are JavaScript and CSS correspondingly -->
+    <multiHostInjector implementation="org.kohsuke.stapler.idea.JellyLanguageInjector" />
+    <!-- Evaluates JEXL and reports any errors -->
+    <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                     shortName="JexlInspection" displayName="Checks syntax of JEXL expressions"
+                     groupName="Stapler"
+                     implementationClass="org.kohsuke.stapler.idea.JexlInspection" />
+    <!-- FooBar. No intention described in the javadocs -->
+<!--
+    <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                     shortName="I18nInspection" displayName="Test something"
+                     groupName="Stapler"
+                     implementationClass="org.kohsuke.stapler.idea.I18nInspection" />
+-->
    </extensions>
+  <!-- Jelly taglibs XML Schemas -->
+  <extensions defaultExtensionNs="com.intellij">
+    <standardResource url="jelly:ant" path="org/kohsuke/stapler/idea/resources/schemas/ant.xsd" />
+    <standardResource url="jelly:antlr" path="org/kohsuke/stapler/idea/resources/schemas/antlr.xsd" />
+    <standardResource url="jelly:bean" path="org/kohsuke/stapler/idea/resources/schemas/bean.xsd" />
+    <standardResource url="jelly:beanshell" path="org/kohsuke/stapler/idea/resources/schemas/beanshell.xsd" />
+    <standardResource url="jelly:betwixt" path="org/kohsuke/stapler/idea/resources/schemas/betwixt.xsd" />
+    <standardResource url="jelly:bsf" path="org/kohsuke/stapler/idea/resources/schemas/bsf.xsd" />
+    <standardResource url="jelly:core" path="org/kohsuke/stapler/idea/resources/schemas/core.xsd" />
+    <standardResource url="jelly:define" path="org/kohsuke/stapler/idea/resources/schemas/define.xsd" />
+    <standardResource url="jelly:dynabean" path="org/kohsuke/stapler/idea/resources/schemas/dynabean.xsd" />
+    <standardResource url="jelly:email" path="org/kohsuke/stapler/idea/resources/schemas/email.xsd" />
+    <standardResource url="jelly:fmt" path="org/kohsuke/stapler/idea/resources/schemas/fmt.xsd" />
+    <standardResource url="jelly:html" path="org/kohsuke/stapler/idea/resources/schemas/html.xsd" />
+    <standardResource url="jelly:http" path="org/kohsuke/stapler/idea/resources/schemas/http.xsd" />
+    <standardResource url="jelly:interaction" path="org/kohsuke/stapler/idea/resources/schemas/interaction.xsd" />
+    <standardResource url="jelly:jaxme" path="org/kohsuke/stapler/idea/resources/schemas/jaxme.xsd" />
+    <standardResource url="jelly:jetty" path="org/kohsuke/stapler/idea/resources/schemas/jetty.xsd" />
+    <standardResource url="jelly:jface" path="org/kohsuke/stapler/idea/resources/schemas/jface.xsd" />
+    <standardResource url="jelly:jms" path="org/kohsuke/stapler/idea/resources/schemas/jms.xsd" />
+    <standardResource url="jelly:jmx" path="org/kohsuke/stapler/idea/resources/schemas/jmx.xsd" />
+    <standardResource url="jelly:jsl" path="org/kohsuke/stapler/idea/resources/schemas/jsl.xsd" />
+    <standardResource url="jelly:junit" path="org/kohsuke/stapler/idea/resources/schemas/junit.xsd" />
+    <standardResource url="jelly:log" path="org/kohsuke/stapler/idea/resources/schemas/log.xsd" />
+    <standardResource url="jelly:memory" path="org/kohsuke/stapler/idea/resources/schemas/memory.xsd" />
+    <standardResource url="jelly:ojb" path="org/kohsuke/stapler/idea/resources/schemas/ojb.xsd" />
+    <standardResource url="jelly:quartz" path="org/kohsuke/stapler/idea/resources/schemas/quartz.xsd" />
+    <standardResource url="jelly:regexp" path="org/kohsuke/stapler/idea/resources/schemas/regexp.xsd" />
+    <standardResource url="jelly:soap" path="org/kohsuke/stapler/idea/resources/schemas/soap.xsd" />
+    <standardResource url="jelly:sql" path="org/kohsuke/stapler/idea/resources/schemas/sql.xsd" />
+    <standardResource url="jelly:swing" path="org/kohsuke/stapler/idea/resources/schemas/swing.xsd" />
+    <standardResource url="jelly:swt" path="org/kohsuke/stapler/idea/resources/schemas/swt.xsd" />
+    <standardResource url="jelly:threads" path="org/kohsuke/stapler/idea/resources/schemas/threads.xsd" />
+    <standardResource url="jelly:util" path="org/kohsuke/stapler/idea/resources/schemas/util.xsd" />
+    <standardResource url="jelly:validate" path="org/kohsuke/stapler/idea/resources/schemas/validate.xsd" />
+    <standardResource url="jelly:velocity" path="org/kohsuke/stapler/idea/resources/schemas/velocity.xsd" />
+    <standardResource url="jelly:xml" path="org/kohsuke/stapler/idea/resources/schemas/xml.xsd" />
+    <standardResource url="jelly:xmlunit" path="org/kohsuke/stapler/idea/resources/schemas/xmlunit.xsd" />
+    <standardResource url="jelly:stapler" path="org/kohsuke/stapler/idea/resources/schemas/stapler.xsd" />
+  </extensions>
   <!-- intelli lang plugin isn't needed for just doing injection
   <extensions defaultExtensionNs="org.intellij.intelliLang">
     <CustomLanguageInjectorExtension
@@ -60,14 +127,4 @@
   <!-- this is needed for language injection -->
   <!--<depends>org.intellij.intelliLang</depends>-->
 
-  <application-components>
-      <component>
-          <implementation-class>org.kohsuke.stapler.idea.StaplerApplicationComponent</implementation-class>
-      </component>
-  </application-components>
-  <project-components>
-      <component>
-          <implementation-class>org.kohsuke.stapler.idea.StaplerProjectComponent</implementation-class>
-      </component>
-  </project-components>
 </idea-plugin>

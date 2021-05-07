@@ -41,6 +41,7 @@ import java.util.List;
 public class I18nRefactorAction extends EditorAction {
     public I18nRefactorAction() {
         super(new EditorActionHandler() {
+            @Override
             public void execute(final Editor editor, DataContext dataContext) {
                 if (editor == null) // be defensive
                     return;
@@ -102,6 +103,7 @@ public class I18nRefactorAction extends EditorAction {
                 new Runnable() {
                     int numArgs = 0;
 
+                    @Override
                     public void run() {
                         process(exp);
                     }
@@ -157,6 +159,7 @@ public class I18nRefactorAction extends EditorAction {
 
                 // IDEA bombed out saying I need to wrap the addProperty into this.
                 ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    @Override
                     public void run() {
                         try {
                             propsFile.addPropertyAfter(

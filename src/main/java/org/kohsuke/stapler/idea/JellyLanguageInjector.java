@@ -23,6 +23,7 @@ import java.util.List;
  * @author Kohsuke Kawaguchi
  */
 public class JellyLanguageInjector implements MultiHostInjector {
+    @Override
     public void getLanguagesToInject(@NotNull final MultiHostRegistrar registrar, @NotNull PsiElement context) {
         if(!context.getContainingFile().getName().endsWith(".jelly"))
             return; // not a jelly file
@@ -91,6 +92,7 @@ public class JellyLanguageInjector implements MultiHostInjector {
         return null;
     }
 
+    @Override
     @NotNull
     public List<? extends Class<? extends PsiElement>> elementsToInjectIn() {
         return INJECTION_TARGET;
