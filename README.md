@@ -1,6 +1,6 @@
-# "Stapler Framework Support" for IntelliJ IDEA
+# ["Stapler Framework Support" for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/1885-stapler-plugin-for-intellij-idea)
 
-This includs support for [Jelly](https://commons.apache.org/proper/commons-jelly/index.html) and [JEXL](http://commons.apache.org/proper/commons-jexl/) since there are no specialized plugins for them.
+[Stapler HTTP request handling engine](https://stapler.kohsuke.org/) support. As well as support for [Jelly](https://commons.apache.org/proper/commons-jelly/index.html) and [JEXL](http://commons.apache.org/proper/commons-jexl/) that do no have specialized plugins.
 
 Some of the features
 
