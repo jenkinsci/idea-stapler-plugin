@@ -1,7 +1,7 @@
 <idea-plugin>
   <name>Stapler Framework Support</name>
   <description>Assists with development of Java web applications using Stapler Framework (e.g. Jenkins plugins)</description>
-  <vendor url="http://www.kohsuke.org/" email="kk@kohsuke.org">Kohsuke Kawaguchi</vendor>
+  <vendor url="https://github.com/jenkinsci/idea-stapler-plugin" email="jenkinsci-dev@googlegroups.com">jenkins</vendor>
   <category>Framework integration</category>
 <!--  Managed from build.gradle.kts -->
 <!--  <version>1.8</version>-->
