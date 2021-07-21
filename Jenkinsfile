@@ -34,6 +34,10 @@ pipeline {
                                     command = "./" + command
                                 }
                                 infra.runWithJava(command, "8", extraEnv)
+                            }
+                        }
+                        post {
+                            always {
                                 junit('**/build/test-results/**/*.xml')
                             }
                         }
