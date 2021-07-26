@@ -1,5 +1,5 @@
 <idea-plugin>
-  <name>Stapler Framework Support</name>
+  <name>Stapler plugin for IntelliJ IDEA</name>
   <description>Assists with development of Java web applications using Stapler Framework (e.g. Jenkins plugins)</description>
   <vendor url="https://github.com/jenkinsci/idea-stapler-plugin" email="jenkinsci-dev@googlegroups.com">jenkins</vendor>
   <category>Framework integration</category>
