@@ -43,7 +43,7 @@
     <multiHostInjector implementation="org.kohsuke.stapler.idea.JellyLanguageInjector" />
     <!-- Evaluates JEXL and reports any errors -->
     <localInspection language="XML" enabledByDefault="true" level="ERROR"
-                     shortName="JexlInspection" displayName="Checks syntax of JEXL expressions"
+                     displayName="Checks syntax of JEXL expressions"
                      groupName="Stapler"
                      implementationClass="org.kohsuke.stapler.idea.JexlInspection" />
     <!-- FooBar. No intention described in the javadocs -->

@@ -36,6 +36,11 @@ pipeline {
                                 infra.runWithJava(command, "8", extraEnv)
                             }
                         }
+                        post {
+                            always {
+                                junit('**/build/test-results/**/*.xml')
+                            }
+                        }
                     }
                     stage('Verify Plugin') {
                         steps {
@@ -44,7 +49,7 @@ pipeline {
                                 if (isUnix()) {
                                     command = "./" + command
                                 }
-                                infra.runWithJava(command, "8", extraEnv)
+                                infra.runWithJava(command, "11", extraEnv)
                             }
                             archiveArtifacts artifacts: '**/build/reports/pluginVerifier/**', fingerprint: false
                             // Look for presence of compatibility warnings or problems
