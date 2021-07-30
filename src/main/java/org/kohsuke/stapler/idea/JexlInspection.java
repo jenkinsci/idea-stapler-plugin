@@ -193,7 +193,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
     }
 
     private TextRange shrink(TextRange range, int l, int r) {
-        return new TextRange(range.getStartOffset()-l, range.getEndOffset()-r);
+        return new TextRange(range.getStartOffset()+l, range.getEndOffset()-r);
     }
 
     /**

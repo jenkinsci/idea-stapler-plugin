@@ -1,0 +1,5 @@
+<j:jelly xmlns:j="jelly:core">
+    <j:if test="${it.myBoolean}">
+        ${it.myString}
+    </j:if>
+</j:jelly>
