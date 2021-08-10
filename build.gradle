@@ -33,15 +33,15 @@ intellij {
 }
 
 patchPluginXml {
-    sinceBuild("110.00")
-    untilBuild("")
-    changeNotes("""
+    sinceBuild = "110.00"
+    untilBuild = ""
+    changeNotes = """
       <p>2.0.0 should be functionally equivalent to the 1.x version but undergoes major internal changes:</p>
       <ul>
         <li>Migration to the Jenkins organization</li>
         <li>Refactoring based on recommendation from IntelliJ Platform Plugin SDK</li>
       </ul>
-    """)
+    """
 }
 
 runPluginVerifier {
