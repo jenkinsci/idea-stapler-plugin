@@ -35,4 +35,12 @@ public class JexlInspectionTest extends LightPlatformCodeInsightFixtureTestCase 
         List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WEAK_WARNING);
         assertEmpty(highlightInfos);
     }
+
+    public void testParserFailureJexlInspection() {
+        myFixture.configureByFile(getTestName(true) + ".jelly");
+        myFixture.enableInspections(new JexlInspection());
+        List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WEAK_WARNING);
+        assertNotEmpty(highlightInfos);
+        assertEquals("Two invalid JEXL expressions are used", 2, highlightInfos.size());
+    }
 }
