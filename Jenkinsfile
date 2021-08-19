@@ -39,6 +39,21 @@ pipeline {
                         post {
                             always {
                                 junit('**/build/test-results/**/*.xml')
+                                discoverGitReferenceBuild()
+                                recordIssues enabledForFailure: true,
+                                        tools: [java(), javaDoc()],
+                                        sourceCodeEncoding: 'UTF-8',
+                                        skipBlames: true,
+                                        trendChartType: 'TOOLS_ONLY'
+                                recordIssues enabledForFailure: true,
+                                        tool: taskScanner(
+                                            includePattern:'**/*.java',
+                                            excludePattern:'**/target/**',
+                                            highTags:'FIXME',
+                                            normalTags:'TODO'),
+                                        sourceCodeEncoding: 'UTF-8',
+                                        skipBlames: true,
+                                        trendChartType: 'NONE'
                             }
                         }
                     }
