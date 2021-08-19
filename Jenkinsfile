@@ -41,7 +41,7 @@ pipeline {
                                 junit('**/build/test-results/**/*.xml')
                                 discoverGitReferenceBuild()
                                 recordIssues enabledForFailure: true,
-                                        tools: [java(), javaDoc()],
+                                        tools: [java()],
                                         sourceCodeEncoding: 'UTF-8',
                                         skipBlames: true,
                                         trendChartType: 'TOOLS_ONLY'

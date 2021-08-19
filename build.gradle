@@ -25,6 +25,12 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
 
+tasks.withType(JavaCompile) {
+    //enable compilation in a separate daemon process
+    options.deprecation = true
+    options.compilerArgs << "-Xlint:all"
+}
+
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 
 // https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html
