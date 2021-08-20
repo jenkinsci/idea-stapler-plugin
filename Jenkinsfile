@@ -6,7 +6,6 @@ gradleOptions += "-Dorg.gradle.internal.launcher.welcomeMessageEnabled=false"
 gradleOptions += "--info"
 // tell gradle-intellij-plugin not to download sources
 def extraEnv = ["CI=true"]
-def staticAnalysisIssues = []
 
 pipeline {
     agent none
@@ -40,19 +39,6 @@ pipeline {
                         post {
                             always {
                                 junit('**/build/test-results/**/*.xml')
-                                discoverGitReferenceBuild()
-                                script {
-                                    staticAnalysisIssues << scanForIssues(tool: java(),
-                                            sourceCodeEncoding: 'UTF-8',
-                                            blameDisabled: true)
-                                    staticAnalysisIssues << scanForIssues(tool: taskScanner(
-                                            includePattern: '**/*.java',
-                                            excludePattern: '**/build/**,gradle/**,.gradle/**',
-                                            highTags: 'FIXME',
-                                            normalTags: 'TODO'),
-                                            sourceCodeEncoding: 'UTF-8',
-                                            blameDisabled: true)
-                                }
                             }
                         }
                     }
@@ -69,17 +55,28 @@ pipeline {
                             // Look for presence of compatibility warnings or problems
                             sh "./script/check-plugin-verification.sh"
                         }
+                        post {
+                            always {
+                                discoverGitReferenceBuild()
+                                recordIssues(tool: java(),
+                                        sourceCodeEncoding: 'UTF-8',
+                                        skipBlames: true)
+                                recordIssues(tool: taskScanner(
+                                            includePattern: '**/*.java',
+                                            excludePattern: '**/build/**,gradle/**,.gradle/**',
+                                            highTags: 'FIXME',
+                                            normalTags: 'TODO'),
+                                        sourceCodeEncoding: 'UTF-8',
+                                        skipBlames: true)
+
+                            }
+                        }
                         when {
                             expression {
                                 return isUnix()
                             }
                         }
                     }
-                }
-            }
-            post {
-                always {
-                    publishIssues issues: staticAnalysisIssues
                 }
             }
         }
