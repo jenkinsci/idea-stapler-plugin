@@ -6,6 +6,7 @@ gradleOptions += "-Dorg.gradle.internal.launcher.welcomeMessageEnabled=false"
 gradleOptions += "--info"
 // tell gradle-intellij-plugin not to download sources
 def extraEnv = ["CI=true"]
+def staticAnalysisIssues = []
 
 pipeline {
     agent none
@@ -40,20 +41,16 @@ pipeline {
                             always {
                                 junit('**/build/test-results/**/*.xml')
                                 discoverGitReferenceBuild()
-                                recordIssues enabledForFailure: true,
-                                        tools: [java()],
+                                staticAnalysisIssues << scanForIssues tool: java(),
                                         sourceCodeEncoding: 'UTF-8',
-                                        skipBlames: true,
-                                        trendChartType: 'TOOLS_ONLY'
-                                recordIssues enabledForFailure: true,
-                                        tool: taskScanner(
+                                        blameDisabled: true
+                                staticAnalysisIssues << scanForIssues tool: taskScanner(
                                             includePattern:'**/*.java',
-                                            excludePattern:'**/target/**',
+                                            excludePattern:'**/build/**,gradle/**,.gradle/**',
                                             highTags:'FIXME',
                                             normalTags:'TODO'),
                                         sourceCodeEncoding: 'UTF-8',
-                                        skipBlames: true,
-                                        trendChartType: 'NONE'
+                                        blameDisabled: true
                             }
                         }
                     }
@@ -76,6 +73,11 @@ pipeline {
                             }
                         }
                     }
+                }
+            }
+            post {
+                always {
+                    publishIssues issues: staticAnalysisIssues
                 }
             }
         }
