@@ -31,7 +31,7 @@ pipeline {
                             script {
                                 String command = "gradlew ${gradleOptions.join ' '} clean check assemble"
                                 if (isUnix()) {
-                                    command = "./${command} | tee console.log"
+                                    command = "./${command} |& tee console.log"
                                 }
                                 infra.runWithJava(command, "8", extraEnv)
                             }
