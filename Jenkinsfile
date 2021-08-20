@@ -41,16 +41,18 @@ pipeline {
                             always {
                                 junit('**/build/test-results/**/*.xml')
                                 discoverGitReferenceBuild()
-                                staticAnalysisIssues << scanForIssues(tool: java(),
-                                        sourceCodeEncoding: 'UTF-8',
-                                        blameDisabled: true)
-                                staticAnalysisIssues << scanForIssues(tool: taskScanner(
-                                            includePattern:'**/*.java',
-                                            excludePattern:'**/build/**,gradle/**,.gradle/**',
-                                            highTags:'FIXME',
-                                            normalTags:'TODO'),
-                                        sourceCodeEncoding: 'UTF-8',
-                                        blameDisabled: true)
+                                script {
+                                    staticAnalysisIssues << scanForIssues(tool: java(),
+                                            sourceCodeEncoding: 'UTF-8',
+                                            blameDisabled: true)
+                                    staticAnalysisIssues << scanForIssues(tool: taskScanner(
+                                            includePattern: '**/*.java',
+                                            excludePattern: '**/build/**,gradle/**,.gradle/**',
+                                            highTags: 'FIXME',
+                                            normalTags: 'TODO'),
+                                            sourceCodeEncoding: 'UTF-8',
+                                            blameDisabled: true)
+                                }
                             }
                         }
                     }
