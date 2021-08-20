@@ -31,7 +31,7 @@ pipeline {
                             script {
                                 String command = "gradlew ${gradleOptions.join ' '} clean check assemble"
                                 if (isUnix()) {
-                                    command = "./${command} | tee build/console.log"
+                                    command = "./${command} | tee console.log"
                                 }
                                 infra.runWithJava(command, "8", extraEnv)
                             }
@@ -58,7 +58,7 @@ pipeline {
                         post {
                             always {
                                 discoverGitReferenceBuild()
-                                recordIssues(tool: java(pattern: 'build/console.log'),
+                                recordIssues(tool: java(pattern: 'console.log'),
                                         sourceCodeEncoding: 'UTF-8',
                                         skipBlames: true)
                                 recordIssues(tool: taskScanner(
