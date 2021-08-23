@@ -26,9 +26,10 @@ dependencies {
 }
 
 tasks.withType(JavaCompile) {
-    //enable compilation in a separate daemon process
+    //enable compiler warnings
     options.deprecation = true
     options.compilerArgs << "-Xlint:all"
+    // write them to a file so that Warnings NG plugin can parse them.
     doFirst {
         logging.addStandardErrorListener({ message ->
             file("${buildDir}/javac.log") << message
