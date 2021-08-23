@@ -31,7 +31,7 @@ pipeline {
                             script {
                                 String command = "gradlew ${gradleOptions.join ' '} clean check assemble"
                                 if (isUnix()) {
-                                    command = "./" + command
+                                    command = "./${command}"
                                 }
                                 infra.runWithJava(command, "8", extraEnv)
                             }
@@ -54,6 +54,22 @@ pipeline {
                             archiveArtifacts artifacts: '**/build/reports/pluginVerifier/**', fingerprint: false
                             // Look for presence of compatibility warnings or problems
                             sh "./script/check-plugin-verification.sh"
+                        }
+                        post {
+                            always {
+                                discoverGitReferenceBuild()
+                                recordIssues(tool: java(pattern: 'build/javac.log'),
+                                        sourceCodeEncoding: 'UTF-8',
+                                        skipBlames: true)
+                                recordIssues(tool: taskScanner(
+                                            includePattern: '**/*.java',
+                                            excludePattern: '**/build/**,gradle/**,.gradle/**',
+                                            highTags: 'FIXME',
+                                            normalTags: 'TODO'),
+                                        sourceCodeEncoding: 'UTF-8',
+                                        skipBlames: true)
+
+                            }
                         }
                         when {
                             expression {

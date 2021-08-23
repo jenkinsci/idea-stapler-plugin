@@ -25,6 +25,18 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
 
+tasks.withType(JavaCompile) {
+    //enable compiler warnings
+    options.deprecation = true
+    options.compilerArgs << "-Xlint:all"
+    // write them to a file so that Warnings NG plugin can parse them.
+    doFirst {
+        logging.addStandardErrorListener({ message ->
+            file("${buildDir}/javac.log") << message
+        } as StandardOutputListener)
+    }
+}
+
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 
 // https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html
