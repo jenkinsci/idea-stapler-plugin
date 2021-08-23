@@ -29,6 +29,11 @@ tasks.withType(JavaCompile) {
     //enable compilation in a separate daemon process
     options.deprecation = true
     options.compilerArgs << "-Xlint:all"
+    doFirst {
+        logging.addStandardErrorListener({ message ->
+            file("${buildDir}/javac.log") << message
+        } as StandardOutputListener)
+    }
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
