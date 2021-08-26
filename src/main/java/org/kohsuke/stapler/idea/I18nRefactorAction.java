@@ -3,9 +3,9 @@ package org.kohsuke.stapler.idea;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesElementFactory;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.lang.properties.psi.Property;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.editor.Caret;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.openapi.editor.SelectionModel;
@@ -42,7 +42,7 @@ public class I18nRefactorAction extends EditorAction {
     public I18nRefactorAction() {
         super(new EditorActionHandler() {
             @Override
-            public void execute(final Editor editor, DataContext dataContext) {
+            public void doExecute(final Editor editor, @Nullable Caret caret, DataContext dataContext) {
                 if (editor == null) // be defensive
                     return;
 
@@ -163,8 +163,8 @@ public class I18nRefactorAction extends EditorAction {
                     public void run() {
                         try {
                             propsFile.addPropertyAfter(
-                                (Property)PropertiesElementFactory.createProperty(project,key,propertyValue.toString()),
-                                (Property)findAnchor(propsFile,key));
+                                    PropertiesElementFactory.createProperty(project,key,propertyValue.toString(),null),
+                                    findAnchor(propsFile,key));
                         } catch (IncorrectOperationException x) {
                             Messages.showErrorDialog(x.getMessage(),"Unable to add property");
                             return;
