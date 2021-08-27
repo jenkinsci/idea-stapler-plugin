@@ -14,7 +14,7 @@ public class I18nInspection extends LocalXmlInspectionTool {
     protected ProblemDescriptor[] checkXmlText(XmlText text, InspectionManager manager, boolean onTheFly) {
         if(text.getText().equals("foo")) {
             return new ProblemDescriptor[] {
-                manager.createProblemDescriptor(text,"Can't be foo", LocalQuickFix.EMPTY_ARRAY,
+                manager.createProblemDescriptor(text,"Can't be foo", onTheFly, LocalQuickFix.EMPTY_ARRAY,
                 ProblemHighlightType.GENERIC_ERROR_OR_WARNING )
             };
         }
