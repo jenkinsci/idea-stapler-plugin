@@ -1,12 +1,11 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.codeInsight.TailType;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.lookup.LookupItem;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.patterns.ElementPattern;
@@ -105,7 +104,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                             XmlNSDescriptorImpl d = XmlNSDescriptorImpl.get(uri, module);
                             if(d!=null) {
                                 for( XmlElementDescriptor e : d.getRootElementsDescriptors(null/*I'm not using this parameter*/)) {
-                                    LookupItem item = LookupItem.fromString(prefix + e.getName());
+                                    //LookupItem item = LookupItem.fromString(prefix + e.getName());
                                     /*
                                         In some context (see completion-test.jelly in particular),
                                         I noticed that contributions from here and XmlCompletionContributer
@@ -116,8 +115,12 @@ public class JellyCompletionContributor extends CompletionContributor {
 
                                         So I'm not sure what the TailType means but this is why we do this.
                                      */
-                                    item.setTailType(TailType.UNKNOWN);
-                                    result.addElement(item);
+                                    //item.setTailType(TailType.UNKNOWN);
+                                    // @duemir: Above must have been true when KK wrote it but is it still true?
+                                    // Both LookupItem constructor and factory method are deprecated for removal so I
+                                    // have implemented the recommended approach but tailType is not available there
+                                    // so I am not sure if there is going to be a regression or not.
+                                    result.addElement(LookupElementBuilder.create(prefix + e.getName()));
                                 }
                             }
                         }
