@@ -12,6 +12,7 @@ import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@link PsiReference} to a definition of a Jelly tag.
@@ -77,6 +78,7 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
         return null;
     }
 
+    @NotNull
     @Override
     public Object[] getVariants() {
 //        // not sure how to use this

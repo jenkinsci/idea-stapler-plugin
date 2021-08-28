@@ -17,7 +17,7 @@ public final class DocumentationTag extends TagWithHtmlContent {
     }
 
     public List<AttributeTag> getAttributes() {
-        List<AttributeTag> r = new ArrayList<AttributeTag>();
+        List<AttributeTag> r = new ArrayList<>();
         for( XmlTag a : tag.findSubTags("attribute","jelly:stapler") )
             r.add(new AttributeTag(a));
         return r;

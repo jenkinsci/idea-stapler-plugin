@@ -60,7 +60,7 @@ public class GotoViewAction extends GotoActionBase {
 
         // build up packages that contain jelly views, in the order of preference
         // through inheritance hierarchy of the class
-        final List<PsiPackage> viewPackages = new ArrayList<PsiPackage>();
+        final List<PsiPackage> viewPackages = new ArrayList<>();
         while(clazz!=null) {
             PsiPackage pkg = facade.findPackage(clazz.getQualifiedName());
             if(pkg!=null)   viewPackages.add(pkg);
@@ -115,9 +115,10 @@ public class GotoViewAction extends GotoActionBase {
                 return new DefaultPsiElementCellRenderer();
             }
 
+            @NotNull
             @Override
             public String[] getNames(boolean checkBoxState) {
-                List<String> r = new ArrayList<String>();
+                List<String> r = new ArrayList<>();
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {

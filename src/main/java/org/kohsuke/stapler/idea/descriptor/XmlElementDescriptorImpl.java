@@ -91,7 +91,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
 
     @Override
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {
-        HashMap<String, XmlAttributeDescriptor> r = new HashMap<String, XmlAttributeDescriptor>();
+        HashMap<String, XmlAttributeDescriptor> r = new HashMap<>();
         for (XmlAttributeDescriptor a : getAttributesDescriptors(xmlTag))
             r.put(a.getName(xmlTag),a);
         return r;
@@ -99,7 +99,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
 
     @Override
     protected HashMap<String, XmlElementDescriptor> collectElementDescriptorsMap(XmlTag xmlTag) {
-        HashMap<String, XmlElementDescriptor> r = new HashMap<String, XmlElementDescriptor>();
+        HashMap<String, XmlElementDescriptor> r = new HashMap<>();
         for (XmlElementDescriptor e : getElementsDescriptors(xmlTag))
             r.put(e.getName(xmlTag),e);
         return r;

@@ -259,7 +259,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                 offset +e.currentToken.next.beginColumn-1, // column is 1 origin
                 offset +e.currentToken.next.endColumn);   // end origin is inclusive
 
-        StringBuffer expected = new StringBuffer();
+        StringBuilder expected = new StringBuilder();
         int maxSize = 0;
         for (int i = 0; i < e.expectedTokenSequences.length; i++) {
           if (maxSize < e.expectedTokenSequences[i].length) {

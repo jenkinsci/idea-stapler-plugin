@@ -16,7 +16,7 @@ import javax.swing.*;
  * @author Kohsuke Kawaguchi
  */
 public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacetConfiguration> {
-    public final static FacetTypeId<StaplerFacet> ID = new FacetTypeId<StaplerFacet>("stapler");
+    public final static FacetTypeId<StaplerFacet> ID = new FacetTypeId<>("stapler");
 
     public final static StaplerFacetType INSTANCE = new StaplerFacetType();
 
