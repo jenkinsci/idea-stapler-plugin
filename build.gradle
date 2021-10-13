@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.2"
+version = "2.0.3"
 
 sourceCompatibility = 1.8
 
@@ -51,6 +51,12 @@ patchPluginXml {
     sinceBuild = "162.00"
     untilBuild = ""
     changeNotes = """
+      <h3>2.0.3</h3>
+      <ul>
+        <li>Revert Jelly file type introduced in 2.0.1. It turned out that there is regression in Intellij 2021.2 which 
+        prevents adding extensions to existing File Types (IDEA-277310). Attempt to work it around caused more issues than
+         it fixed. Regression should be fixed in 2021.3. Meanwhile *.jelly can be manually added to XML file type.</li>
+      </ul>
       <h3>2.0.2</h3>
       <ul>
         <li>Deprecation scheduled for removal are addressed to maintain compatibility with 2021.3 onward</li>
