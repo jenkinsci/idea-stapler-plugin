@@ -44,7 +44,7 @@ tasks.withType(JavaCompile) {
 // https://www.jetbrains.com/idea/download/other.html
 intellij {
     version = ideaVersion
-    plugins = ["properties"]
+    plugins = platformPlugins.tokenize(',')*.trim()
 }
 
 patchPluginXml {
