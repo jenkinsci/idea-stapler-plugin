@@ -38,7 +38,9 @@
     <metaDataContributor implementation="org.kohsuke.stapler.idea.descriptor.JellyTaglibMetadataContributor" />
     <!-- ? -->
     <annotator language="XML" implementationClass="org.kohsuke.stapler.idea.JellyAnnotator" />
-    <!-- ? -->
+    <!-- Show Documentation for Jelly Tag Libraries
+       https://plugins.jetbrains.com/docs/intellij/documentation.html#implementation
+    -->
     <lang.documentationProvider language="XML" implementationClass="org.kohsuke.stapler.idea.JellyDocumentationProvider"/>
     <!-- Tells IntelliJ that script and style tags inside *.jelly files are JavaScript and CSS correspondingly -->
     <multiHostInjector implementation="org.kohsuke.stapler.idea.JellyLanguageInjector" />
