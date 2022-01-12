@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.3"
+version = "2.0.4"
 
 sourceCompatibility = 1.8
 
@@ -51,6 +51,12 @@ patchPluginXml {
     sinceBuild = "162.00"
     untilBuild = ""
     changeNotes = """
+      <h3>2.0.4</h3>
+      <ul>
+        <li>Avoid <code>java.lang.NullPointerException</code> at <code>org.kohsuke.stapler.idea.JellyDocumentationProvider.generateDoc()</code>
+        by short-circuiting on <code>null</code> in the nullable parameter.
+        </li>
+      </ul>
       <h3>2.0.3</h3>
       <ul>
         <li>Revert Jelly file type introduced in 2.0.1. It turned out that there is regression in Intellij 2021.2 which 
