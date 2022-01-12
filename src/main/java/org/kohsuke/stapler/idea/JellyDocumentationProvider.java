@@ -1,47 +1,36 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.lang.documentation.DocumentationProvider;
+import com.intellij.lang.documentation.AbstractDocumentationProvider;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
+import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.descriptor.XmlAttributeDescriptorImpl;
 import org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorImpl;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
-import java.util.List;
-
 /**
  * @author Kohsuke Kawaguchi
  */
-public class JellyDocumentationProvider implements DocumentationProvider {
-    public String getQuickNavigateInfo(PsiElement element) {
-        return null;
-    }
-
-    /**
-     * Upon returning non-null from {@link #generateDoc(PsiElement, PsiElement)},
-     * I noticed that this method is getting invoked.
-     */
-    @Override
-    public List<String> getUrlFor(PsiElement element, PsiElement originalElement) {
-        return null;
-    }
+public class JellyDocumentationProvider extends AbstractDocumentationProvider {
 
     /**
      * This method is called upon Ctrl+Q on usages.
      *
      * @param element
-     *      This represents the declaration, not the usage.
-     * @param usage
+     *      This represents the declaration, not the originalElement.
+     * @param originalElement
      *      This is where Ctrl+Q is invoked.
      */
     @Override
-    public String generateDoc(PsiElement element, PsiElement usage) {
-        PsiElement p = usage.getParent();
+    public String generateDoc(PsiElement element, @Nullable PsiElement originalElement) {
+        if (originalElement == null) {
+            return null;
+        }
+        PsiElement p = originalElement.getParent();
         if (p instanceof XmlTag) {
             XmlTag t = (XmlTag) p;
             XmlElementDescriptor d = t.getDescriptor();
@@ -63,7 +52,7 @@ public class JellyDocumentationProvider implements DocumentationProvider {
             // if the nearest namespaced tag is <st:documentation> or <st:attribute>,
             // render that document. This is just like what happens when you hit Ctrl+Q
             // inside javadoc.
-            for( XmlTag tag = PsiTreeUtil.getParentOfType(usage, XmlTag.class);
+            for( XmlTag tag = PsiTreeUtil.getParentOfType(originalElement, XmlTag.class);
                  tag!=null;
                  tag = tag.getParentTag() ) {
                 String ns = tag.getNamespace();
@@ -79,23 +68,6 @@ public class JellyDocumentationProvider implements DocumentationProvider {
                     break;
             }
         }
-
-
-        return null;
-    }
-
-    @Override
-    public PsiElement getDocumentationElementForLookupItem(PsiManager psiManager, Object object, PsiElement element) {
-        return null;
-    }
-
-    @Override
-    public PsiElement getDocumentationElementForLink(PsiManager psiManager, String link, PsiElement context) {
-        return null;
-    }
-
-    @Override
-    public String getQuickNavigateInfo(PsiElement psiElement, PsiElement psiElement1) {
         return null;
     }
 }
