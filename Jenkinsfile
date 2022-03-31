@@ -33,7 +33,7 @@ pipeline {
                                 if (isUnix()) {
                                     command = "./${command}"
                                 }
-                                infra.runWithJava(command, "8", extraEnv)
+                                infra.runWithJava(command, "11", extraEnv)
                             }
                         }
                         post {

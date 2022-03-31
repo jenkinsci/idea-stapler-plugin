@@ -11,6 +11,7 @@ import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
@@ -157,7 +158,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
     }
 
     @Override
-    public Object[] getDependences() {
+    public Object @NotNull [] getDependencies() {
         return new Object[] {nsDescriptor,tagFile};
     }
 

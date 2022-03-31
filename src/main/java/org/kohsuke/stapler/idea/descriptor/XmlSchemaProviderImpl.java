@@ -1,6 +1,6 @@
 package org.kohsuke.stapler.idea.descriptor;
 
-import com.intellij.openapi.fileTypes.StdFileTypes;
+import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.Key;
 import com.intellij.psi.PsiDirectory;
@@ -26,7 +26,7 @@ public class XmlSchemaProviderImpl extends XmlSchemaProvider {
         if(d==null)     return null;
 
         XmlFile pseudoSchema = (XmlFile) PsiFileFactory.getInstance(module.getProject()).createFileFromText(
-                url + ".xml", StdFileTypes.XML, "<schema uri=\"" + url + "\" xmlns='" + JellyTaglibMetadataContributor.DUMMY_SCHEMA_URL + "'>");
+                url + ".xml", XmlFileType.INSTANCE , "<schema uri=\"" + url + "\" xmlns='" + JellyTaglibMetadataContributor.DUMMY_SCHEMA_URL + "'>");
         pseudoSchema.putUserData(MODULE,d.getDir());
         return pseudoSchema;
     }
