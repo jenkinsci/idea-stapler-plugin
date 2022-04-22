@@ -55,7 +55,7 @@ patchPluginXml {
     sinceBuild = "203.00"
     untilBuild = ""
     changeNotes = """
-      <h3>2.0.4</h3>
+      <h3>2.0.5</h3>
       <ul>
         <li>Compatibility baseline is changed to 2020.3 which also changes Java level to 11.</li>
       </ul>
