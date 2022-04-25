@@ -36,7 +36,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
      */
     @Override
     @NotNull
-    public PsiReference[] getReferencesByElement(@NotNull PsiElement e, @NotNull ProcessingContext processingContext) {
+    public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement e, @NotNull ProcessingContext processingContext) {
         /*
         This was the old way of marking references to tag files, but
         with the custom XmlNSDescriptor this is no longer necessary
@@ -88,7 +88,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
         if(p.getAttribute("it")==null
         && p.getAttribute("from")==null) {
             // the page must be coming from the same object
-            return array(new PsiReferenceBase<XmlAttributeValue>(xav,
+            return array(new PsiReferenceBase<>(xav,
                     TextRange.from(1,xav.getTextLength()-2)) {
                 private final String page = xav.getValue();
                 @Override
@@ -140,7 +140,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
 
                 @Override
                 @NotNull
-                public Object[] getVariants() {
+                public Object @NotNull [] getVariants() {
                     return ArrayUtils.EMPTY_OBJECT_ARRAY;
                 }
             });

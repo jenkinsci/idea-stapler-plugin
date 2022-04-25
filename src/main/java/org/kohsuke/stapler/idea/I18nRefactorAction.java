@@ -29,6 +29,7 @@ import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiPackage;
 import com.intellij.psi.PsiType;
 import com.intellij.util.IncorrectOperationException;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class I18nRefactorAction extends EditorAction {
     public I18nRefactorAction() {
         super(new EditorActionHandler() {
             @Override
-            public void doExecute(final Editor editor, @Nullable Caret caret, DataContext dataContext) {
+            public void doExecute(final @NotNull Editor editor, @Nullable Caret caret, DataContext dataContext) {
                 if (editor == null) // be defensive
                     return;
 

@@ -7,13 +7,13 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.roots.ContentEntry;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.testFramework.LightProjectDescriptor;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class JexlInspectionTest extends LightPlatformCodeInsightFixtureTestCase {
+public class JexlInspectionTest extends BasePlatformTestCase {
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";

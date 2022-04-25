@@ -67,7 +67,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
      */
     @Override
     @NotNull
-    public XmlElementDescriptor[] getRootElementsDescriptors(@Nullable XmlDocument document) {
+    public XmlElementDescriptor @NotNull [] getRootElementsDescriptors(@Nullable XmlDocument document) {
         List<XmlElementDescriptor> r = new ArrayList<>();
         for(PsiFile f : dir.getFiles()) {
             if(!f.getName().endsWith(".jelly"))     continue;
@@ -115,7 +115,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
     }
 
     @Override
-    public Object[] getDependences() {
+    public Object @NotNull [] getDependencies() {
         return new Object[]{dir};
     }
 

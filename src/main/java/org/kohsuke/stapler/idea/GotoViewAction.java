@@ -37,7 +37,7 @@ import java.util.List;
 public class GotoViewAction extends GotoActionBase {
 
     @Override
-    public void gotoActionPerformed(AnActionEvent anactionevent) {
+    public void gotoActionPerformed(@NotNull AnActionEvent anactionevent) {
         PsiElement context = getPsiContext(anactionevent);
 
         final Project project = anactionevent.getData(PlatformDataKeys.PROJECT);
@@ -81,23 +81,18 @@ public class GotoViewAction extends GotoActionBase {
             }
 
             @Override
-            public String getNotInMessage() {
+            public @NotNull String getNotInMessage() {
                 return "getNotInMessage";
             }
 
             @Override
-            public String getNotFoundMessage() {
+            public @NotNull String getNotFoundMessage() {
                 return "getNotFoundMessage";
             }
 
             @Override
             public String getCheckBoxName() {
                 return null;    // no check box
-            }
-
-            @Override
-            public char getCheckBoxMnemonic() {
-                return '\0';
             }
 
             @Override
@@ -111,13 +106,13 @@ public class GotoViewAction extends GotoActionBase {
             }
 
             @Override
-            public ListCellRenderer getListCellRenderer() {
+            public @NotNull ListCellRenderer getListCellRenderer() {
                 return new DefaultPsiElementCellRenderer();
             }
 
             @NotNull
             @Override
-            public String[] getNames(boolean checkBoxState) {
+            public String @NotNull [] getNames(boolean checkBoxState) {
                 List<String> r = new ArrayList<>();
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
@@ -133,7 +128,7 @@ public class GotoViewAction extends GotoActionBase {
 
             @Override
             @NotNull
-            public Object[] getElementsByName(String name, boolean checkBoxState, String pattern) {
+            public Object @NotNull [] getElementsByName(@NotNull String name, boolean checkBoxState, @NotNull String pattern) {
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {
@@ -147,12 +142,12 @@ public class GotoViewAction extends GotoActionBase {
 
             @Override
             @NotNull
-            public String[] getSeparators() {
+            public String @NotNull [] getSeparators() {
                 return ArrayUtils.EMPTY_STRING_ARRAY;
             }
 
             @Override
-            public String getElementName(Object obj) {
+            public String getElementName(@NotNull Object obj) {
                 if (obj instanceof PsiFile) {
                     return ((PsiFile) obj).getName();
                 } else {
@@ -161,7 +156,7 @@ public class GotoViewAction extends GotoActionBase {
             }
 
             @Override
-            public String getFullName(Object obj) {
+            public String getFullName(@NotNull Object obj) {
                 if (obj instanceof PsiFile) {
                     VirtualFile virtualfile = ((PsiFile) obj).getVirtualFile();
                     return virtualfile == null ? null : virtualfile.getPath();

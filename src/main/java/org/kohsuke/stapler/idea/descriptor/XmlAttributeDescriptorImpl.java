@@ -3,6 +3,7 @@ package org.kohsuke.stapler.idea.descriptor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.xml.XmlAttributeDescriptor;
+import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 
 /**
@@ -98,7 +99,7 @@ public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
     }
 
     @Override
-    public Object[] getDependences() {
+    public Object @NotNull [] getDependencies() {
         return new Object[]{def.tag};
     }
 }
