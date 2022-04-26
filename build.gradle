@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.5-SNAPSHOT"
+version = "2.0.5"
 
 java {
     toolchain {
@@ -57,7 +57,7 @@ patchPluginXml {
     changeNotes = """
       <h3>2.0.5</h3>
       <ul>
-        <li>Compatibility baseline is changed to 2020.3 which also changes Java level to 11.</li>
+        <li>Compatibility baseline is changed to 2020.3 which also changes Java level to 11. No functional changes are expected.</li>
       </ul>
       <h3>2.0.4</h3>
       <ul>
