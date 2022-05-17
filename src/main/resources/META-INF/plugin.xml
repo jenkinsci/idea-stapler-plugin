@@ -20,7 +20,7 @@
     <!-- Adds module Facet for Stapler -->
     <facetType implementation="org.kohsuke.stapler.idea.StaplerFacetType"/>
     <!-- Adds "*.jelly" to the XML file type extensions -->
-    <fileTypeFactory implementation="org.kohsuke.stapler.idea.JellyFileTypeFactory" />
+    <fileType name="XML" extensions="jelly" />
     <!-- ? -->
 <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <!-- Completion for Jelly Tags -->

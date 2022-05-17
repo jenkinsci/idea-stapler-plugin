@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.5"
+version = "2.0.6-SNAPSHOT"
 
 java {
     toolchain {
@@ -55,6 +55,10 @@ patchPluginXml {
     sinceBuild = "203.00"
     untilBuild = ""
     changeNotes = """
+      <h3>2.0.6</h3>
+      <ul>
+        <li>Switch from deprecated imperative File Type definition to the declarative one. Internal change. No functional changes are expected.</li> 
+      </ul>
       <h3>2.0.5</h3>
       <ul>
         <li>Compatibility baseline is changed to 2020.3 which also changes Java level to 11. No functional changes are expected.</li>
