@@ -11,6 +11,8 @@ import com.intellij.psi.xml.XmlText;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
 
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
+
 /**
  * @author Kohsuke Kawaguchi
  */
@@ -49,7 +51,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
      * @param onTheFly
      */
     protected ProblemDescriptor[] check(XmlElement psi, InspectionManager manager, String text, TextRange range, boolean onTheFly) {
-        if(!psi.getContainingFile().getName().endsWith(".jelly"))
+        if(!isJelly(psi.getContainingFile()))
             return EMPTY_ARRAY; // not a jelly script
         if(!shouldCheck(psi))
             return EMPTY_ARRAY; // stapler not enabled

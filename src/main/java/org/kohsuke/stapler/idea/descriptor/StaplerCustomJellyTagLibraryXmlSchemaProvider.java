@@ -12,6 +12,8 @@ import com.intellij.xml.XmlSchemaProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
+
 /**
  * This is not to be confused with W3C XML Schema. Rather,
  * it's a mechanism for locating a structure definition for a given URI
@@ -42,7 +44,7 @@ public class StaplerCustomJellyTagLibraryXmlSchemaProvider extends XmlSchemaProv
      */
     @Override
     public boolean isAvailable(@NotNull XmlFile file) {
-        return file.getName().endsWith(".jelly");
+        return isJelly(file);
     }
 
     /*package*/ static final Key<PsiDirectory> MODULE = Key.create(PsiDirectory.class.getName());

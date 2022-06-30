@@ -20,7 +20,11 @@
     <!-- Adds module Facet for Stapler -->
     <facetType implementation="org.kohsuke.stapler.idea.StaplerFacetType"/>
     <!-- Adds "*.jelly" to the XML file type extensions -->
-    <fileType name="XML" extensions="jelly" />
+    <!-- *.jellytag is a seldom used stapler jelly tag tag file extension
+         https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/CustomTagLibrary.java#L128-L130 -->
+    <fileType name="XML" extensions="jelly;jellytag" />
+    <!-- Categorizes the Jelly files into separate category for JetBrains' stats. Also contains utilities for checking if a file is a Jelly file -->
+    <fileTypeUsageSchemaDescriptor schema="jelly" implementationClass="io.jenkins.stapler.idea.jelly.JellyFileTypeSchema" />
     <!-- ? -->
 <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <!-- Completion for Jelly Tags -->

@@ -12,17 +12,26 @@ import com.intellij.psi.xml.XmlDocument;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.xml.XmlElementDescriptor;
-import com.intellij.xml.XmlNSDescriptor;
+import com.intellij.xml.XmlNSDescriptorEx;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.JELLY_EXTENSION;
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.STAPLER_JELLY_TAG_EXTENSION;
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
+
 /**
  * @author Kohsuke Kawaguchi
  */
-public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescriptor {
+public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescriptorEx {
+    /**
+     * Stapler's <a href="https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/CustomTagLibrary.java#L128-L130">CustomTagLibrary</a> supports standard Jelly Extension and also introduces its own tag extension.
+     * It is also extensible using {@code JellyTagFileLoader}-s, the only instance of which is <a href="https://github.com/jenkinsci/stapler/blob/2a13b906bf3af42bc610e4592d56eb8b511fa1be/groovy/src/main/java/org/kohsuke/stapler/jelly/groovy/GroovyTagFileLoader.java">GroovyTagFileLoader</a>
+     */
+    private static final List<String> DOT_TAGFILE_EXTENSIONS = List.of("." + STAPLER_JELLY_TAG_EXTENSION, "." + JELLY_EXTENSION, ".groovy");
     /**
      * Namespace URI of a tag library.
      */
@@ -52,9 +61,21 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
 
     @Override
     public XmlElementDescriptor getElementDescriptor(@NotNull XmlTag tag) {
-        PsiFile f = dir.findFile(tag.getLocalName() + ".jelly");
-        if (f instanceof XmlFile)
-            return new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile)f);
+        return getElementDescriptor(tag.getLocalName());
+    }
+    @Override
+    public XmlElementDescriptor getElementDescriptor(String localName, String namespace) {
+        return getElementDescriptor(localName);
+    }
+
+    private XmlElementDescriptor getElementDescriptor(String localName) {
+        for (String ext : DOT_TAGFILE_EXTENSIONS) {
+            PsiFile f = dir.findFile(localName + ext);
+            if (f instanceof XmlFile) {
+                return new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile)f);
+            }
+            // TODO: Handle groovy file tags
+        }
         return null;
     }
 
@@ -70,20 +91,26 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     public XmlElementDescriptor @NotNull [] getRootElementsDescriptors(@Nullable XmlDocument document) {
         List<XmlElementDescriptor> r = new ArrayList<>();
         for(PsiFile f : dir.getFiles()) {
-            if(!f.getName().endsWith(".jelly"))     continue;
+            if(!isTagFile(f))     continue;
             if (f instanceof XmlFile)
                 r.add(new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile)f));
         }
-        return r.toArray(new XmlElementDescriptor[r.size()]);
+        return r.toArray(new XmlElementDescriptor[0]);
+    }
+
+    private boolean isTagFile(PsiFile file) {
+        for (String ext : DOT_TAGFILE_EXTENSIONS) {
+            if (file.getName().endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
+    @Nullable
     public XmlFile getDescriptorFile() {
         return null;
-    }
-
-    public boolean isHierarhyEnabled() {
-        return true; // ???
     }
 
     @Override
@@ -120,7 +147,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     }
 
     public static StaplerCustomJellyTagLibraryXmlNSDescriptor get(XmlTag tag) {
-        if(!tag.getContainingFile().getName().endsWith(".jelly"))
+        if(!isJelly(tag.getContainingFile()))
             return null;    // this tag is not in a jelly script
 
         String nsUri = tag.getNamespace();
