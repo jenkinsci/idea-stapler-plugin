@@ -4,6 +4,8 @@ import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlTag;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 /**
  * {@link XmlTag} that wraps &lt;st:attribute>.
  *
@@ -20,13 +22,13 @@ public class AttributeTag extends TagWithHtmlContent {
      */
     @NotNull
     public String getName() {
-        XmlAttribute a = tag.getAttribute("name");
-        if(a==null)     return "";
-        return a.getValue();
+        return Optional.ofNullable(tag.getAttribute("name"))
+                .map(XmlAttribute::getValue)
+                .orElse("");
     }
 
     public boolean isRequired() {
-        XmlAttribute a = tag.getAttribute("use");
-        return a != null && a.getValue().equals("required");
+        Optional<String> mayBeUseAttrValue = Optional.ofNullable(tag.getAttribute("use")).map(XmlAttribute::getValue);
+        return mayBeUseAttrValue.isPresent() && mayBeUseAttrValue.get().equals("required");
     }
 }
