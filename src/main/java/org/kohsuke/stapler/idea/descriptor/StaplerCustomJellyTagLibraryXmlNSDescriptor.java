@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class XmlNSDescriptorImpl implements XmlNSDescriptor {
+public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescriptor {
     /**
      * Namespace URI of a tag library.
      */
@@ -33,7 +33,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
      */
     private PsiDirectory dir;
 
-    public XmlNSDescriptorImpl(String uri, PsiDirectory dir) {
+    public StaplerCustomJellyTagLibraryXmlNSDescriptor(String uri, PsiDirectory dir) {
         this.uri = uri;
         this.dir = dir;
     }
@@ -43,7 +43,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
      *      Should be only invoked by IDEA.
      *      {@link #init(PsiElement)} call follows immediately.
      */
-    public XmlNSDescriptorImpl() {
+    public StaplerCustomJellyTagLibraryXmlNSDescriptor() {
     }
 
     public PsiDirectory getDir() {
@@ -54,7 +54,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
     public XmlElementDescriptor getElementDescriptor(@NotNull XmlTag tag) {
         PsiFile f = dir.findFile(tag.getLocalName() + ".jelly");
         if (f instanceof XmlFile)
-            return new XmlElementDescriptorImpl(this, (XmlFile)f);
+            return new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile)f);
         return null;
     }
 
@@ -72,7 +72,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         for(PsiFile f : dir.getFiles()) {
             if(!f.getName().endsWith(".jelly"))     continue;
             if (f instanceof XmlFile)
-                r.add(new XmlElementDescriptorImpl(this, (XmlFile)f));
+                r.add(new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile)f));
         }
         return r.toArray(new XmlElementDescriptor[r.size()]);
     }
@@ -110,7 +110,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
     @Override
     public void init(PsiElement element) {
         XmlDocument doc = (XmlDocument) element;
-        dir = doc.getContainingFile().getUserData(XmlSchemaProviderImpl.MODULE);
+        dir = doc.getContainingFile().getUserData(StaplerCustomJellyTagLibraryXmlSchemaProvider.MODULE);
         uri = doc.getRootTag().getAttribute("uri","").getValue();
     }
 
@@ -119,7 +119,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return new Object[]{dir};
     }
 
-    public static XmlNSDescriptorImpl get(XmlTag tag) {
+    public static StaplerCustomJellyTagLibraryXmlNSDescriptor get(XmlTag tag) {
         if(!tag.getContainingFile().getName().endsWith(".jelly"))
             return null;    // this tag is not in a jelly script
 
@@ -127,7 +127,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         return get(nsUri, ModuleUtil.findModuleForPsiElement(tag));
     }
 
-    public static XmlNSDescriptorImpl get(String nsUri, Module module) {
+    public static StaplerCustomJellyTagLibraryXmlNSDescriptor get(String nsUri, Module module) {
         // just trying to be defensive
         if(module==null) return null;
         if(nsUri.length()==0)   return null;
@@ -145,7 +145,7 @@ public class XmlNSDescriptorImpl implements XmlNSDescriptor {
         for (PsiDirectory dir : dirs)
             if(dir.findFile("taglib")!=null)
                 // this is a tag library
-                return new XmlNSDescriptorImpl(nsUri,dir);
+                return new StaplerCustomJellyTagLibraryXmlNSDescriptor(nsUri,dir);
 
         return null;
     }

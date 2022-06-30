@@ -33,7 +33,7 @@
                   extenderClass="org.kohsuke.stapler.idea.dom.model.JellyTagExtender"/>
     -->
     <!-- Dummy Schema for the Jelly Tag libraries -->
-    <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlSchemaProviderImpl" />
+    <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlSchemaProvider" />
     <!-- Provide Metadata for Dummy Schemas -->
     <metaDataContributor implementation="org.kohsuke.stapler.idea.descriptor.JellyTaglibMetadataContributor" />
     <!-- ? -->

@@ -8,8 +8,8 @@ import com.intellij.psi.xml.XmlTag;
 import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.Nullable;
-import org.kohsuke.stapler.idea.descriptor.XmlAttributeDescriptorImpl;
-import org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorImpl;
+import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlAttributeDescriptor;
+import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlElementDescriptor;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
 /**
@@ -34,8 +34,8 @@ public class JellyDocumentationProvider extends AbstractDocumentationProvider {
         if (p instanceof XmlTag) {
             XmlTag t = (XmlTag) p;
             XmlElementDescriptor d = t.getDescriptor();
-            if (d instanceof XmlElementDescriptorImpl) {
-                XmlElementDescriptorImpl dd = (XmlElementDescriptorImpl) d;
+            if (d instanceof StaplerCustomJellyTagfileXmlElementDescriptor) {
+                StaplerCustomJellyTagfileXmlElementDescriptor dd = (StaplerCustomJellyTagfileXmlElementDescriptor) d;
                 DocumentationTag m = dd.getModel();
                 if(m==null)     return null;
                 return m.generateHtmlDoc();
@@ -44,8 +44,8 @@ public class JellyDocumentationProvider extends AbstractDocumentationProvider {
         if (p instanceof XmlAttribute) {
             XmlAttribute a = (XmlAttribute) p;
             XmlAttributeDescriptor ad = a.getDescriptor();
-            if (ad instanceof XmlAttributeDescriptorImpl) {
-                XmlAttributeDescriptorImpl o = (XmlAttributeDescriptorImpl) ad;
+            if (ad instanceof StaplerCustomJellyTagfileXmlAttributeDescriptor) {
+                StaplerCustomJellyTagfileXmlAttributeDescriptor o = (StaplerCustomJellyTagfileXmlAttributeDescriptor) ad;
                 return o.getModel().generateHtmlDoc();
             }
         } else {

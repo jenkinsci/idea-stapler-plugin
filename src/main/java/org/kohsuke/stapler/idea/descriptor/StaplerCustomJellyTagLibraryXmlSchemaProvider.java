@@ -19,10 +19,10 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Kohsuke Kawaguchi
  */
-public class XmlSchemaProviderImpl extends XmlSchemaProvider {
+public class StaplerCustomJellyTagLibraryXmlSchemaProvider extends XmlSchemaProvider {
     @Override
     public XmlFile getSchema(@NotNull String url, @Nullable Module module, @NotNull PsiFile baseFile) {
-        XmlNSDescriptorImpl d = XmlNSDescriptorImpl.get(url, module);
+        StaplerCustomJellyTagLibraryXmlNSDescriptor d = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(url, module);
         if(d==null)     return null;
 
         XmlFile pseudoSchema = (XmlFile) PsiFileFactory.getInstance(module.getProject()).createFileFromText(
