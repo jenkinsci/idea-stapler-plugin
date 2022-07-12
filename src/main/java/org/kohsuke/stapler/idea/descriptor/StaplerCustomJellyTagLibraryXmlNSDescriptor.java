@@ -27,9 +27,12 @@ import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
  * @author Kohsuke Kawaguchi
  */
 public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescriptorEx {
-    /**
-     * Stapler's <a href="https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/CustomTagLibrary.java#L128-L130">CustomTagLibrary</a> supports standard Jelly Extension and also introduces its own tag extension.
-     * It is also extensible using {@code JellyTagFileLoader}-s, the only instance of which is <a href="https://github.com/jenkinsci/stapler/blob/2a13b906bf3af42bc610e4592d56eb8b511fa1be/groovy/src/main/java/org/kohsuke/stapler/jelly/groovy/GroovyTagFileLoader.java">GroovyTagFileLoader</a>
+    /*
+     * Stapler's `CustomTagLibrary`[1] introduces its own tag extension in addition to standard Jelly Extension.
+     * It is also extensible using `JellyTagFileLoader`-s, the only instance of which is `GroovyTagFileLoader`[2]
+     *
+     * 1: https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/CustomTagLibrary.java#L128-L130
+     * 2: https://github.com/jenkinsci/stapler/blob/2a13b906bf3af42bc610e4592d56eb8b511fa1be/groovy/src/main/java/org/kohsuke/stapler/jelly/groovy/GroovyTagFileLoader.java
      */
     private static final List<String> DOT_TAGFILE_EXTENSIONS = List.of("." + STAPLER_JELLY_TAG_EXTENSION, "." + JELLY_EXTENSION, ".groovy");
     /**
@@ -129,7 +132,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     }
 
     /**
-     * This method is called when this object is instanciated by IDEA as metadata
+     * This method is called when this object is instantiated by IDEA as metadata
      * to existing object.
      * <p>
      * This special pseudo document has to be &lt;schema uri="..." xmlns="dummy-schema-url"/> 
@@ -162,8 +165,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
         JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(module.getProject());
 
         String pkgName = nsUri.substring(1).replace('/', '.');
-        // this invocation below successfully finds packages that includes
-        // invalid characters like 'a-b-c'
+        // this invocation below successfully finds packages that include invalid characters like 'a-b-c'
         PsiPackage pkg = javaPsi.findPackage(pkgName);
         if(pkg==null)   return null;
 
