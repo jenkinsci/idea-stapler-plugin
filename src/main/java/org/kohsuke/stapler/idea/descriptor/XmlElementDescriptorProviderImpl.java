@@ -12,7 +12,7 @@ import com.intellij.xml.XmlElementDescriptor;
 public class XmlElementDescriptorProviderImpl implements XmlElementDescriptorProvider {
     @Override
     public XmlElementDescriptor getDescriptor(XmlTag tag) {
-        XmlNSDescriptorImpl ns = XmlNSDescriptorImpl.get(tag);
+        StaplerCustomJellyTagLibraryXmlNSDescriptor ns = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(tag);
         if(ns!=null)    return ns.getElementDescriptor(tag);
         return null;
     }

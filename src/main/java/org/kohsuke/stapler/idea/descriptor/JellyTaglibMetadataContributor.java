@@ -13,12 +13,12 @@ public class JellyTaglibMetadataContributor implements MetaDataContributor {
     @Override
     public void contributeMetaData(MetaDataRegistrar registrar) {
         // this is so that we can create an XmlFile whose getRootElement().getMetaData()
-        // returns XmlNSDescriptorImpl. This is necessary to load schemas on the fly
+        // returns StaplerCustomJellyTagLibraryXmlNSDescriptor. This is necessary to load schemas on the fly
         registrar.registerMetaData(
                 new AndFilter(
                         new ClassFilter(XmlDocument.class),
                         new NamespaceFilter(DUMMY_SCHEMA_URL)),
-                XmlNSDescriptorImpl.class
+                StaplerCustomJellyTagLibraryXmlNSDescriptor.class
         );
     }
 }

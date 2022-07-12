@@ -22,18 +22,18 @@ import java.util.List;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
-    private final XmlNSDescriptorImpl nsDescriptor;
+public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElementDescriptorImpl {
+    private final StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor;
     private final XmlFile tagFile;
 
-    public XmlElementDescriptorImpl(XmlNSDescriptorImpl nsDescriptor, XmlFile tagFile) {
+    public StaplerCustomJellyTagfileXmlElementDescriptor(StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor, XmlFile tagFile) {
         this.nsDescriptor = nsDescriptor;
         this.tagFile = tagFile;
     }
 
     @Override
     public XmlElementDescriptor getElementDescriptor(XmlTag child, XmlTag context) {
-        XmlNSDescriptorImpl ns = XmlNSDescriptorImpl.get(child);
+        StaplerCustomJellyTagLibraryXmlNSDescriptor ns = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(child);
         if(ns==null) {
             {// here I'm trying to return a descriptor that allows anything/
                 /*
@@ -72,7 +72,7 @@ public class XmlElementDescriptorImpl extends BaseXmlElementDescriptorImpl {
         XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
         int i=0;
         for (AttributeTag a : atts) {
-            descriptors[i++] = new XmlAttributeDescriptorImpl(this,a);
+            descriptors[i++] = new StaplerCustomJellyTagfileXmlAttributeDescriptor(this,a);
         }
         return descriptors;
     }

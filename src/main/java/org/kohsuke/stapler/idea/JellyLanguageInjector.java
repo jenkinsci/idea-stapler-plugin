@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
+
 /**
  * Injects CSS and JavaScript to suitable places
  *
@@ -25,7 +27,7 @@ import java.util.List;
 public class JellyLanguageInjector implements MultiHostInjector {
     @Override
     public void getLanguagesToInject(@NotNull final MultiHostRegistrar registrar, @NotNull PsiElement context) {
-        if(!context.getContainingFile().getName().endsWith(".jelly"))
+        if(!isJelly(context.getContainingFile()))
             return; // not a jelly file
 
         // inject CSS to @style

@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author Kohsuke Kawaguchi
  */
+// TODO: Is this even used?
 public class AnyElementDescriptorImpl implements XmlElementDescriptor {
     private final XmlTag tag;
 
@@ -39,7 +40,7 @@ public class AnyElementDescriptorImpl implements XmlElementDescriptor {
 
     @Override
     public XmlElementDescriptor getElementDescriptor(XmlTag childTag, XmlTag contextTag) {
-        XmlNSDescriptorImpl ns = XmlNSDescriptorImpl.get(childTag);
+        StaplerCustomJellyTagLibraryXmlNSDescriptor ns = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(childTag);
         if(ns!=null)
             return ns.getElementDescriptor(childTag);
         return new AnyElementDescriptorImpl(childTag);
