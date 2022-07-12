@@ -11,17 +11,17 @@ import org.kohsuke.stapler.idea.dom.model.AttributeTag;
  *
  * @author Kohsuke Kawaguchi
 */
-public class XmlAttributeDescriptorImpl implements XmlAttributeDescriptor {
+public class StaplerCustomJellyTagfileXmlAttributeDescriptor implements XmlAttributeDescriptor {
     /**
      * Which element do we belong?
      */
-    private XmlElementDescriptorImpl element;
+    private StaplerCustomJellyTagfileXmlElementDescriptor element;
     /**
      * Definition of this attribute.
      */
     private final AttributeTag def;
 
-    XmlAttributeDescriptorImpl(XmlElementDescriptorImpl element, AttributeTag def) {
+    StaplerCustomJellyTagfileXmlAttributeDescriptor(StaplerCustomJellyTagfileXmlElementDescriptor element, AttributeTag def) {
         this.element = element;
         this.def = def;
     }

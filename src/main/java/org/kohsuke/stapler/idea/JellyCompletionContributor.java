@@ -19,14 +19,16 @@ import com.intellij.psi.xml.XmlToken;
 import com.intellij.util.ProcessingContext;
 import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
-import org.kohsuke.stapler.idea.descriptor.XmlNSDescriptorImpl;
+import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
+
+import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 
 /**
  * Tag name completion for Jelly tag libraries defined as tag files.
  *
  * <p>
- * One would think that contributing {@link XmlNSDescriptorImpl} and
- * implementing {@link XmlNSDescriptorImpl#getRootElementsDescriptors(XmlDocument)} is enough
+ * One would think that contributing {@link StaplerCustomJellyTagLibraryXmlNSDescriptor} and
+ * implementing {@link StaplerCustomJellyTagLibraryXmlNSDescriptor#getRootElementsDescriptors(XmlDocument)} is enough
  * to cause the IDEA XML module to show tag name completions, but apparently it is not.
  *
  * <p>
@@ -48,7 +50,7 @@ import org.kohsuke.stapler.idea.descriptor.XmlNSDescriptorImpl;
  * (they represent in-memory for-this-document-only temporary DTDs), and unless the body tag
  * appear elsewhere and have some children, it will return null from its
  * {@link XmlElementDescriptor#getElementDescriptor(XmlTag, XmlTag)} when given &lt;t:something/>,
- * and {@link TagNameReference}, which calls {@link XmlNSDescriptorImpl#getRootElementsDescriptors(XmlDocument)}
+ * and {@link TagNameReference}, which calls {@link StaplerCustomJellyTagLibraryXmlNSDescriptor#getRootElementsDescriptors(XmlDocument)}
  * to list up possible children, uses this as a signal that &lt;t:something/>
  * is not a valid child in this context.
  *
@@ -74,7 +76,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                         XmlElement name = (XmlElement)parameters.getPosition();
 
                         // do this only inside Jelly files
-                        if(!name.getContainingFile().getName().endsWith(".jelly"))
+                        if(!isJelly(name.getContainingFile()))
                             return;
 
                         // this pseudo-tag represents the tag being completed.
@@ -101,7 +103,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                             String prefix = tag.getPrefixByNamespace(uri);
                             if(prefix!=null && prefix.length()>0)
                                 prefix+=':';
-                            XmlNSDescriptorImpl d = XmlNSDescriptorImpl.get(uri, module);
+                            StaplerCustomJellyTagLibraryXmlNSDescriptor d = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
                             if(d!=null) {
                                 for( XmlElementDescriptor e : d.getRootElementsDescriptors(null/*I'm not using this parameter*/)) {
                                     //LookupItem item = LookupItem.fromString(prefix + e.getName());
