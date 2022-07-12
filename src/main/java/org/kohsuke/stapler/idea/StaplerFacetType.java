@@ -16,9 +16,9 @@ import javax.swing.*;
  * @author Kohsuke Kawaguchi
  */
 public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacetConfiguration> {
-    public final static FacetTypeId<StaplerFacet> ID = new FacetTypeId<>("stapler");
+    public static final FacetTypeId<StaplerFacet> ID = new FacetTypeId<>("stapler");
 
-    public final static StaplerFacetType INSTANCE = new StaplerFacetType();
+    public static final StaplerFacetType INSTANCE = new StaplerFacetType();
 
     private StaplerFacetType() {
         // setting the 4th parameter restricits this facet to be only available as
@@ -53,19 +53,4 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
     public boolean isSuitableModuleType(ModuleType moduleType) {
         return moduleType instanceof JavaModuleType;
     }
-
-    // if we can auto-detect the facet from a project
-//    public void registerDetectors(final FacetDetectorRegistry<StaplerFacetConfiguration> facetDetectorRegistry) {
-//      FacetDetectorRegistryEx<StaplerFacetConfiguration> detectorRegistry = (FacetDetectorRegistryEx<StaplerFacetConfiguration>)facetDetectorRegistry;
-//      FacetDetector<VirtualFile,StaplerFacetConfiguration> facetDetector = new FacetDetector<VirtualFile,StaplerFacetConfiguration>() {
-//        public StaplerFacetConfiguration detectFacet(final VirtualFile source,
-//                                                              final Collection<StaplerFacetConfiguration> existentFacetConfigurations) {
-//          if (!existentFacetConfigurations.isEmpty()) {
-//            return existentFacetConfigurations.iterator().next();
-//          }
-//          return new StaplerFacetConfiguration();
-//        }
-//      };
-//      detectorRegistry.registerUniversalDetector(StdFileTypes.XML, virtualFile().withName(string().endsWith(".gwt.xml")), facetDetector);
-//    }
 }
