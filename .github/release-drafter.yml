@@ -9,12 +9,12 @@ tag-template: '$RESOLVED_VERSION'
 version-resolver:
   major:
     labels:
-      - 'major'
+      - 'bump-major'
       - 'breaking'
   minor:
     labels:
-      - 'minor'
+      - 'bump-minor'
   patch:
     labels:
-      - 'patch'
+      - 'bump-patch'
   default: patch
