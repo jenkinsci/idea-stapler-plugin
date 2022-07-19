@@ -1,7 +1,8 @@
 package org.kohsuke.stapler.idea.descriptor;
 
+import com.intellij.openapi.util.Ref;
+import com.intellij.openapi.util.SimpleFieldCache;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlDocument;
 import com.intellij.psi.xml.XmlElement;
@@ -11,6 +12,8 @@ import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
+import com.intellij.xml.impl.schema.AnyXmlElementDescriptor;
+import com.intellij.xml.util.XmlUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
@@ -25,6 +28,23 @@ import java.util.List;
 public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElementDescriptorImpl {
     private final StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor;
     private final XmlFile tagFile;
+    private volatile Boolean hasInvokeBody;
+    private static final SimpleFieldCache<Boolean, StaplerCustomJellyTagfileXmlElementDescriptor> hasInvokeBodyCache = new SimpleFieldCache<>() {
+        @Override
+        protected Boolean compute(StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
+            return xmlElementDescriptor.lookForInvokeBody();
+        }
+
+        @Override
+        protected Boolean getValue(StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
+            return xmlElementDescriptor.hasInvokeBody;
+        }
+
+        @Override
+        protected void putValue(Boolean hasInvokeBody, StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
+            xmlElementDescriptor.hasInvokeBody = hasInvokeBody;
+        }
+    };
 
     public StaplerCustomJellyTagfileXmlElementDescriptor(StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor, XmlFile tagFile) {
         this.nsDescriptor = nsDescriptor;
@@ -33,34 +53,22 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     @Override
     public XmlElementDescriptor getElementDescriptor(XmlTag child, XmlTag context) {
-        StaplerCustomJellyTagLibraryXmlNSDescriptor ns = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(child);
-        if(ns==null) {
-            {// here I'm trying to return a descriptor that allows anything/
-                /*
-                This didn't work --- it works on elements on non-empty namespaces,
-                but empty namespaces are marked as errors.
-
-                return NullElementDescriptor.getInstance();
-                */
-
-                /*
-                This didn't work either.
-                XmlNSDescriptor nsd = tagFile.getDocument().getDefaultNSDescriptor(child.getNamespace(), false);
-                XmlElementDescriptor d = nsd.getElementDescriptor(child);
-                return d;
-                */
-                
-                PsiFile f = child.getContainingFile();
-                XmlNSDescriptor nsd = ((XmlFile)f).getDocument().getDefaultNSDescriptor(child.getNamespace(), false);
-                return (nsd == null) ? null : nsd.getElementDescriptor(child);
+        if (!invokesBody()) {
+            return null;
+        } else {
+            StaplerCustomJellyTagLibraryXmlNSDescriptor ns = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(child);
+            if (ns != null) {
+                return ns.getElementDescriptor(child);
+            } else {
+                // Reuse XSD implementation of Any element descriptor to allow every possible tag in the body.
+                return new AnyXmlElementDescriptor(this, getNSDescriptor());
             }
-
-        } else
-            return ns.getElementDescriptor(child);
+        }
     }
 
     @Override
     protected XmlElementDescriptor[] doCollectXmlDescriptors(XmlTag xmlTag) {
+        // Must be overridden because this class extends from base DTD class but not used since `getElementDescriptor` is implemented
         return new XmlElementDescriptor[0];
     }
 
@@ -108,7 +116,9 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     @Override
     public String getQualifiedName() {
-        // TODO: how am I supposed to figure out the prefix?
+        // DTD based descriptor just does the same.
+        // It's XSD and RNG who provide implementation of this.
+        // Maybe this should provide one as well based on the package name of the tagFile. What features does it affect?
         return getName();
     }
 
@@ -124,8 +134,11 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     @Override
     public int getContentType() {
-        // TODO
-        return CONTENT_TYPE_ANY;
+        if (invokesBody()) {
+            return CONTENT_TYPE_ANY;
+        } else {
+            return CONTENT_TYPE_EMPTY;
+        }
     }
 
     @Override
@@ -155,6 +168,7 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     @Override
     public void init(PsiElement element) {
+        // This class is not registered by metadata contributor, so this method is probably never called hence empty.
     }
 
     @Override
@@ -162,4 +176,25 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
         return new Object[] {nsDescriptor,tagFile};
     }
 
+    private boolean invokesBody() {
+        Boolean value = hasInvokeBodyCache.get(this);
+        return value != null && value;
+    }
+
+    private boolean lookForInvokeBody() {
+        final Ref<XmlTag> result = new Ref<>();
+        XmlUtil.processXmlElements(tagFile,
+                element -> {
+                    if (element instanceof XmlTag && isJellyDefineInvokeBodyTag((XmlTag) element)) {
+                        result.set((XmlTag) element);
+                        return false;
+                    }
+                    return true;
+                }, true);
+        return !result.isNull();
+    }
+
+    private static boolean isJellyDefineInvokeBodyTag(XmlTag tag) {
+        return tag.getNamespace().equals("jelly:define") && tag.getLocalName().equals("invokeBody");
+    }
 }
