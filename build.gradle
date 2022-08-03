@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.7-SNAPSHOT"
+version = "2.0.7"
 
 java {
     toolchain {
@@ -55,6 +55,12 @@ patchPluginXml {
     sinceBuild = "203.00"
     untilBuild = ""
     changeNotes = """
+      <h3>2.0.7</h3>
+      <ul>
+        <li>Fix the <code>StackOverflowError</code> in Stapler Custom Jelly Taglibrary</li>
+        <li><code>*.jellytag</code> extension is recognized as Jelly. Stapler supports it for Jellyy Taglibraries</li>
+        <li><code>stapler.xsd</code> is formatted to improve readability</li>
+      </ul>
       <h3>2.0.6</h3>
       <ul>
         <li>Switch from deprecated imperative File Type definition to the declarative one. Internal change. No functional changes are expected.</li> 
