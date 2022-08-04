@@ -11,7 +11,7 @@ Some of the features
 
 ## Jelly
 
-* Automatically recognized as an XML file
+* Automatically recognized as an XML file (`*.jelly` and `*.jellytag`)
 * Navigation from the Jelly tags to their definitions
 * Error checks and auto completion on attributes and elements of taglibs
 * `style` attribute and `script` tag contents should be recognized as CSS and JavaScript correspondingly.
