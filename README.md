@@ -7,7 +7,7 @@
 <ul>
   <li><a href="https://stapler.kohsuke.org/">Stapler HTTP request handling engine</a></li>
   <li><a href="https://commons.apache.org/proper/commons-jelly/index.html">Jelly : Executable XML</a></li>
-  <li><a href="http://commons.apache.org/proper/commons-jexl/">Java Expression Language (JEXL)</a></li>
+  <li><a href="https://commons.apache.org/proper/commons-jexl/">Java Expression Language (JEXL)</a></li>
 </ul>
 <!-- Plugin description end -->
 
