@@ -1,8 +1,17 @@
-# ["Stapler Framework Support" for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/1885-stapler-plugin-for-intellij-idea)
+# ["Jenkins Development Support" for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/1885-stapler-plugin-for-intellij-idea)
 
-[Stapler HTTP request handling engine](https://stapler.kohsuke.org/) support. As well as support for [Jelly](https://commons.apache.org/proper/commons-jelly/index.html) and [JEXL](http://commons.apache.org/proper/commons-jexl/) that do no have specialized plugins.
+[//]: # (Content between "Plugin description" markers are extracted by gradle build. No markdown formatting. Simple html only.)
+<!-- Plugin description -->
+<p>Assists with development of Jenkins core and plugins.</p>
+<p>Supports following technologies that are not covered by any other IntelliJ plugins:</p>
+<ul>
+  <li><a href="https://stapler.kohsuke.org/">Stapler HTTP request handling engine</a></li>
+  <li><a href="https://commons.apache.org/proper/commons-jelly/index.html">Jelly : Executable XML</a></li>
+  <li><a href="http://commons.apache.org/proper/commons-jexl/">Java Expression Language (JEXL)</a></li>
+</ul>
+<!-- Plugin description end -->
 
-Some of the features
+Features include:
 
 ## Stapler
 
@@ -13,7 +22,7 @@ Some of the features
 
 * Automatically recognized as an XML file (`*.jelly` and `*.jellytag`)
 * Navigation from the Jelly tags to their definitions
-* Error checks and auto completion on attributes and elements of taglibs
+* Error checks and autocompletion on attributes and elements of taglibs
 * `style` attribute and `script` tag contents should be recognized as CSS and JavaScript correspondingly.
 
 ## JEXL
