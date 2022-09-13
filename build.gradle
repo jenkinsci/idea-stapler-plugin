@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.8-SNAPSHOT"
+version = "2.0.8"
 
 java {
     toolchain {
@@ -59,10 +59,12 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>2.0.8</h3>
+        <h4>Plugin is renamed from "Stapler Framework Support" to "Jenkins Development Support"</h4>
       <h3>2.0.7</h3>
       <ul>
         <li>Fix the <code>StackOverflowError</code> in Stapler Custom Jelly Taglibrary</li>
-        <li><code>*.jellytag</code> extension is recognized as Jelly. Stapler supports it for Jellyy Taglibraries</li>
+        <li><code>*.jellytag</code> extension is recognized as Jelly. Stapler supports it for Jelly Taglibraries</li>
         <li><code>stapler.xsd</code> is formatted to improve readability</li>
       </ul>
       <h3>2.0.6</h3>
