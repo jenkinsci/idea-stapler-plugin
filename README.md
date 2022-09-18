@@ -22,6 +22,7 @@ Features include:
 
 * Automatically recognized as an XML file (`*.jelly` and `*.jellytag`)
 * Navigation from the Jelly tags to their definitions
+  * Integrate `st:documentation` tag into IntelliJ documentation support
 * Error checks and autocompletion on attributes and elements of taglibs
 * `style` attribute and `script` tag contents should be recognized as CSS and JavaScript correspondingly.
 
