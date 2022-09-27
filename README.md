@@ -1,6 +1,7 @@
 # ["Jenkins Development Support" for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/1885-stapler-plugin-for-intellij-idea)
 
-[![Join the chat at https://gitter.im/jenkinsci/idea-stapler-plugin](https://badges.gitter.im/jenkinsci/idea-stapler-plugin.svg)](https://gitter.im/jenkinsci/idea-stapler-plugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fidea-stapler-plugin%2Fmaster)](https://ci.jenkins.io/job/Plugins/job/idea-stapler-plugin/job/master/)
+[![Join the chat at https://gitter.im/jenkinsci/idea-stapler-plugin](https://badges.gitter.im/jenkinsci/idea-stapler-plugin.svg)](https://gitter.im/jenkinsci/idea-stapler-plugin)
 
 [//]: # (Content between "Plugin description" markers are extracted by gradle build. No markdown formatting. Simple html only.)
 <!-- Plugin description -->
