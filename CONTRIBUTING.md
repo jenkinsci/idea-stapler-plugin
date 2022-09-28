@@ -37,7 +37,7 @@ IntelliJ IDEA has a hidden tooling for plugin developers. See [Internal Actions 
 
 JDK 11 is the only pre-requisite.
 
-Run `./gradlew buildPlugin` or `gradlew.bat buildPlugin` to get the Gradel and all the necessary dependencies
+Run `./gradlew buildPlugin` or `gradlew.bat buildPlugin` to get Gradle and all the necessary dependencies
 
 ### CLI
 
