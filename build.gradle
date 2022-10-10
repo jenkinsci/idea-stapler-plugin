@@ -52,7 +52,7 @@ tasks.withType(JavaCompile) {
 // https://www.jetbrains.com/idea/download/other.html
 intellij {
     version = ideaVersion
-    type.set(ideaType)
+    type = ideaType
     plugins = platformPlugins.tokenize(',')*.trim()
 }
 
@@ -102,10 +102,12 @@ patchPluginXml {
 }
 
 runPluginVerifier {
-    // Rather arbitrarily chosen first releases of last three year.
-    // Product version in use statistics say last 3 major releases. It does not define "major release" though but
-    // but educated guess is that `year.version` is what is considered major.
-    ideVersions = ["2020.3.4", "2021.3.3", "2022.2.3"]
+//    jbrVersion = "8u202b1483.24"
+    subsystemsToCheck = "without-android"
+}
+
+listProductsReleases {
+    sinceVersion = "2020.1"
 }
 
 publishPlugin {
