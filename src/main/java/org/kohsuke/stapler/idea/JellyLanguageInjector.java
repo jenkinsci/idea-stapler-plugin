@@ -42,17 +42,13 @@ public class JellyLanguageInjector implements MultiHostInjector {
                 return; // not a style attribute
 
             Language language = findLanguage("CSS");
-            if (language == null) return;
-
-            try {
-                registrar.startInjecting(language);
-                registrar.addPlace("dummy_selector {", "}",
-                                   (PsiLanguageInjectionHost) value,
-                                   TextRange.from(1, value.getTextLength() - 2));
-                registrar.doneInjecting();
-            } catch (IllegalArgumentException ignored) {
-                // occurs when syntax is malformed, like style==""
-            }
+            if (language == null || value.getTextLength() < 2) return;
+            
+            registrar.startInjecting(language);
+            registrar.addPlace("dummy_selector {", "}",
+                               (PsiLanguageInjectionHost) value,
+                               TextRange.from(1, value.getTextLength() - 2));
+            registrar.doneInjecting();
             return;
         }
         
