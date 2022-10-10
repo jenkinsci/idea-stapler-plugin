@@ -45,12 +45,14 @@ tasks.withType(JavaCompile) {
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
+// https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html#configuration-intellij-extension
 
 // https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html
 // https://plugins.jetbrains.com/docs/marketplace/product-versions-in-use-statistics.html
 // https://www.jetbrains.com/idea/download/other.html
 intellij {
     version = ideaVersion
+    type.set(ideaType)
     plugins = platformPlugins.tokenize(',')*.trim()
 }
 
@@ -103,7 +105,7 @@ runPluginVerifier {
     // Rather arbitrarily chosen first releases of last three year.
     // Product version in use statistics say last 3 major releases. It does not define "major release" though but
     // but educated guess is that `year.version` is what is considered major.
-    ideVersions = ["2020.3.2", "2021.3.3", "2022.1"]
+    ideVersions = ["2020.3.4", "2021.3.3", "2022.2.3"]
 }
 
 publishPlugin {
