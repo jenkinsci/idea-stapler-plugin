@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.java.JavaFileTreeElement;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiManager;
 import org.kohsuke.stapler.idea.psi.JellyFile;
+import org.kohsuke.stapler.idea.structureview.JavaFileLinkTreeElement;
 
 /**
  * Additional java files in jelly structure view
@@ -28,7 +28,7 @@ public class JellyStructureViewExtension extends AbstractStructureViewExtension 
     @Override
     public StructureViewTreeElement[] getChildren(PsiElement parent) {
         final PsiManager psiManager = PsiManager.getInstance(parent.getProject());
-        final List<JavaFileTreeElement> files = new ArrayList<>();
+        final List<JavaFileLinkTreeElement> files = new ArrayList<>();
         final String expectedPath = getExpectedJavaPath(getPathWithJavaExtension(parent).toString());
 
         ProjectFileIndex.getInstance(parent.getProject())
@@ -37,13 +37,13 @@ public class JellyStructureViewExtension extends AbstractStructureViewExtension 
                                             if (expectedPath.equals(virtualFile.getPath())) {
                                                 PsiFile file = psiManager.findFile(virtualFile);
                                                 if (file instanceof PsiJavaFile) {
-                                                    files.add(new JavaFileTreeElement((PsiJavaFile) file));
+                                                    files.add(new JavaFileLinkTreeElement((PsiJavaFile) file));
                                                 }
                                             }
                                             return true;
                                         }
                         );
 
-        return files.toArray(JavaFileTreeElement.EMPTY_ARRAY);
+        return files.toArray(JavaFileLinkTreeElement.EMPTY_ARRAY);
     }
 }
