@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.java.JavaFileTreeElement;
-import com.intellij.psi.PsiClassOwner;
+import com.intellij.ide.structureView.impl.java.JavaClassTreeElement;
+import com.intellij.psi.PsiClass;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -13,10 +13,10 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Julien Greffe
  */
-public class JavaFileLinkTreeElement extends JavaFileTreeElement {
+public class LinkPsiClassTreeElement extends JavaClassTreeElement {
 
-    public JavaFileLinkTreeElement(PsiClassOwner file) {
-        super(file);
+    public LinkPsiClassTreeElement(PsiClass psiClass) {
+        super(psiClass, false);
     }
 
     @Override

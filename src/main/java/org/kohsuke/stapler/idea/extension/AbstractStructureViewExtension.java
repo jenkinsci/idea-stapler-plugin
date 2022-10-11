@@ -1,9 +1,11 @@
 package org.kohsuke.stapler.idea.extension;
 
-import com.intellij.ide.highlighter.JavaFileType;
+import java.io.File;
+import java.nio.file.Path;
+
 import com.intellij.ide.structureView.StructureViewExtension;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.util.text.StringUtilRt;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,26 +22,45 @@ public abstract class AbstractStructureViewExtension implements StructureViewExt
     /**
      * Replace src/main/java to src/main/resources (location of expected related jelly files)
      */
-    protected String getExpectedJellyParentPath(String path) {
-        return path.replace(SRC_JAVA, SRC_RESOURCES);
-    }
-
-    protected String getExpectedJavaPath(String path) {
-        return path.replace(SRC_RESOURCES, SRC_JAVA);
+    protected Path getExpectedJellyParentPath(String path) {
+        return new File(path.replace(SRC_JAVA, SRC_RESOURCES)).toPath();
     }
 
     /**
-     * Construct path without extension
+     * Replace src/main/resources to src/main/java (location of expected related java files)
      */
-    protected CharSequence getPathWithoutExtension(PsiElement javaFile) {
-        CharSequence path = javaFile.getContainingFile().getVirtualFile().getPath();
-        int i = StringUtilRt.lastIndexOf(path, '.', 0, path.length());
-        return i < 0 ? path : path.subSequence(0, i);
+    protected Path getExpectedJavaPath(String path) {
+        return new File(path.replace(SRC_RESOURCES, SRC_JAVA)).toPath();
     }
 
-    protected CharSequence getPathWithJavaExtension(PsiElement jellyFile) {
-        return jellyFile.getContainingFile().getVirtualFile().getParent().getPath()
-               + JavaFileType.DOT_DEFAULT_EXTENSION;
+    /**
+     * Construct potential jelly directory path linked to the current java element
+     */
+    protected CharSequence getJellyDirectoryPath(PsiElement javaElement) {
+        CharSequence containingPath = javaElement.getContainingFile().getParent().getVirtualFile().getPath();
+
+        StringBuilder sb = new StringBuilder();
+        constructRecursivePotentialJellyPath(sb, javaElement);
+
+        return containingPath + sb.toString();
+    }
+
+    /**
+     * Recursively look for parent classes and add name to path
+     */
+    private void constructRecursivePotentialJellyPath(StringBuilder sb, PsiElement javaElement) {
+        if (javaElement instanceof PsiClass) {
+            constructRecursivePotentialJellyPath(sb, javaElement.getParent());
+            sb.append("/");
+            sb.append(((PsiClass) javaElement).getName());
+        }
+    }
+
+    /**
+     * Return a path of expected Java file
+     */
+    protected String getJavaFilePath(PsiElement jellyElement) {
+        return jellyElement.getContainingFile().getVirtualFile().getParent().getPath();
     }
 
     @Override

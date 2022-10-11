@@ -1,16 +1,19 @@
 package org.kohsuke.stapler.idea.extension;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.openapi.roots.ProjectFileIndex;
+import com.intellij.openapi.vfs.VfsUtil;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.kohsuke.stapler.idea.psi.JellyFile;
-import org.kohsuke.stapler.idea.structureview.JellyFileLinkTreeElement;
+import org.kohsuke.stapler.idea.psi.link.LinkJellyFileImpl;
+import org.kohsuke.stapler.idea.structureview.LinkJellyFileTreeElement;
 
 /**
  * Additional jelly files in java structure view
@@ -28,22 +31,19 @@ public class JavaStructureViewExtension extends AbstractStructureViewExtension {
     @Override
     public StructureViewTreeElement[] getChildren(PsiElement parent) {
         final PsiManager psiManager = PsiManager.getInstance(parent.getProject());
-        final List<JellyFileLinkTreeElement> files = new ArrayList<>();
-        final String expectedPath = getExpectedJellyParentPath(getPathWithoutExtension(parent).toString());
+        final List<LinkJellyFileTreeElement> files = new ArrayList<>();
+        final Path expectedPath = getExpectedJellyParentPath(getJellyDirectoryPath(parent).toString());
 
-        ProjectFileIndex.getInstance(parent.getProject())
-                        .iterateContent(virtualFile -> {
-                                            // check against the expected path
-                                            if (expectedPath.equals(virtualFile.getParent().getPath())) {
-                                                PsiFile file = psiManager.findFile(virtualFile);
-                                                if (file instanceof JellyFile) {
-                                                    files.add(new JellyFileLinkTreeElement((JellyFile) file));
-                                                }
-                                            }
-                                            return true;
-                                        }
-                        );
-
-        return files.toArray(JellyFileLinkTreeElement.EMPTY_ARRAY);
+        VirtualFile containingJellyDirectory = VfsUtil.findFile(expectedPath, false);
+        if (containingJellyDirectory != null) {
+            for (VirtualFile jellyFile : containingJellyDirectory.getChildren()) {
+                PsiFile file = psiManager.findFile(jellyFile);
+                if (file instanceof JellyFile) {
+                    files.add(new LinkJellyFileTreeElement(
+                        new LinkJellyFileImpl(file.getViewProvider(), file.getFileElementType())));
+                }
+            }
+        }
+        return files.toArray(LinkJellyFileTreeElement.EMPTY_ARRAY);
     }
 }

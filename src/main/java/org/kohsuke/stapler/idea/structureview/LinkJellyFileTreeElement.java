@@ -5,17 +5,17 @@ import java.util.Collections;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.xml.XmlFileTreeElement;
+import com.intellij.psi.xml.XmlFile;
 import org.jetbrains.annotations.NotNull;
-import org.kohsuke.stapler.idea.psi.JellyFile;
 
 /**
  * Simple tree element to display file without children
  *
  * @author Julien Greffe
  */
-public class JellyFileLinkTreeElement extends XmlFileTreeElement {
+public class LinkJellyFileTreeElement extends XmlFileTreeElement {
 
-    public JellyFileLinkTreeElement(JellyFile file) {
+    public LinkJellyFileTreeElement(XmlFile file) {
         super(file);
     }
 
