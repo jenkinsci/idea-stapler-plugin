@@ -102,12 +102,11 @@ patchPluginXml {
 }
 
 runPluginVerifier {
-//    jbrVersion = "8u202b1483.24"
     subsystemsToCheck = "without-android"
 }
 
 listProductsReleases {
-    sinceVersion = "2020.1"
+    sinceVersion = sinceIdeaVersion
 }
 
 publishPlugin {
