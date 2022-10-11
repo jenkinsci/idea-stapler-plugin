@@ -8,5 +8,5 @@ import javax.swing.*;
  * @author Kohsuke Kawaguchi
  */
 public class Icons {
-    public static final Icon STAPLER = IconLoader.findIcon("/org/kohsuke/stapler/idea/icons/stapler.png");
+    public static final Icon STAPLER = IconLoader.getIcon("/org/kohsuke/stapler/idea/icons/stapler.png", Icons.class);
 }
