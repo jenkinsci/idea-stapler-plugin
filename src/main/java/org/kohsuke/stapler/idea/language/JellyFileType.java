@@ -38,7 +38,7 @@ public class JellyFileType extends XmlLikeFileType {
 
     @Override
     public @Nullable Icon getIcon() {
-        return Icons.STAPLER;
+        return Icons.JELLY;
     }
 
 }
