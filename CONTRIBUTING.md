@@ -47,3 +47,5 @@ Run `./gradlew buildPlugin` or `gradlew.bat buildPlugin` to get Gradle and all t
 
 1. Create new project from existing source using Gradle project
 2. Use one of the persisted "runIde" Run/Debug configurations to start IDEA based on gradle.properties or a specific version
+
+https://github.com/jenkinsci/design-library-plugin is a good small project for manual testing since it demonstrates various Stapler and Jelly features.

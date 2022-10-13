@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="idea-stapler-plugin [runIde 2021.2]" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="idea-stapler-plugin [runIde IU]" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="-PideaVersion=2021.2" />
+      <option name="scriptParameters" value="-PideaType=IU -PideaVersion=2022.2.3" />
       <option name="taskDescriptions">
         <list />
       </option>
