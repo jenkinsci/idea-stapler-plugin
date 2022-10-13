@@ -106,7 +106,7 @@ runPluginVerifier {
 }
 
 listProductsReleases {
-    sinceVersion = sinceIdeaVersion
+    sinceVersion = sinceIdeaVersion ?: ideaVersion
 }
 
 publishPlugin {
