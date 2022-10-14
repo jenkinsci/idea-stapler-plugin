@@ -1,7 +1,7 @@
 package org.kohsuke.stapler.idea.extension;
 
-import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.intellij.ide.structureView.StructureViewExtension;
 import com.intellij.openapi.editor.Editor;
@@ -23,14 +23,14 @@ public abstract class AbstractStructureViewExtension implements StructureViewExt
      * Replace src/main/java to src/main/resources (location of expected related jelly files)
      */
     protected Path getExpectedJellyParentPath(String path) {
-        return new File(path.replace(SRC_JAVA, SRC_RESOURCES)).toPath();
+        return Paths.get(path.replace(SRC_JAVA, SRC_RESOURCES));
     }
 
     /**
      * Replace src/main/resources to src/main/java (location of expected related java files)
      */
     protected Path getExpectedJavaPath(String path) {
-        return new File(path.replace(SRC_RESOURCES, SRC_JAVA)).toPath();
+        return Paths.get(path.replace(SRC_RESOURCES, SRC_JAVA));
     }
 
     /**

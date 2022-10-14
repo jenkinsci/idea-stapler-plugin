@@ -1,7 +1,7 @@
 package org.kohsuke.stapler.idea.extension;
 
-import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,16 +37,16 @@ public class JellyStructureViewExtension extends AbstractStructureViewExtension 
         final List<LinkPsiClassTreeElement> files = new ArrayList<>();
         final Path expectedPath = getExpectedJavaPath(getJavaFilePath(parent).toString());
 
-        Optional<PsiClass> psiClass = findDeeperMatchingJavaFile(psiManager, expectedPath, new ArrayList<>());
+        Optional<PsiClass> psiClass = findParentMatchingJavaFile(psiManager, expectedPath, new ArrayList<>());
         psiClass.ifPresent(aClass -> files.add(new LinkPsiClassTreeElement(aClass)));
 
         return files.toArray(LinkPsiClassTreeElement.EMPTY_ARRAY);
     }
 
-    protected Optional<PsiClass> findDeeperMatchingJavaFile(PsiManager psiManager, Path pathWithoutJavaExtension,
+    protected Optional<PsiClass> findParentMatchingJavaFile(PsiManager psiManager, Path pathWithoutJavaExtension,
                                                             List<String> innerClasses) {
         VirtualFile virtualFile = VfsUtil.findFile(
-            new File(pathWithoutJavaExtension + JavaFileType.DOT_DEFAULT_EXTENSION).toPath(), false);
+            Paths.get(pathWithoutJavaExtension + JavaFileType.DOT_DEFAULT_EXTENSION), false);
 
         // virtual file exists
         if (virtualFile != null) {
@@ -58,8 +58,8 @@ public class JellyStructureViewExtension extends AbstractStructureViewExtension 
         // look in parent path if starting with an upper-case
         if (pathWithoutJavaExtension.getParent() != null && currentFilenameStartsWithUppercase(
             pathWithoutJavaExtension.getParent().getFileName().toString())) {
-            innerClasses.add(pathWithoutJavaExtension.getFileName().toString());
-            return findDeeperMatchingJavaFile(psiManager, pathWithoutJavaExtension.getParent(), innerClasses);
+            innerClasses.add(0, pathWithoutJavaExtension.getFileName().toString());
+            return findParentMatchingJavaFile(psiManager, pathWithoutJavaExtension.getParent(), innerClasses);
         }
 
         return Optional.empty();
