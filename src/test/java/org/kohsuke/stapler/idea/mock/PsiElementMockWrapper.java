@@ -20,7 +20,7 @@ public class PsiElementMockWrapper<T extends PsiElement> {
 
     private final Path path;
 
-    private final PsiElement psiElement;
+    private final T psiElement;
 
     private VirtualFile virtualFile;
 
@@ -60,7 +60,7 @@ public class PsiElementMockWrapper<T extends PsiElement> {
     }
 
     public T getPsiElement() {
-        return (T) psiElement;
+        return psiElement;
     }
 
     public List<PsiElementMockWrapper<? extends PsiElement>> getChildren() {
