@@ -28,7 +28,7 @@ public class JellyFileType extends XmlLikeFileType {
 
     @Override
     public @NotNull String getDescription() {
-        return "Jelly language file";
+        return "Jelly";
     }
 
     @Override
