@@ -4,19 +4,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.java.JavaClassTreeElement;
-import com.intellij.psi.PsiClass;
+import com.intellij.ide.structureView.impl.xml.XmlFileTreeElement;
+import com.intellij.psi.xml.XmlFile;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Simple tree element to display file without children
+ * Simple leaf tree element to display file without children
  *
  * @author Julien Greffe
  */
-public class LinkPsiClassTreeElement extends JavaClassTreeElement {
+public class LeafJellyFileTreeElement extends XmlFileTreeElement {
 
-    public LinkPsiClassTreeElement(PsiClass psiClass) {
-        super(psiClass, false);
+    public LeafJellyFileTreeElement(XmlFile file) {
+        super(file);
     }
 
     @Override
