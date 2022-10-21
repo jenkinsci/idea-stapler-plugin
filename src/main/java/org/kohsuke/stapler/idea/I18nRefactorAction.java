@@ -137,6 +137,7 @@ public class I18nRefactorAction extends EditorAction {
                      * Takes the literal string value and appends that to <tt>propertyValue</tt>
                      * with proper escaping.
                      */
+                    @SuppressWarnings("fallthrough")
                     private void escapeAndAppend(String value) {
                         for (char ch : value.toCharArray()) {
                             switch (ch) {

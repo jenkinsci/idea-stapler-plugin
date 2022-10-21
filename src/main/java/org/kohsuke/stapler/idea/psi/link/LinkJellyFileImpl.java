@@ -11,6 +11,8 @@ import com.intellij.psi.tree.IElementType;
  */
 public class LinkJellyFileImpl extends XmlFileImpl {
 
+    private static final long serialVersionUID = -2852591808110975334L;
+
     public LinkJellyFileImpl(FileViewProvider viewProvider, IElementType elementType) {
         super(viewProvider, elementType);
     }

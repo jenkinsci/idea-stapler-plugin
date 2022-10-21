@@ -51,10 +51,11 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     }
 
     /**
-     * @deprecated
+     *
      *      Should be only invoked by IDEA.
      *      {@link #init(PsiElement)} call follows immediately.
      */
+    @Deprecated
     public StaplerCustomJellyTagLibraryXmlNSDescriptor() {
     }
 

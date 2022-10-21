@@ -14,6 +14,9 @@ import org.jetbrains.annotations.Nullable;
  * @author Kohsuke Kawaguchi
  */
 public class StaplerFacet extends Facet<StaplerFacetConfiguration> {
+    private static final long serialVersionUID = -7188957135462336436L;
+
+    @SuppressWarnings("rawtypes")
     public StaplerFacet(@NotNull FacetType facetType, @NotNull Module module, String name, @NotNull StaplerFacetConfiguration configuration, Facet underlyingFacet) {
         super(facetType, module, name, configuration, underlyingFacet);
     }

@@ -31,6 +31,7 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
         return new StaplerFacetConfiguration();
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public StaplerFacet createFacet(@NotNull Module module, String name, @NotNull StaplerFacetConfiguration configuration, @Nullable Facet underlyingFacet) {
         return new StaplerFacet(this, module, name, configuration, underlyingFacet);
@@ -49,6 +50,7 @@ public final class StaplerFacetType extends FacetType<StaplerFacet, StaplerFacet
         return Icons.STAPLER;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public boolean isSuitableModuleType(ModuleType moduleType) {
         return moduleType instanceof JavaModuleType;
