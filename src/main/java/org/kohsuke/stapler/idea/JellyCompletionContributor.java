@@ -9,9 +9,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.patterns.ElementPattern;
-import com.intellij.patterns.TreeElementPattern;
 import com.intellij.patterns.XmlElementPattern;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.xml.TagNameReference;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlDocument;
@@ -150,14 +148,12 @@ public class JellyCompletionContributor extends CompletionContributor {
     /**
      * {@link ElementPattern} that matches attribute names.
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private static final TreeElementPattern<PsiElement, XmlToken, ?> XML_ATTRIBUTE_NAME_PATTERN =
-            new XmlElementPattern(XmlToken.class){}.withParent(XmlAttribute.class);
+    private static final ElementPattern XML_ATTRIBUTE_NAME_PATTERN =
+            new XmlElementPattern(XmlToken.class) {}.withParent(XmlAttribute.class);
 
     /**
      * {@link ElementPattern} that matches attribute names.
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private static final TreeElementPattern<PsiElement, XmlToken, ?> XML_ELEMENT_NAME_PATTERN =
-            new XmlElementPattern(XmlToken.class){}.withParent(XmlTag.class);
+    private static final ElementPattern XML_ELEMENT_NAME_PATTERN =
+            new XmlElementPattern(XmlToken.class) {}.withParent(XmlTag.class);
 }

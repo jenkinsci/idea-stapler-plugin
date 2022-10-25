@@ -9,8 +9,6 @@ import com.intellij.psi.tree.IElementType;
  */
 public class JellyFileImpl extends XmlFileImpl implements JellyFile {
 
-    private static final long serialVersionUID = 6661840983960140845L;
-
     public JellyFileImpl(FileViewProvider viewProvider, IElementType elementType) {
         super(viewProvider, elementType);
     }

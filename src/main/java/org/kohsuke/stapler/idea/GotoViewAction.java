@@ -106,7 +106,7 @@ public class GotoViewAction extends GotoActionBase {
             }
 
             @Override
-            public @NotNull ListCellRenderer<Object> getListCellRenderer() {
+            public @NotNull ListCellRenderer getListCellRenderer() {
                 return new DefaultPsiElementCellRenderer();
             }
 

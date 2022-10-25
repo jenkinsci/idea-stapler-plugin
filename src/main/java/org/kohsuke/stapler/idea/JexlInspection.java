@@ -280,7 +280,6 @@ public class JexlInspection extends LocalXmlInspectionTool {
                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
     }
 
-    @SuppressWarnings("fallthrough")
     private String tokenize(String text) {
         int parenthesis=0;
         for(int idx=0;idx<text.length();idx++) {

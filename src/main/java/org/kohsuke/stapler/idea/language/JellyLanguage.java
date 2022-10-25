@@ -10,7 +10,6 @@ import com.intellij.lang.xml.XMLLanguage;
 public class JellyLanguage extends XMLLanguage {
 
     public static final JellyLanguage INSTANCE = new JellyLanguage();
-    private static final long serialVersionUID = 7136374987951296162L;
 
     private JellyLanguage() {
         super(XMLLanguage.INSTANCE, "Jelly");
