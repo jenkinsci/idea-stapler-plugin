@@ -13,7 +13,7 @@ import org.kohsuke.stapler.idea.psi.JellyFileImpl;
  */
 public class JellyParserDefinition extends XMLParserDefinition {
 
-    IFileElementType JELLY_FILE = new IFileElementType(JellyLanguage.INSTANCE);
+    public static final IFileElementType JELLY_FILE = new IFileElementType(JellyLanguage.INSTANCE);
 
     @Override
     public IFileElementType getFileNodeType() {
