@@ -14,7 +14,8 @@ import org.jetbrains.annotations.Nullable;
  * @author Kohsuke Kawaguchi
  */
 public class StaplerFacet extends Facet<StaplerFacetConfiguration> {
-    public StaplerFacet(@NotNull FacetType facetType, @NotNull Module module, String name, @NotNull StaplerFacetConfiguration configuration, Facet underlyingFacet) {
+    // suppressing rawtypes since this is imposed by the SDK
+    public StaplerFacet(@SuppressWarnings("rawtypes") @NotNull FacetType facetType, @NotNull Module module, String name, @NotNull StaplerFacetConfiguration configuration, @SuppressWarnings("rawtypes") Facet underlyingFacet) {
         super(facetType, module, name, configuration, underlyingFacet);
     }
 
@@ -32,12 +33,4 @@ public class StaplerFacet extends Facet<StaplerFacetConfiguration> {
 
         return getInstance(module);
     }
-
-//    public WebFacet getWebFacet() {
-//        return (WebFacet) getUnderlyingFacet();
-//    }
-//
-//    public PsiFile getWebXmlPsiFile() {
-//        return getWebFacet().getWebXmlDescriptor().getPsiFile();
-//    }
 }

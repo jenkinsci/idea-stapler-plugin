@@ -105,8 +105,10 @@ public class GotoViewAction extends GotoActionBase {
                 // noop
             }
 
+            // suppressing rawtypes since this is imposed by the SDK
+
             @Override
-            public @NotNull ListCellRenderer getListCellRenderer() {
+            public @SuppressWarnings("rawtypes") @NotNull ListCellRenderer getListCellRenderer() {
                 return new DefaultPsiElementCellRenderer();
             }
 
