@@ -1,8 +1,5 @@
 package org.kohsuke.stapler.idea.extension;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
@@ -10,8 +7,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiPackage;
 import org.kohsuke.stapler.idea.psi.JellyFile;
-import org.kohsuke.stapler.idea.psi.link.LinkJellyFileImpl;
-import org.kohsuke.stapler.idea.structureview.LeafJellyFileTreeElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Additional jelly files in java structure view
@@ -28,7 +26,7 @@ public class JavaStructureViewExtension extends AbstractStructureViewExtension {
 
     @Override
     public StructureViewTreeElement[] getChildren(PsiElement parent) {
-        final List<LeafJellyFileTreeElement> files = new ArrayList<>();
+        final List<LeafPsiStructureViewTreeElement> files = new ArrayList<>();
         String qualifiedClassName = ((PsiClass) parent).getQualifiedName();
         if (qualifiedClassName != null) {
             PsiPackage psiPackage = JavaPsiFacade.getInstance(parent.getProject())
@@ -37,12 +35,11 @@ public class JavaStructureViewExtension extends AbstractStructureViewExtension {
                 PsiFile[] maybeViewFiles = psiPackage.getFiles(getCurrentScope(parent));
                 for (PsiFile file : maybeViewFiles) {
                     if (file instanceof JellyFile) {
-                        files.add(new LeafJellyFileTreeElement(
-                            new LinkJellyFileImpl(file.getViewProvider(), file.getFileElementType())));
+                        files.add(new LeafPsiStructureViewTreeElement(file));
                     }
                 }
             }
         }
-        return files.toArray(LeafJellyFileTreeElement.EMPTY_ARRAY);
+        return files.toArray(StructureViewTreeElement.EMPTY_ARRAY);
     }
 }
