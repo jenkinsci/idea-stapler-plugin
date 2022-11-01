@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.0.8"
+version = "2.1.0"
 
 java {
     toolchain {
@@ -62,6 +62,13 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>2.1.0</h3>
+      <ul>
+        <li>🎉 <strong>Views are shown in the Class' Structure tool window.</strong></li>
+        <li>🎉 Jelly is now its own separate file type with its own icon</li>
+        <li>🚀 A file template is added for a Jenkins Jelly View</li>
+        <li>🐛 Fix "IllegalArgumentException: Invalid range specified: (1, -1)" when editing style attribute in Jelly files</li>
+      </ul>
       <h3>2.0.8</h3>
         <h4>Plugin is renamed from "Stapler Framework Support" to "Jenkins Development Support"</h4>
       <h3>2.0.7</h3>
