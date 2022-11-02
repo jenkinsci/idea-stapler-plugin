@@ -15,10 +15,6 @@
       check the ExtensionPointName.create call in the extension point, and use its name
       as the element name (modulo the part defined in @defaultExtensionNs above.)
     -->
-    <!-- Adds "Stapler" as a framework to the new Project setup wizard -->
-    <frameworkSupport implementation="org.kohsuke.stapler.idea.StaplerFrameworkSupport"/>
-    <!-- Adds module Facet for Stapler -->
-    <facetType implementation="org.kohsuke.stapler.idea.StaplerFacetType"/>
     <!-- Adds "*.jelly" to the XML file type extensions -->
     <!-- *.jellytag is a seldom used stapler jelly tag tag file extension
          https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/CustomTagLibrary.java#L128-L130 -->
@@ -137,8 +133,6 @@
   <depends>com.intellij.modules.xml</depends>
   <!-- Stapler is a Java Framework. And this is required to maintain compatibility past 2019.2 -->
   <depends>com.intellij.modules.java</depends>
-  <!-- needed for defining web facet -->
-  <!--depends>com.intellij.javaee</depends-->
   <!-- needed for i18n support -->
   <depends>com.intellij.properties</depends>
   <!-- this is needed for language injection -->

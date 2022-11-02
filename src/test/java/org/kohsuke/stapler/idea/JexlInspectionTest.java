@@ -19,16 +19,6 @@ public class JexlInspectionTest extends BasePlatformTestCase {
         return "src/test/testData";
     }
 
-    @Override
-    protected LightProjectDescriptor getProjectDescriptor() {
-        return new DefaultLightProjectDescriptor() {
-            @Override
-            public void configureModule(@NotNull Module module, @NotNull ModifiableRootModel model, @NotNull ContentEntry contentEntry) {
-                FacetManager.getInstance(module).addFacet(StaplerFacetType.INSTANCE, StaplerFacetType.INSTANCE.getDefaultFacetName(), null);
-            }
-        };
-    }
-
     public void testSmokeJexlInspection() {
         myFixture.configureByFile(getTestName(true) + ".jelly");
         myFixture.enableInspections(new JexlInspection());
