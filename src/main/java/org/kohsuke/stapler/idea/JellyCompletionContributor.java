@@ -20,7 +20,6 @@ import com.intellij.util.ProcessingContext;
 import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
-import org.kohsuke.stapler.idea.psi.JellyFile;
 
 
 /**
@@ -74,10 +73,6 @@ public class JellyCompletionContributor extends CompletionContributor {
                     @Override
                     protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
                         XmlElement name = (XmlElement)parameters.getPosition();
-
-                        // do this only inside Jelly files
-                        if(!(name.getContainingFile() instanceof JellyFile))
-                            return;
 
                         // this pseudo-tag represents the tag being completed.
                         XmlTag tag = (XmlTag) name.getParent();

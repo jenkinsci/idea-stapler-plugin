@@ -20,10 +20,6 @@ public class JellyFileTypeSchema implements FileTypeUsageSchemaDescriptor {
 
     @Override
     public boolean describes(@NotNull Project project, @NotNull VirtualFile file) {
-        return isJelly(file);
-    }
-
-    private static boolean isJelly(@NotNull VirtualFile file) {
         String fileExtension = file.getExtension();
         return JELLY_EXTENSION.equals(fileExtension) || STAPLER_JELLY_TAG_EXTENSION.equals(fileExtension);
     }
