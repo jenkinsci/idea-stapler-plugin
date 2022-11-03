@@ -20,8 +20,8 @@ import com.intellij.util.ProcessingContext;
 import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
+import org.kohsuke.stapler.idea.psi.JellyFile;
 
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 
 /**
  * Tag name completion for Jelly tag libraries defined as tag files.
@@ -76,7 +76,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                         XmlElement name = (XmlElement)parameters.getPosition();
 
                         // do this only inside Jelly files
-                        if(!isJelly(name.getContainingFile()))
+                        if(!(name.getContainingFile() instanceof JellyFile))
                             return;
 
                         // this pseudo-tag represents the tag being completed.

@@ -11,8 +11,8 @@ import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.XmlSchemaProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.kohsuke.stapler.idea.psi.JellyFile;
 
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 
 /**
  * This is not to be confused with W3C XML Schema. Rather,
@@ -44,7 +44,7 @@ public class StaplerCustomJellyTagLibraryXmlSchemaProvider extends XmlSchemaProv
      */
     @Override
     public boolean isAvailable(@NotNull XmlFile file) {
-        return isJelly(file);
+        return file instanceof JellyFile;
     }
 
     /*package*/ static final Key<PsiDirectory> MODULE = Key.create(PsiDirectory.class.getName());
