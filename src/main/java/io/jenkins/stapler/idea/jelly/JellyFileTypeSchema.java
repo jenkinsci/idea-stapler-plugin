@@ -3,7 +3,6 @@ package io.jenkins.stapler.idea.jelly;
 import com.intellij.internal.statistic.collectors.fus.fileTypes.FileTypeUsageSchemaDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
 public class JellyFileTypeSchema implements FileTypeUsageSchemaDescriptor {
@@ -21,14 +20,6 @@ public class JellyFileTypeSchema implements FileTypeUsageSchemaDescriptor {
 
     @Override
     public boolean describes(@NotNull Project project, @NotNull VirtualFile file) {
-        return isJelly(file);
-    }
-
-    public static boolean isJelly(@NotNull PsiFile file) {
-        return isJelly(file.getViewProvider().getVirtualFile());
-    }
-
-    public static boolean isJelly(@NotNull VirtualFile file) {
         String fileExtension = file.getExtension();
         return JELLY_EXTENSION.equals(fileExtension) || STAPLER_JELLY_TAG_EXTENSION.equals(fileExtension);
     }

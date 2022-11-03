@@ -15,13 +15,13 @@ import com.intellij.xml.XmlElementDescriptor;
 import com.intellij.xml.XmlNSDescriptorEx;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.kohsuke.stapler.idea.psi.JellyFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.JELLY_EXTENSION;
 import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.STAPLER_JELLY_TAG_EXTENSION;
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -150,7 +150,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     }
 
     public static StaplerCustomJellyTagLibraryXmlNSDescriptor get(XmlTag tag) {
-        if(!isJelly(tag.getContainingFile()))
+        if(!(tag.getContainingFile() instanceof JellyFile))
             return null;    // this tag is not in a jelly script
 
         String nsUri = tag.getNamespace();

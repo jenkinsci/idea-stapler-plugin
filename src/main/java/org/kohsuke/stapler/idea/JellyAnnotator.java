@@ -10,7 +10,6 @@ import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.schema.AnyXmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 
 /**
  * Additional Jelly-specific {@link Annotator}.
@@ -30,10 +29,6 @@ public class JellyAnnotator implements Annotator {
     public void annotate(@NotNull PsiElement psi, @NotNull AnnotationHolder holder) {
         if (psi instanceof XmlTag) {
             XmlTag tag = (XmlTag) psi;
-
-            if(!isJelly(tag.getContainingFile()))
-                return; // only do this in Jelly files
-
             // for elements
             XmlNSDescriptor ns = tag.getDescriptor().getNSDescriptor();
             XmlElementDescriptor e = ns.getElementDescriptor(tag);

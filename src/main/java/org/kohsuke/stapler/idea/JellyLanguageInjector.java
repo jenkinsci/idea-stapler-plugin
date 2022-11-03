@@ -13,11 +13,11 @@ import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlText;
 import org.jetbrains.annotations.NotNull;
+import org.kohsuke.stapler.idea.psi.JellyFile;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 
 /**
  * Injects CSS and JavaScript to suitable places
@@ -27,7 +27,7 @@ import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.isJelly;
 public class JellyLanguageInjector implements MultiHostInjector {
     @Override
     public void getLanguagesToInject(@NotNull final MultiHostRegistrar registrar, @NotNull PsiElement context) {
-        if(!isJelly(context.getContainingFile()))
+        if(!(context.getContainingFile() instanceof JellyFile))
             return; // not a jelly file
 
         // inject CSS to @style
