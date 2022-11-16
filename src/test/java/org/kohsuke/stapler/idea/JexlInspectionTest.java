@@ -11,7 +11,9 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JexlInspectionTest extends BasePlatformTestCase {
     @Override
@@ -33,4 +35,48 @@ public class JexlInspectionTest extends BasePlatformTestCase {
         assertNotEmpty(highlightInfos);
         assertEquals("Two invalid JEXL expressions are used", 2, highlightInfos.size());
     }
-}
+
+    public void testI18nLookups() {
+        myFixture.configureByFile(getTestName(true) + ".jelly");
+        myFixture.enableInspections(new JexlInspection());
+        List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WEAK_WARNING);
+        assertNotEmpty(highlightInfos);
+        assertEquals("Expected error", 2, highlightInfos.size());
+        assertEquals("Missing '}' character at the end of expression", highlightInfos.get(0).getDescription());
+        assertTrue("Should match error", highlightInfos.get(1).getDescription().contains("Expecting \"(\" ..."));
+    }
+
+    public void testTokenize() {
+        Map<String, String> expectations = new HashMap<String, String>() {
+            {
+                put("${}", null);
+                put("{}", null);
+                put("()", null);
+                put("[]", null);
+                put(",", "");
+                put("{,}", null);
+                put("(,)", null);
+                put("[,]", null);
+                put("test)", "test");
+                put("test,", "test");
+                put("(test,)", null);
+                put("\"", null);
+                put("'", null);
+                put("''", null);
+                put("'test'", null);
+                put("\"test\"", null);
+                put("'test", null);
+                put("\"test", null);
+                put("test'", null);
+                put("test\"", null);
+            }
+        };
+
+        JexlInspection jexlInspection = new JexlInspection();
+
+        for (Map.Entry<String, String> expectation : expectations.entrySet()) {
+            assertEquals("Issue with text: " + expectation.getKey(), expectation.getValue(),
+                         jexlInspection.tokenize(expectation.getKey()));
+        }
+    }
+};

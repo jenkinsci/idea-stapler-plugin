@@ -1,0 +1,6 @@
+<j:jelly xmlns:j="jelly:core">
+    <p>${%Name}</p>
+    <p>${%Build Queue(items.size())}</p>
+    <p>${%Failing</p>
+    <p>${%Failing(items.size)}</p>
+</j:jelly>
