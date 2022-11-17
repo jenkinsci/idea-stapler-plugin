@@ -1,19 +1,12 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.facet.FacetManager;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.roots.ContentEntry;
-import com.intellij.openapi.roots.ModifiableRootModel;
-import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
-import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.intellij.codeInsight.daemon.impl.HighlightInfo;
+import com.intellij.lang.annotation.HighlightSeverity;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 public class JexlInspectionTest extends BasePlatformTestCase {
     @Override
@@ -47,7 +40,7 @@ public class JexlInspectionTest extends BasePlatformTestCase {
     }
 
     public void testTokenize() {
-        Map<String, String> expectations = new HashMap<String, String>() {
+        Map<String, String> expectations = new HashMap<>() {
             {
                 put("${}", null);
                 put("{}", null);
@@ -79,4 +72,4 @@ public class JexlInspectionTest extends BasePlatformTestCase {
                          jexlInspection.tokenize(expectation.getKey()));
         }
     }
-};
+}
