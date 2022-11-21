@@ -31,4 +31,4 @@ Features include:
 
 ## JEXL
 
-* Syntax error checks on JEXL expressions (if Stapler [Facet](https://www.jetbrains.com/help/idea/facet-page.html) is configured)
+* Syntax error checks on JEXL expressions

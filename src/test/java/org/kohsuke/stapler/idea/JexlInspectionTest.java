@@ -1,32 +1,17 @@
 package org.kohsuke.stapler.idea;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.facet.FacetManager;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.roots.ContentEntry;
-import com.intellij.openapi.roots.ModifiableRootModel;
-import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
-import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
-import org.jetbrains.annotations.NotNull;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.intellij.codeInsight.daemon.impl.HighlightInfo;
+import com.intellij.lang.annotation.HighlightSeverity;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 public class JexlInspectionTest extends BasePlatformTestCase {
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";
-    }
-
-    @Override
-    protected LightProjectDescriptor getProjectDescriptor() {
-        return new DefaultLightProjectDescriptor() {
-            @Override
-            public void configureModule(@NotNull Module module, @NotNull ModifiableRootModel model, @NotNull ContentEntry contentEntry) {
-                FacetManager.getInstance(module).addFacet(StaplerFacetType.INSTANCE, StaplerFacetType.INSTANCE.getDefaultFacetName(), null);
-            }
-        };
     }
 
     public void testSmokeJexlInspection() {
@@ -42,5 +27,49 @@ public class JexlInspectionTest extends BasePlatformTestCase {
         List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WEAK_WARNING);
         assertNotEmpty(highlightInfos);
         assertEquals("Two invalid JEXL expressions are used", 2, highlightInfos.size());
+    }
+
+    public void testI18nLookups() {
+        myFixture.configureByFile(getTestName(true) + ".jelly");
+        myFixture.enableInspections(new JexlInspection());
+        List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WEAK_WARNING);
+        assertNotEmpty(highlightInfos);
+        assertEquals("Expected error", 2, highlightInfos.size());
+        assertEquals("Missing '}' character at the end of expression", highlightInfos.get(0).getDescription());
+        assertTrue("Should match error", highlightInfos.get(1).getDescription().contains("Expecting \"(\" ..."));
+    }
+
+    public void testTokenize() {
+        Map<String, String> expectations = new HashMap<>() {
+            {
+                put("${}", null);
+                put("{}", null);
+                put("()", null);
+                put("[]", null);
+                put(",", "");
+                put("{,}", null);
+                put("(,)", null);
+                put("[,]", null);
+                put("test)", "test");
+                put("test,", "test");
+                put("(test,)", null);
+                put("\"", null);
+                put("'", null);
+                put("''", null);
+                put("'test'", null);
+                put("\"test\"", null);
+                put("'test", null);
+                put("\"test", null);
+                put("test'", null);
+                put("test\"", null);
+            }
+        };
+
+        JexlInspection jexlInspection = new JexlInspection();
+
+        for (Map.Entry<String, String> expectation : expectations.entrySet()) {
+            assertEquals("Issue with text: " + expectation.getKey(), expectation.getValue(),
+                         jexlInspection.tokenize(expectation.getKey()));
+        }
     }
 }

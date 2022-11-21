@@ -53,8 +53,6 @@ public class JexlInspection extends LocalXmlInspectionTool {
     protected ProblemDescriptor[] check(XmlElement psi, InspectionManager manager, String text, TextRange range, boolean onTheFly) {
         if(!(psi.getContainingFile() instanceof JellyFile))
             return EMPTY_ARRAY; // not a jelly script
-        if(!shouldCheck(psi))
-            return EMPTY_ARRAY; // stapler not enabled
 
         int len = text.length();
 
@@ -73,7 +71,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
             return new ProblemDescriptor[] {
                 manager.createProblemDescriptor(psi,
                         new TextRange(startIndex, len),
-                        "Missing '}' character at the end of expression: ",
+                        "Missing '}' character at the end of expression",
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                         onTheFly,
                         LocalQuickFix.EMPTY_ARRAY)
@@ -172,7 +170,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                             return new ProblemDescriptor[] {
                                 manager.createProblemDescriptor(psi,
                                         new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
-                                        "Missing '}' character at the end of expression: ",
+                                        "Missing '}' character at the end of expression",
                                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                                         onTheFly,
                                         LocalQuickFix.EMPTY_ARRAY)
@@ -230,11 +228,12 @@ public class JexlInspection extends LocalXmlInspectionTool {
                     if(token==null)
                         return manager.createProblemDescriptor(psi,range,"Missing ')' at the end",
                             ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
-
+                    
+                    int updatedOffset = offset-(expr.length()-token.length());
                     try {
                         ExpressionFactory.createExpression(token);
                     } catch (ParseException e) {
-                        return handleParseException(manager, psi, e, offset, onTheFly);
+                        return handleParseException(manager, psi, e, updatedOffset, onTheFly);
                     }
                     expr = expr.substring(token.length()+1);
                     offset += token.length()+1;
@@ -280,7 +279,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
     }
 
-    private String tokenize(String text) {
+    @SuppressWarnings("fallthrough")
+    protected String tokenize(String text) {
         int parenthesis=0;
         for(int idx=0;idx<text.length();idx++) {
             char ch = text.charAt(idx);
@@ -306,6 +306,9 @@ public class JexlInspection extends LocalXmlInspectionTool {
             case '\'':
                 // skip strings
                 idx = text.indexOf(ch,idx+1);
+                if(idx<0) { // avoids infinite loop
+                    return null;
+                }
                 break;
             }
         }
