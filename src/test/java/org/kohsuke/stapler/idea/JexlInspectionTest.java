@@ -34,9 +34,12 @@ public class JexlInspectionTest extends BasePlatformTestCase {
         myFixture.enableInspections(new JexlInspection());
         List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WEAK_WARNING);
         assertNotEmpty(highlightInfos);
-        assertEquals("Expected error", 2, highlightInfos.size());
+        assertEquals("Expected error", 10, highlightInfos.size());
         assertEquals("Missing '}' character at the end of expression", highlightInfos.get(0).getDescription());
         assertTrue("Should match error", highlightInfos.get(1).getDescription().contains("Expecting \"(\" ..."));
+        for (int i = 2; i < 10; i++) {
+            assertEquals("Missing '}' character at the end of expression", highlightInfos.get(i).getDescription());
+        }
     }
 
     public void testTokenize() {

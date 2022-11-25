@@ -1,15 +1,20 @@
 package org.kohsuke.stapler.idea;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlText;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.kohsuke.stapler.idea.psi.JellyFile;
 
 
@@ -17,6 +22,8 @@ import org.kohsuke.stapler.idea.psi.JellyFile;
  * @author Kohsuke Kawaguchi
  */
 public class JexlInspection extends LocalXmlInspectionTool {
+
+    private static final Logger LOG = Logger.getInstance(JexlInspection.class);
 
     @Override
     protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
@@ -101,7 +108,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                     case '{':
                         if (cur + 1 < len) {
                             ++cur;
-
+                            HYPHEN_OPEN:
                             while (cur < len) {
                                 c = text.charAt(cur);
                                 switch (c) {
@@ -122,6 +129,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                             ++cur;
                                             expr.append(c);
                                             break DOUBLE_QUOTE;
+                                        case ('}'):
+                                            continue HYPHEN_OPEN;
                                         default:
                                             ++cur;
                                             expr.append(c);
@@ -145,6 +154,8 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                             ++cur;
                                             expr.append(c);
                                             break SINGLE_QUOTE;
+                                        case ('}'):
+                                            continue HYPHEN_OPEN;
                                         default:
                                             ++cur;
                                             expr.append(c);
@@ -166,7 +177,9 @@ public class JexlInspection extends LocalXmlInspectionTool {
                                     ++cur;
                                 }
                             }
-
+                            additionalLog("Creating ProblemDescriptor",
+                                      "file=" + psi.getContainingFile().getVirtualFile().getPath(),
+                                      "text=" + text);
                             return new ProblemDescriptor[] {
                                 manager.createProblemDescriptor(psi,
                                         new TextRange(cur - expr.length() - 2, cur + 1).shiftRight(range.getStartOffset()),
@@ -217,6 +230,9 @@ public class JexlInspection extends LocalXmlInspectionTool {
                             range.getStartOffset()+3,
                             range.getStartOffset()+4);
 
+                    additionalLog("Creating ProblemDescriptor",
+                                  "file=" + psi.getContainingFile().getVirtualFile().getPath(),
+                                  "expr=" + expr);
                     return manager.createProblemDescriptor(psi,range,"Property name is empty",
                         ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
                 }
@@ -225,9 +241,14 @@ public class JexlInspection extends LocalXmlInspectionTool {
                 expr = expr.substring(idx+1);   // at this point text="arg,arg)"
                 while(expr.length()>0) {
                     String token = tokenize(expr);
-                    if(token==null)
-                        return manager.createProblemDescriptor(psi,range,"Missing ')' at the end",
-                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
+                    if(token==null) {
+                        additionalLog("Creating ProblemDescriptor",
+                                      "file=" + psi.getContainingFile().getVirtualFile().getPath(),
+                                      "expr=" + expr);
+                        return manager.createProblemDescriptor(psi, range, "Missing ')' at the end",
+                                                               ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly,
+                                                               LocalQuickFix.EMPTY_ARRAY);
+                    }
                     
                     int updatedOffset = offset-(expr.length()-token.length());
                     try {
@@ -241,14 +262,20 @@ public class JexlInspection extends LocalXmlInspectionTool {
                 // OK
                 return null;
             } else {
-                ExpressionFactory.createExpression(expr);
+                ExpressionFactory.createExpression(StringEscapeUtils.unescapeHtml(expr));
                 return null;
             }
         } catch (ParseException e) {
+            additionalLog("ParseException occurred",
+                          "file=" + psi.getContainingFile().getVirtualFile().getPath(),
+                          "expr=" + expr);
             return handleParseException(manager, psi, e, range.getStartOffset()+2, onTheFly); // +2 to skip "${"
         } catch (Exception e) {
             String msg = e.getMessage();
             if(msg==null)   msg=e.toString();
+            additionalLog("Unexpected Exception occurred",
+                          "file=" + psi.getContainingFile().getVirtualFile().getPath(),
+                          "expr=" + expr);
             return manager.createProblemDescriptor(psi,range,msg,
                 ProblemHighlightType.GENERIC_ERROR_OR_WARNING, onTheFly, LocalQuickFix.EMPTY_ARRAY);
         }
@@ -313,5 +340,9 @@ public class JexlInspection extends LocalXmlInspectionTool {
             }
         }
         return null;
+    }
+    
+    private void additionalLog(String... details) {
+        LOG.warn(String.join("\n", details));
     }
 }
