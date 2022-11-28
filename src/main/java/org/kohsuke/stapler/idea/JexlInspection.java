@@ -1,8 +1,5 @@
 package org.kohsuke.stapler.idea;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
