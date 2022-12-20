@@ -1,5 +1,7 @@
 package org.kohsuke.stapler.idea;
 
+import java.util.Arrays;
+
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
@@ -71,7 +73,10 @@ public class JexlInspection extends LocalXmlInspectionTool {
 
         int endIndex = text.indexOf( "}", startIndex+2 );
 
-        if ( endIndex < 0 )
+        if ( endIndex < 0 ) {
+            additionalLog("Creating ProblemDescriptor",
+                          "file=" + psi.getContainingFile().getVirtualFile().getPath(),
+                          "text=" + text);
             return new ProblemDescriptor[] {
                 manager.createProblemDescriptor(psi,
                         new TextRange(startIndex, len),
@@ -80,6 +85,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                         onTheFly,
                         LocalQuickFix.EMPTY_ARRAY)
             };
+        }
 
         if ( startIndex == 0 && endIndex == len - 1 )
             return toArray(parseJexl(manager,psi,shrink(range,2,1),text.substring(2, endIndex),onTheFly));
@@ -340,6 +346,6 @@ public class JexlInspection extends LocalXmlInspectionTool {
     }
     
     private void additionalLog(String... details) {
-        LOG.warn(String.join("\n", details));
+        LOG.debugValues(details[0], Arrays.asList(details).subList(1, details.length));
     }
 }
