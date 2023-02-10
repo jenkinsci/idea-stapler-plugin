@@ -1,0 +1,18 @@
+# calculates dependencies for a Gradle build-target and submits the list to the Dependency Submission API.
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update_gradle_dependencies:
+    runs-on: ubuntu-latest
+    permissions: # The Dependency Submission API requires write permission
+      contents: write
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+
+      - name: Gradle Dependency Submission
+        uses: mikepenz/gradle-dependency-submission@{latest}
