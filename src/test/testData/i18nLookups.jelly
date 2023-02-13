@@ -3,4 +3,38 @@
     <p>${%Build Queue(items.size())}</p>
     <p>${%Failing</p>
     <p>${%Failing(items.size)}</p>
+    <p>
+        ${%Er'ror</p>
+    <p>
+        ${%Er\'ror</p>
+    <p>
+        ${%Er"ror</p>
+    <p>
+        ${%Er\"ror</p>
+    <p>
+        ${%Er'ror'</p>
+    <p>
+        ${%Er\'ror\'</p>
+    <p>
+        ${%Er"ror"</p>
+    <p>
+        ${%Er\"ror\"</p>
+    <p>${%Pas'ses}</p>
+    <p>${%Pas"ses}</p>
+    <p>
+        ${%Pas'ses}</p>
+    <p>
+        ${%Pas\'ses}</p>
+    <p>
+        ${%Pas"ses}</p>
+    <p>
+        ${%Pas\"ses}</p>
+    <p>
+        ${%Pas'ses'}</p>
+    <p>
+        ${%Pas\'ses\'}</p>
+    <p>
+        ${%Pas"ses"}</p>
+    <p>
+        ${%Pas\"ses\"}</p>
 </j:jelly>
