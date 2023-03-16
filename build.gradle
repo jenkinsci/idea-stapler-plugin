@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "2.1.0"
+version = "3.0.0"
 
 java {
     toolchain {
@@ -62,6 +62,13 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.0</h3>
+      <ul>
+        <li>💥 Unused Stapler Facet is removed. You might get a warning about it from IntelliJ. Unreadable facet can be safely removed.</li>
+        <li>🚀 Add 'since' attribute to the 'attribute' tag of the Stapler tag library</li>
+        <li>🐛 Fix exception caused by i18n with single-quote</li>
+        <li><a href="https://github.com/jenkinsci/idea-stapler-plugin/releases/tag/3.0.0">GitHub Release Notes</a></li>
+      </ul>
       <h3>2.1.0</h3>
       <ul>
         <li>🎉 <strong>Views are shown in the Class' Structure tool window.</strong></li>
