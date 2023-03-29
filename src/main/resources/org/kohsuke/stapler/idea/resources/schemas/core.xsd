@@ -1308,4 +1308,19 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
+  <xsd:element name="out">
+    <xsd:annotation>
+      <xsd:documentation>Cancels the effect of &lt;?jelly escape-by-default='true'?&gt; and allow expressions to produce mark up.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="value">
+        <xsd:annotation>
+          <xsd:documentation>The value that should be escaped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
 </xsd:schema>
