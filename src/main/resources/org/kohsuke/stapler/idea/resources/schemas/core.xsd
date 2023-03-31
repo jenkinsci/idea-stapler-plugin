@@ -1310,7 +1310,11 @@
   </xsd:element>
   <xsd:element name="out">
     <xsd:annotation>
-      <xsd:documentation>Cancels the effect of &lt;?jelly escape-by-default='true'?&gt; and allow expressions to produce mark up.</xsd:documentation>
+      <xsd:documentation>Cancels the effect of &lt;?jelly escape-by-default='true'?&gt; and allow expressions to produce mark up.
+        <tagtag>out</tagtag>
+        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
+        <versiontag>$Revision: 847 $</versiontag>
+      </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -1318,7 +1322,9 @@
       </xsd:sequence>
       <xsd:attribute name="value">
         <xsd:annotation>
-          <xsd:documentation>The value that should be escaped.</xsd:documentation>
+          <xsd:documentation>The value that should be escaped.
+            <requiredtag>true</requiredtag>
+          </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
     </xsd:complexType>
