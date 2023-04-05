@@ -19,11 +19,14 @@ Features include:
 ## Stapler
 
 * "Go to stapler view" to jump from a Java class to its views (Cmd/Ctrl+Shift+P)
+* Java Structure tool window shows Jelly views as members
+* Jelly Structure tool window shows an owner class besides XML tree
 * Select a string expression, then "Refactor" > "i18n for Stapler" to create a message resource
 
 ## Jelly
 
 * Automatically recognized as an XML file (`*.jelly` and `*.jellytag`)
+* "Jenkins Jelly View" file template to speed up creation of views
 * Navigation from the Jelly tags to their definitions
   * Integrate `st:documentation` tag into IntelliJ documentation support
 * Error checks and autocompletion on attributes and elements of taglibs
