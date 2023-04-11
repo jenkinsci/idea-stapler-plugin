@@ -6,7 +6,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiPackage;
-import org.kohsuke.stapler.idea.psi.JellyFile;
+import java.util.Set;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +34,16 @@ public class JavaStructureViewExtension extends AbstractStructureViewExtension {
             if (psiPackage != null) {
                 PsiFile[] maybeViewFiles = psiPackage.getFiles(getCurrentScope(parent));
                 for (PsiFile file : maybeViewFiles) {
-                    if (file instanceof JellyFile) {
+                    if (isView(file)) {
                         files.add(new LeafPsiStructureViewTreeElement(file));
                     }
                 }
             }
         }
         return files.toArray(StructureViewTreeElement.EMPTY_ARRAY);
+    }
+
+    private static boolean isView(PsiFile file) {
+        return Set.of("Groovy", "HTML", "Jelly").contains(file.getFileType().getName());
     }
 }
