@@ -1,238 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:junit" elementFormDefault="qualified">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:junit" elementFormDefault="qualified">
   <xsd:annotation>
     <xsd:documentation>
-
-      <p>
-        A collection of
-
-        <a>JUnit</a>
-        tags for
-        performing unit tests written in Jelly script.
-
+      <p>A collection of
+        <a href="http://www.junit.org">JUnit</a> tags for performing unit tests written in Jelly script.
       </p>
-
-
-
       <p>
         The &lt;suite&gt; tag allows a test suite to be created and then test cases can either
         be individually ran or the whole suite ran.
       </p>
-
-
       <p>
         The &lt;case&gt; tag allows a single test case to be created as part of a suite.
       </p>
-
-
       <p>
         The &lt;run&gt; tag can be used to run a given Test, TestCase or TestSuite
       </p>
-
-
-
       <p>
         There is an example of these tags in action
-
-
-        <a>here</a>
-
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/junit/src/test/org/apache/commons/jelly/tags/junit/suite.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">here</a>
       </p>
-
     </xsd:documentation>
   </xsd:annotation>
-
-  <xsd:element name="suite">
-    <xsd:annotation>
-      <xsd:documentation>Represents a collection of TestCases.. This tag is analagous to
-        JUnit's TestSuite class.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>Sets the name of the test suite whichi is exported</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="name">
-        <xsd:annotation>
-          <xsd:documentation>Sets the name of this test suite</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="run">
-    <xsd:annotation>
-      <xsd:documentation>This tag will run the given Test which could be an individual TestCase or a TestSuite.
-        The TestResult can be specified to capture the output, otherwise the results are output
-        as XML so that they can be formatted in some custom manner.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="result">
-        <xsd:annotation>
-          <xsd:documentation>Sets the JUnit TestResult used to capture the results of the tst</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="test">
-        <xsd:annotation>
-          <xsd:documentation>Sets the JUnit Test to run which could be an individual test or a TestSuite</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="listener">
-        <xsd:annotation>
-          <xsd:documentation>Sets the TestListener.to be used to format the output of running the unit test cases</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="fail">
-    <xsd:annotation>
-      <xsd:documentation>This tag causes a failure message. The message can either
-        be specified in the tags body or via the message attribute.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="message">
-        <xsd:annotation>
-          <xsd:documentation>Sets the failure message. If this attribute is not specified then the
-            body of this tag will be used instead.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="case">
-    <xsd:annotation>
-      <xsd:documentation>Represents a single test case in a test suite; this tag is analagous to
-        JUnit's TestCase class.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="name">
-        <xsd:annotation>
-          <xsd:documentation>Sets the name of this test case</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="assertThrows">
-    <xsd:annotation>
-      <xsd:documentation>
-        Runs its body and asserts that an exception is thrown by it.  If no
-        exception is thrown the tag fails.  By default all exceptions are caught.
-        If however
-
-        <code>expected</code>
-        was specified the body must throw
-        an exception of the given class, otherwise the assertion fails.  The
-        exception thrown by the body can also be of any subtype of the specified
-        exception class.  The optional
-
-        <code>var</code>
-        attribute can be specified if
-        the caught exception is to be exported to a variable.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="expected">
-        <xsd:annotation>
-          <xsd:documentation>
-            Sets the class name of exception expected to be thrown by the body.  The
-            class name must be fully qualified and can either be the expected
-            exception class itself or any supertype of it, but must be a subtype of
-
-
-            <code>java.lang.Throwable</code>
-            .
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>Sets the variable name to define for this expression.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="classLoader">
-        <xsd:annotation>
-          <xsd:documentation>Sets the class loader to be used to load the exception type</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="">
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:element name="assert">
     <xsd:annotation>
       <xsd:documentation>Performs an assertion that a given boolean expression, or XPath expression is
@@ -268,18 +56,23 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="assertFileNotFound">
+  <xsd:element name="suite">
     <xsd:annotation>
-      <xsd:documentation>Checks that a file cant be found.</xsd:documentation>
+      <xsd:documentation>Represents a collection of TestCases.. This tag is analagous to
+        JUnit's TestSuite class.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="file">
+      <xsd:attribute name="var">
         <xsd:annotation>
-          <xsd:documentation>The file to be tested. If this file exists, the test will pass.</xsd:documentation>
+          <xsd:documentation>Sets the name of the test suite whichi is exported</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="name">
+        <xsd:annotation>
+          <xsd:documentation>Sets the name of this test suite</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
@@ -294,7 +87,41 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
+  <xsd:element name="run">
+    <xsd:annotation>
+      <xsd:documentation>This tag will run the given Test which could be an individual TestCase or a TestSuite. The TestResult can be specified to capture the output, otherwise the results are output as XML so that they can be formatted in some custom manner.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="result">
+        <xsd:annotation>
+          <xsd:documentation>Sets the JUnit TestResult used to capture the results of the tst</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="test">
+        <xsd:annotation>
+          <xsd:documentation>Sets the JUnit Test to run which could be an individual test or a TestSuite</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="listener">
+        <xsd:annotation>
+          <xsd:documentation>Sets the TestListener.to be used to format the output of running the unit test cases</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="assertFileExists">
     <xsd:annotation>
       <xsd:documentation>Checks that a file exists, and if not, then the test will fail.</xsd:documentation>
@@ -320,7 +147,87 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
+  <xsd:element name="assertEquals">
+    <xsd:annotation>
+      <xsd:documentation>Compares an actual object against an expected object and if they are different then the test will fail.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="actual">
+        <xsd:annotation>
+          <xsd:documentation>Sets the actual value which will be compared against the expected value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="expected">
+        <xsd:annotation>
+          <xsd:documentation>Sets the expected value to be tested against</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="case">
+    <xsd:annotation>
+      <xsd:documentation>Represents a single test case in a test suite; this tag is analagous to
+        JUnit's TestCase class.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name">
+        <xsd:annotation>
+          <xsd:documentation>Sets the name of this test case</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="assertFileNotFound">
+    <xsd:annotation>
+      <xsd:documentation>Checks that a file cant be found.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="file">
+        <xsd:annotation>
+          <xsd:documentation>The file to be tested. If this file exists, the test will pass.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="assertFileContains">
     <xsd:annotation>
       <xsd:documentation>Checks that a file exists, and if not, then the test will fail.</xsd:documentation>
@@ -352,25 +259,19 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="assertEquals">
+  <xsd:element name="fail">
     <xsd:annotation>
-      <xsd:documentation>Compares an actual object against an expected object and if they are different
-        then the test will fail.</xsd:documentation>
+      <xsd:documentation>This tag causes a failure message. The message can either
+        be specified in the tags body or via the message attribute.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="actual">
+      <xsd:attribute name="message">
         <xsd:annotation>
-          <xsd:documentation>Sets the actual value which will be compared against the
-            expected value.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="expected">
-        <xsd:annotation>
-          <xsd:documentation>Sets the expected value to be tested against</xsd:documentation>
+          <xsd:documentation>Sets the failure message. If this attribute is not specified then the
+            body of this tag will be used instead.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
@@ -385,5 +286,58 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
+  <xsd:element name="assertThrows">
+    <xsd:annotation>
+      <xsd:documentation>
+        Runs its body and asserts that an exception is thrown by it.  If no
+        exception is thrown the tag fails.  By default all exceptions are caught.
+        If however
 
+        <code>expected</code>
+        was specified the body must throw
+        an exception of the given class, otherwise the assertion fails.  The
+        exception thrown by the body can also be of any subtype of the specified
+        exception class.  The optional
+
+        <code>var</code>
+        attribute can be specified if
+        the caught exception is to be exported to a variable.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="expected">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the class name of exception expected to be thrown by the body.  The
+            class name must be fully qualified and can either be the expected
+            exception class itself or any supertype of it, but must be a subtype of
+            <code>java.lang.Throwable</code>.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation>Sets the variable name to define for this expression.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="classLoader">
+        <xsd:annotation>
+          <xsd:documentation>Sets the class loader to be used to load the exception type</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
 </xsd:schema>
