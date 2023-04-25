@@ -1,81 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:util" elementFormDefault="qualified">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:util" elementFormDefault="qualified">
   <xsd:annotation>
     <xsd:documentation>
-
-      <p>A number of utility tags such as for tokenizing Strings.
-      </p>
-
+      <p>A number of utility tags such as for tokenizing Strings.</p>
     </xsd:documentation>
   </xsd:annotation>
-
-  <xsd:element name="tokenize">
-    <xsd:annotation>
-      <xsd:documentation/>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>The variable name to hold the list of tokens</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="delim">
-        <xsd:annotation>
-          <xsd:documentation>the delimiter that separates the tokens</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="sort">
-    <xsd:annotation>
-      <xsd:documentation/>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="items">
-        <xsd:annotation>
-          <xsd:documentation>Set the items to be sorted</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>The variable to hold the sorted collection.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="property">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:element name="sleep">
     <xsd:annotation>
       <xsd:documentation>A tag which sleeps for a given amount of time.</xsd:documentation>
@@ -101,7 +30,79 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
+  <xsd:element name="file">
+    <xsd:annotation>
+      <xsd:documentation>A tag which creates a java.io.File from a given name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name">
+        <xsd:annotation>
+          <xsd:documentation>Name of the file to be placed into the context</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation>Name of the variable to contain the file</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="loadText">
+    <xsd:annotation>
+      <xsd:documentation>A tag which loads text from a file or URI into a Jelly variable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation>Sets the name of the variable which will be exported with the text value of the
+            given file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="file">
+        <xsd:annotation>
+          <xsd:documentation>Sets the file to be parsed as text</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="encoding">
+        <xsd:annotation>
+          <xsd:documentation>Sets the encoding to use to read the file</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="uri">
+        <xsd:annotation>
+          <xsd:documentation>Sets the uri to be parsed as text.
+            This can be an absolute URL or a relative or absolute URI
+            from this Jelly script or the root context.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="replace">
     <xsd:annotation>
       <xsd:documentation>A tag that replaces occurrences of a character or string in its body or
@@ -153,7 +154,41 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
+  <xsd:element name="sort">
+    <xsd:annotation>
+      <xsd:documentation/>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="items">
+        <xsd:annotation>
+          <xsd:documentation>Set the items to be sorted</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation>The variable to hold the sorted collection.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="property">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="properties">
     <xsd:annotation>
       <xsd:documentation>A tag which loads a properties file from a given file name or URI
@@ -193,82 +228,6 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="loadText">
-    <xsd:annotation>
-      <xsd:documentation>A tag which loads text from a file or URI into a Jelly variable.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>Sets the name of the variable which will be exported with the text value of the
-            given file.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="file">
-        <xsd:annotation>
-          <xsd:documentation>Sets the file to be parsed as text</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="encoding">
-        <xsd:annotation>
-          <xsd:documentation>Sets the encoding to use to read the file</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="uri">
-        <xsd:annotation>
-          <xsd:documentation>Sets the uri to be parsed as text.
-            This can be an absolute URL or a relative or absolute URI
-            from this Jelly script or the root context.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="file">
-    <xsd:annotation>
-      <xsd:documentation>A tag which creates a java.io.File from a given name.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="name">
-        <xsd:annotation>
-          <xsd:documentation>Name of the file to be placed into the context</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>Name of the variable to contain the file</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:element name="available">
     <xsd:annotation>
       <xsd:documentation>A tag which evaluates its body if the given file is available.
@@ -303,5 +262,34 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
+  <xsd:element name="tokenize">
+    <xsd:annotation>
+      <xsd:documentation/>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation>The variable name to hold the list of tokens</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="delim">
+        <xsd:annotation>
+          <xsd:documentation>the delimiter that separates the tokens</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
 </xsd:schema>
