@@ -227,6 +227,33 @@
   </xsd:element>
   <xsd:element name="header">
     <xsd:annotation>
+      <xsd:documentation>Adds an HTTP header to the response. Same as "addHeader" which is prefered.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:attribute name="name" use="required">
+        <xsd:annotation>
+          <xsd:documentation>Header name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="value" use="required">
+        <xsd:annotation>
+          <xsd:documentation>Header value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="addHeader">
+    <xsd:annotation>
       <xsd:documentation>Adds an HTTP header to the response.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">

@@ -1108,6 +1108,33 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
+  <xsd:element name="out">
+    <xsd:annotation>
+      <xsd:documentation>A tag which evaluates an expression</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="value">
+        <xsd:annotation>
+          <xsd:documentation>Sets the Jexl expression to evaluate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation>Sets whether whitespace inside this tag should be trimmed or not.
+            Defaults to true so whitespace is trimmed</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation>Sets whether the body of the tag should be escaped as text (so that &lt; and &gt; are
+            escaped as &amp;lt; and &amp;gt;), which is the default or leave the text as XML.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="invokeStatic">
     <xsd:annotation>
       <xsd:documentation>
