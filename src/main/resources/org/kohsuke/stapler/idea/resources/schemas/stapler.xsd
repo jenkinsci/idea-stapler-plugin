@@ -693,4 +693,18 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
+  <xsd:element name="getOutput">
+    <xsd:annotation>
+      <xsd:documentation>
+        Adds org.apache.commons.jelly.XMLOutput to the context.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
 </xsd:schema>
