@@ -1,108 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:xml" elementFormDefault="qualified">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:xml" elementFormDefault="qualified">
   <xsd:annotation>
     <xsd:documentation>
-
-      <p>The XML Tags from the JSTL
-      </p>
-
+      <p>The XML Tags from the JSTL</p>
     </xsd:documentation>
   </xsd:annotation>
-
-  <xsd:element name="transform">
-    <xsd:annotation>
-      <xsd:documentation>A tag which parses some XML, applies an xslt transform to it
-        and defines a variable with the transformed Document.
-        The XML can either be specified as its body or can be passed in via the
-        xml property which can be a Reader, InputStream, URL or String URI.
-
-        The XSL can be passed in via the
-        xslt property which can be a Reader, InputStream, URL or String URI.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="xslt">
-        <xsd:annotation>
-          <xsd:documentation>Sets the source of the XSL which is either a String URI, Reader or
-            InputStream</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="xml">
-        <xsd:annotation>
-          <xsd:documentation>Sets the source of the XML which is either a String URI, a File, Reader or InputStream</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="validate">
-        <xsd:annotation>
-          <xsd:documentation>Sets whether XML validation is enabled or disabled</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="var">
-        <xsd:annotation>
-          <xsd:documentation>Sets the variable name that will be used for the Document variable created</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="text">
-        <xsd:annotation>
-          <xsd:documentation>Sets the text to be parsed by this parser</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="SAXReader">
-        <xsd:annotation>
-          <xsd:documentation>Sets the SAXReader used for parsing</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="sort">
-    <xsd:annotation>
-      <xsd:documentation>A tag that can sort a list of xml nodes via an xpath expression.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="list">
-        <xsd:annotation>
-          <xsd:documentation>Set the list to sort.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="sort">
-        <xsd:annotation>
-          <xsd:documentation>Sets the xpath expression to use to sort selected nodes.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="descending">
-        <xsd:annotation>
-          <xsd:documentation>Set whether to sort ascending or descending.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:element name="set">
     <xsd:annotation>
       <xsd:documentation>A tag which defines a variable from an XPath expression.
@@ -177,24 +79,28 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="replaceNamespace">
+  <xsd:element name="element">
     <xsd:annotation>
-      <xsd:documentation>Replace namespace is a filter to change the namespace of any
-        elemement attribute passing through it.</xsd:documentation>
+      <xsd:documentation>
+        A tag to produce an XML element which can contain other attributes
+        or elements like the
+
+        <code>&lt;xsl:element&gt;</code>
+        tag.
+      </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="fromURI">
+      <xsd:attribute name="name">
         <xsd:annotation>
-          <xsd:documentation>Sets the source namespace URI to replace.</xsd:documentation>
+          <xsd:documentation>Sets the qualified name of the element</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="toURI">
+      <xsd:attribute name="URI">
         <xsd:annotation>
-          <xsd:documentation>Sets the destination namespace URI to replace.</xsd:documentation>
+          <xsd:documentation>Sets the namespace URI of the element</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
@@ -209,15 +115,120 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="">
+  <xsd:element name="copyOf">
+    <xsd:annotation>
+      <xsd:documentation>A tag which performs a copy-of operation like the XSLT tag</xsd:documentation>
+    </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
+      <xsd:attribute name="select">
+        <xsd:annotation>
+          <xsd:documentation>Sets the XPath expression to evaluate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="lexical">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
+  <xsd:element name="comment">
+    <xsd:annotation>
+      <xsd:documentation>A tag which outputs a comment to the underlying XMLOutput based on the
+        contents of its body.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="text">
+        <xsd:annotation>
+          <xsd:documentation>Sets the comment text. If no text is specified then the body of the tag
+            is used instead.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="transform">
+    <xsd:annotation>
+      <xsd:documentation>A tag which parses some XML, applies an xslt transform to it
+        and defines a variable with the transformed Document.
+        The XML can either be specified as its body or can be passed in via the
+        xml property which can be a Reader, InputStream, URL or String URI.
 
+        The XSL can be passed in via the
+        xslt property which can be a Reader, InputStream, URL or String URI.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="xslt">
+        <xsd:annotation>
+          <xsd:documentation>Sets the source of the XSL which is either a String URI, Reader or
+            InputStream</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="xml">
+        <xsd:annotation>
+          <xsd:documentation>Sets the source of the XML which is either a String URI, a File, Reader or InputStream</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="validate">
+        <xsd:annotation>
+          <xsd:documentation>Sets whether XML validation is enabled or disabled</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="var">
+        <xsd:annotation>
+          <xsd:documentation>Sets the variable name that will be used for the Document variable created</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="text">
+        <xsd:annotation>
+          <xsd:documentation>Sets the text to be parsed by this parser</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="SAXReader">
+        <xsd:annotation>
+          <xsd:documentation>Sets the SAXReader used for parsing</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="parse">
     <xsd:annotation>
       <xsd:documentation>A tag which parses some XML and defines a variable with the parsed Document.
@@ -265,7 +276,6 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
   <xsd:element name="param">
     <xsd:annotation>
       <xsd:documentation>Sets a parameter in the parent transform tag</xsd:documentation>
@@ -296,19 +306,23 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="if">
+  <xsd:element name="replaceNamespace">
     <xsd:annotation>
-      <xsd:documentation>Evaluates the XPath expression to be a boolean and only evaluates the body
-        if the expression is true.</xsd:documentation>
+      <xsd:documentation>Replace namespace is a filter to change the namespace of any
+        elemement attribute passing through it.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="select">
+      <xsd:attribute name="fromURI">
         <xsd:annotation>
-          <xsd:documentation>Sets the XPath expression to evaluate.</xsd:documentation>
+          <xsd:documentation>Sets the source namespace URI to replace.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="toURI">
+        <xsd:annotation>
+          <xsd:documentation>Sets the destination namespace URI to replace.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
@@ -323,7 +337,108 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
+  <xsd:element name="copy">
+    <xsd:annotation>
+      <xsd:documentation>A tag which performs a copy operation like the XSLT tag,
+        performing a shallow copy of the element and its attributes but no content.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="select">
+        <xsd:annotation>
+          <xsd:documentation>Sets the XPath expression to evaluate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="lexical">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="sort">
+    <xsd:annotation>
+      <xsd:documentation>A tag that can sort a list of xml nodes via an xpath expression.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="list">
+        <xsd:annotation>
+          <xsd:documentation>Set the list to sort.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="sort">
+        <xsd:annotation>
+          <xsd:documentation>Sets the xpath expression to use to sort selected nodes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="descending">
+        <xsd:annotation>
+          <xsd:documentation>Set whether to sort ascending or descending.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="attribute">
+    <xsd:annotation>
+      <xsd:documentation>
+        Adds an XML attribute to the parent element tag like
+        the
 
+        <code>&lt;xsl:attribute&gt;</code>
+        tag.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name">
+        <xsd:annotation>
+          <xsd:documentation>Sets the name of the attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="URI">
+        <xsd:annotation>
+          <xsd:documentation>Sets the namespace URI of the element</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="forEach">
     <xsd:annotation>
       <xsd:documentation>A tag which performs an iteration over the results of an XPath expression</xsd:documentation>
@@ -364,7 +479,32 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
+  <xsd:element name="if">
+    <xsd:annotation>
+      <xsd:documentation>Evaluates the XPath expression to be a boolean and only evaluates the body
+        if the expression is true.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="select">
+        <xsd:annotation>
+          <xsd:documentation>Sets the XPath expression to evaluate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="trim">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="escapeText">
+        <xsd:annotation>
+          <xsd:documentation/>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
   <xsd:element name="expr">
     <xsd:annotation>
       <xsd:documentation>A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
@@ -391,44 +531,6 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="element">
-    <xsd:annotation>
-      <xsd:documentation>
-        A tag to produce an XML element which can contain other attributes
-        or elements like the
-
-        <code>&lt;xsl:element&gt;</code>
-        tag.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="name">
-        <xsd:annotation>
-          <xsd:documentation>Sets the qualified name of the element</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="URI">
-        <xsd:annotation>
-          <xsd:documentation>Sets the namespace URI of the element</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:element name="doctype">
     <xsd:annotation>
       <xsd:documentation>A tag which outputs a DOCTYPE declaration to the current XML output pipe.
@@ -466,133 +568,4 @@
       </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:element name="copy">
-    <xsd:annotation>
-      <xsd:documentation>A tag which performs a copy operation like the XSLT tag,
-        performing a shallow copy of the element and its attributes but no content.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="select">
-        <xsd:annotation>
-          <xsd:documentation>Sets the XPath expression to evaluate.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="lexical">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="copyOf">
-    <xsd:annotation>
-      <xsd:documentation>A tag which performs a copy-of operation like the XSLT tag</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="select">
-        <xsd:annotation>
-          <xsd:documentation>Sets the XPath expression to evaluate.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="lexical">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="comment">
-    <xsd:annotation>
-      <xsd:documentation>A tag which outputs a comment to the underlying XMLOutput based on the
-        contents of its body.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="text">
-        <xsd:annotation>
-          <xsd:documentation>Sets the comment text. If no text is specified then the body of the tag
-            is used instead.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="attribute">
-    <xsd:annotation>
-      <xsd:documentation>
-        Adds an XML attribute to the parent element tag like
-        the
-
-        <code>&lt;xsl:attribute&gt;</code>
-        tag.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType mixed="true">
-      <xsd:sequence>
-        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="name">
-        <xsd:annotation>
-          <xsd:documentation>Sets the name of the attribute.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="URI">
-        <xsd:annotation>
-          <xsd:documentation>Sets the namespace URI of the element</xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="escapeText">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
-
 </xsd:schema>
