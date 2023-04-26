@@ -3,16 +3,13 @@
   <xsd:annotation>
     <xsd:documentation>
       <p>Custom tags for generating textual logging information using
-        <a href="http://commons.apache.org/logging/">commons-logging</a> which will use either log4j, logkit or JDK1.4 loggingdepending on the classpath and configuration.
+        <a href="http://commons.apache.org/logging/">commons-logging</a> which will use either log4j, logkit or JDK1.4 logging depending on the classpath and configuration.
       </p>
     </xsd:documentation>
   </xsd:annotation>
   <xsd:element name="error">
     <xsd:annotation>
-      <xsd:documentation>A tag which generates ERROR level logging statement usingthe given category name.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which generates ERROR level logging statement using the given category name.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -30,15 +27,10 @@
       </xsd:attribute>
       <xsd:attribute name="encode">
         <xsd:annotation>
-          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
+          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -52,10 +44,8 @@
   </xsd:element>
   <xsd:element name="trace">
     <xsd:annotation>
-      <xsd:documentation>A tag which generates TRACE level logging statement usingthe given category name.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which generates TRACE level logging statement using
+        the given category name.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -73,15 +63,10 @@
       </xsd:attribute>
       <xsd:attribute name="encode">
         <xsd:annotation>
-          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
+          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -95,10 +80,8 @@
   </xsd:element>
   <xsd:element name="info">
     <xsd:annotation>
-      <xsd:documentation>A tag which generates INFO level logging statement usingthe given category name.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which generates INFO level logging statement using
+        the given category name.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -116,15 +99,11 @@
       </xsd:attribute>
       <xsd:attribute name="encode">
         <xsd:annotation>
-          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
+          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are
+            encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -138,10 +117,8 @@
   </xsd:element>
   <xsd:element name="debug">
     <xsd:annotation>
-      <xsd:documentation>A tag which generates DEBUG level logging statement usingthe given category name.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which generates DEBUG level logging statement using
+        the given category name.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -159,15 +136,11 @@
       </xsd:attribute>
       <xsd:attribute name="encode">
         <xsd:annotation>
-          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
+          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are
+            encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -181,10 +154,8 @@
   </xsd:element>
   <xsd:element name="fatal">
     <xsd:annotation>
-      <xsd:documentation>A tag which generates FATAL level logging statement usingthe given category name.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which generates FATAL level logging statement using
+        the given category name.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -202,15 +173,11 @@
       </xsd:attribute>
       <xsd:attribute name="encode">
         <xsd:annotation>
-          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
+          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are
+            encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>
@@ -224,10 +191,8 @@
   </xsd:element>
   <xsd:element name="warn">
     <xsd:annotation>
-      <xsd:documentation>A tag which generates WARN level logging statement usingthe given category name.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which generates WARN level logging statement using
+        the given category name.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -245,15 +210,11 @@
       </xsd:attribute>
       <xsd:attribute name="encode">
         <xsd:annotation>
-          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt;and &gt;areencoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
+          <xsd:documentation>Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are
+            encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

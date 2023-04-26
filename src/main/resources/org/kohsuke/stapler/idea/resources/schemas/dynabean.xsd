@@ -2,17 +2,14 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:dynabean" elementFormDefault="qualified">
   <xsd:annotation>
     <xsd:documentation>
-      <p>A tag library for creating new DynaClass and DynaBean objects from the 
-        <a href="http://commons.apache.org/beanutils/">beanutils</a>library
+      <p>A tag library for creating new DynaClass and DynaBean objects from the
+        <a href="http://commons.apache.org/beanutils/">beanutils</a> library
       </p>
     </xsd:documentation>
   </xsd:annotation>
   <xsd:element name="set">
     <xsd:annotation>
-      <xsd:documentation>A tag which sets a variable from the result of an expression
-        <authortag>Theo Niemeijer</authortag>
-        <versiontag>1.0</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which sets a variable from the result of an expression</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -25,7 +22,9 @@
       </xsd:attribute>
       <xsd:attribute name="scope">
         <xsd:annotation>
-          <xsd:documentation>Sets the variable scope for this variable. For example setting this value to 'parent' willset this value in the parent scope. When Jelly is run from inside a Servlet environmentthen other scopes will be available such as 'request', 'session' or 'application'.Other applications may implement their own custom scopes.</xsd:documentation>
+          <xsd:documentation>Sets the variable scope for this variable. For example setting this value to 'parent' will set this value in the parent scope. When Jelly is run from inside a Servlet environment then other scopes will be available such as 'request', 'session' or 'application'.
+
+            Other applications may implement their own custom scopes.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="value">
@@ -48,11 +47,6 @@
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
       <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
@@ -62,10 +56,8 @@
   </xsd:element>
   <xsd:element name="dynaclass">
     <xsd:annotation>
-      <xsd:documentation>A tag which creates and defines and creates a DynaClassThe DynaClass object is placed by name in the context,so that a DynaBean tag can use it by name to instantiatea DynaBean object
-        <authortag>Theo Niemeijer</authortag>
-        <versiontag>1.0</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which creates and defines and creates a DynaClass
+        The DynaClass object is placed by name in the context, so that a DynaBean tag can use it by name to instantiate a DynaBean object</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -86,11 +78,6 @@
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
       <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
@@ -100,10 +87,7 @@
   </xsd:element>
   <xsd:element name="dynabean">
     <xsd:annotation>
-      <xsd:documentation>A tag which conditionally evaluates its body based on some condition
-        <authortag>Theo Niemeijer</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which conditionally evaluates its body based on some condition</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -124,11 +108,6 @@
           <xsd:documentation/>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="tagLib">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
       <xsd:attribute name="escapeText">
         <xsd:annotation>
           <xsd:documentation/>
@@ -138,10 +117,11 @@
   </xsd:element>
   <xsd:element name="property">
     <xsd:annotation>
-      <xsd:documentation>DynaProperty tag defines a property of a DynaClassIt can only exist inside a DynaClass parent contextThe properties are added to the properties arrayof the parent context, and will be used tocreate the DynaClass object
-        <authortag>Theo Niemeijer</authortag>
-        <versiontag>1.0</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>DynaProperty tag defines a property of a DynaClass
+        It can only exist inside a DynaClass parent context
+        The properties are added to the properties array
+        of the parent context, and will be used to
+        create the DynaClass object</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -163,11 +143,6 @@
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
-        <xsd:annotation>
-          <xsd:documentation/>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="tagLib">
         <xsd:annotation>
           <xsd:documentation/>
         </xsd:annotation>

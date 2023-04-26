@@ -7,10 +7,11 @@
   </xsd:annotation>
   <xsd:element name="set">
     <xsd:annotation>
-      <xsd:documentation>A tag which defines a variable from an XPath expression.This function creates a variable of type java.util.Listor org.dom4j.Node(for example org.dom4j.Elementor org.dom4j.Attribute).Thus, the variable created from xml:set can beused from the other xml library functions.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which defines a variable from an XPath expression.
+        This function creates a variable of type java.util.List or org.dom4j.Node
+        (for example org.dom4j.Element or org.dom4j.Attribute).
+        Thus, the variable created from xml:set can be
+        used from the other xml library functions.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -28,26 +29,37 @@
       </xsd:attribute>
       <xsd:attribute name="single">
         <xsd:annotation>
-          <xsd:documentation>If set to true will only take the first element matching.It then guarantees that the result is of type org.dom4j.Nodethereby making sure that, for example,when an element is selected, one can directly call such methodsas setAttribute.
-          <br/> If set to false, guarantees that a list is returned.If set to false, guarantees that a list is returned.
-        </xsd:documentation>
+          <xsd:documentation>If set to true will only take the first element matching.
+            It then guarantees that the result is of type
+            org.dom4j.Node thereby making sure that, for example,
+            when an element is selected, one can directly call such methods
+            as setAttribute. If set to false, guarantees that a list is returned.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="asString">
         <xsd:annotation>
-          <xsd:documentation>If set to true, will ensure that the (XPath) text-valueof the selected node is taken instead of the nodeitself.This ensures that, thereafter, string manipulationscan be performed on the result.</xsd:documentation>
+          <xsd:documentation>If set to true, will ensure that the (XPath) text-value
+            of the selected node is taken instead of the node
+            itself.
+            This ensures that, thereafter, string manipulations
+            can be performed on the result.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="delim">
         <xsd:annotation>
-          <xsd:documentation>If set, returns a string delimited by this delimiter.Implies
-          <code>asString</code>to be true.
-        </xsd:documentation>
+          <xsd:documentation>
+            If set, returns a string delimited by this delimiter.
+            Implies
+
+            <code>asString</code>
+            to be true.
+          </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="sort">
         <xsd:annotation>
-          <xsd:documentation>Sets the xpath expression to use to sort selected nodes.Ignored if single is true.</xsd:documentation>
+          <xsd:documentation>Sets the xpath expression to use to sort selected nodes.
+            Ignored if single is true.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="descending">
@@ -69,10 +81,12 @@
   </xsd:element>
   <xsd:element name="element">
     <xsd:annotation>
-      <xsd:documentation>A tag to produce an XML element which can contain other attributesor elements like the
-        <code>&lt;xsl:element&gt;</code>tag.
-        <authortag>James Strachan</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
+      <xsd:documentation>
+        A tag to produce an XML element which can contain other attributes
+        or elements like the
+
+        <code>&lt;xsl:element&gt;</code>
+        tag.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -103,9 +117,7 @@
   </xsd:element>
   <xsd:element name="copyOf">
     <xsd:annotation>
-      <xsd:documentation>A tag which performs a copy-of operation like the XSLT tag
-        <authortag>James Strachan</authortag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which performs a copy-of operation like the XSLT tag</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -135,10 +147,8 @@
   </xsd:element>
   <xsd:element name="comment">
     <xsd:annotation>
-      <xsd:documentation>A tag which outputs a comment to the underlying XMLOutput based on thecontents of its body.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which outputs a comment to the underlying XMLOutput based on the
+        contents of its body.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -146,9 +156,8 @@
       </xsd:sequence>
       <xsd:attribute name="text">
         <xsd:annotation>
-          <xsd:documentation>Sets the comment text. If no text is specified then the body of the tagis used instead.
-          <paramtag>text The comment text to use</paramtag>
-        </xsd:documentation>
+          <xsd:documentation>Sets the comment text. If no text is specified then the body of the tag
+            is used instead.</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="trim">
@@ -165,10 +174,13 @@
   </xsd:element>
   <xsd:element name="transform">
     <xsd:annotation>
-      <xsd:documentation>A tag which parses some XML, applies an xslt transform to itand defines a variable with the transformed Document.The XML can either be specified as its body or can be passed in via thexml property which can be a Reader, InputStream, URL or String URI.The XSL can be passed in via thexslt property which can be a Reader, InputStream, URL or String URI.
-        <authortag>Robert Leftwich</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which parses some XML, applies an xslt transform to it
+        and defines a variable with the transformed Document.
+        The XML can either be specified as its body or can be passed in via the
+        xml property which can be a Reader, InputStream, URL or String URI.
+
+        The XSL can be passed in via the
+        xslt property which can be a Reader, InputStream, URL or String URI.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -176,9 +188,8 @@
       </xsd:sequence>
       <xsd:attribute name="xslt">
         <xsd:annotation>
-          <xsd:documentation>Sets the source of the XSL which is either a String URI, Reader orInputStream
-          <paramtag>xslt The source of the xslt</paramtag>
-        </xsd:documentation>
+          <xsd:documentation>Sets the source of the XSL which is either a String URI, Reader or
+            InputStream</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="xml">
@@ -198,9 +209,7 @@
       </xsd:attribute>
       <xsd:attribute name="text">
         <xsd:annotation>
-          <xsd:documentation>Sets the text to be parsed by this parser
-          <paramtag>text The text to be parsed by this parser</paramtag>
-        </xsd:documentation>
+          <xsd:documentation>Sets the text to be parsed by this parser</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="SAXReader">
@@ -222,10 +231,9 @@
   </xsd:element>
   <xsd:element name="parse">
     <xsd:annotation>
-      <xsd:documentation>A tag which parses some XML and defines a variable with the parsed Document.The XML can either be specified as its body or can be passed in via thexml property which can be a Reader, InputStream, URL or String URI.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which parses some XML and defines a variable with the parsed Document.
+        The XML can either be specified as its body or can be passed in via the
+        xml property which can be a Reader, InputStream, URL or String URI.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -248,9 +256,7 @@
       </xsd:attribute>
       <xsd:attribute name="text">
         <xsd:annotation>
-          <xsd:documentation>Sets the text to be parsed by this parser
-          <paramtag>text The text to be parsed by this parser</paramtag>
-        </xsd:documentation>
+          <xsd:documentation>Sets the text to be parsed by this parser</xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
       <xsd:attribute name="SAXReader">
@@ -272,10 +278,7 @@
   </xsd:element>
   <xsd:element name="param">
     <xsd:annotation>
-      <xsd:documentation>Sets a parameter in the parent transform tag
-        <authortag>Robert Leftwich</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>Sets a parameter in the parent transform tag</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -305,9 +308,8 @@
   </xsd:element>
   <xsd:element name="replaceNamespace">
     <xsd:annotation>
-      <xsd:documentation>Replace namespace is a filter to change the namespace of anyelemement attribute passing through it.
-        <authortag>Diogo Quintela &lt;dquintela@gmail.com&gt;</authortag>
-      </xsd:documentation>
+      <xsd:documentation>Replace namespace is a filter to change the namespace of any
+        elemement attribute passing through it.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -337,9 +339,8 @@
   </xsd:element>
   <xsd:element name="copy">
     <xsd:annotation>
-      <xsd:documentation>A tag which performs a copy operation like the XSLT tag,performing a shallow copy of the element and its attributes but no content.
-        <authortag>James Strachan</authortag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which performs a copy operation like the XSLT tag,
+        performing a shallow copy of the element and its attributes but no content.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -369,10 +370,7 @@
   </xsd:element>
   <xsd:element name="sort">
     <xsd:annotation>
-      <xsd:documentation>A tag that can sort a list of xml nodes via an xpath expression.
-        <authortag>&lt;a href="mailto:jason@jhorman.org"&gt;Jason Horman&lt;/a&gt;</authortag>
-        <versiontag>$Id: xml.xsd 847 2009-01-06 04:57:19Z kohsuke $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag that can sort a list of xml nodes via an xpath expression.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -407,10 +405,12 @@
   </xsd:element>
   <xsd:element name="attribute">
     <xsd:annotation>
-      <xsd:documentation>Adds an XML attribute to the parent element tag likethe
-        <code>&lt;xsl:attribute&gt;</code>tag.
-        <authortag>James Strachan</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
+      <xsd:documentation>
+        Adds an XML attribute to the parent element tag like
+        the
+
+        <code>&lt;xsl:attribute&gt;</code>
+        tag.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
@@ -441,10 +441,7 @@
   </xsd:element>
   <xsd:element name="forEach">
     <xsd:annotation>
-      <xsd:documentation>A tag which performs an iteration over the results of an XPath expression
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which performs an iteration over the results of an XPath expression</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -484,10 +481,8 @@
   </xsd:element>
   <xsd:element name="if">
     <xsd:annotation>
-      <xsd:documentation>Evaluates the XPath expression to be a boolean and only evaluates the bodyif the expression is true.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>Evaluates the XPath expression to be a boolean and only evaluates the body
+        if the expression is true.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -512,10 +507,8 @@
   </xsd:element>
   <xsd:element name="expr">
     <xsd:annotation>
-      <xsd:documentation>A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;in XSLT
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
+        in XSLT</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
@@ -540,10 +533,9 @@
   </xsd:element>
   <xsd:element name="doctype">
     <xsd:annotation>
-      <xsd:documentation>A tag which outputs a DOCTYPE declaration to the current XML output pipe.Note that there should only be a single DOCTYPE declaration in any XML stream andit should occur before any element content.
-        <authortag>&lt;a href="mailto:jstrachan@apache.org"&gt;James Strachan&lt;/a&gt;</authortag>
-        <versiontag>$Revision: 847 $</versiontag>
-      </xsd:documentation>
+      <xsd:documentation>A tag which outputs a DOCTYPE declaration to the current XML output pipe.
+        Note that there should only be a single DOCTYPE declaration in any XML stream and
+        it should occur before any element content.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexType mixed="true">
       <xsd:sequence>
