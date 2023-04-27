@@ -1,15 +1,16 @@
 package org.kohsuke.stapler.idea.extension;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
+import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiPackage;
-import org.kohsuke.stapler.idea.psi.JellyFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Additional jelly files in java structure view
@@ -19,6 +20,10 @@ import java.util.List;
  */
 public class JavaStructureViewExtension extends AbstractStructureViewExtension {
 
+    public interface StaplerViewPredicate extends Predicate<PsiFile> {
+        ExtensionPointName<Predicate<PsiFile>> EP_NAME =
+            ExtensionPointName.create("Stapler plugin for IntelliJ IDEA.staplerViewPredicate");
+    }
     @Override
     public Class<? extends PsiElement> getType() {
         return PsiClass.class;
@@ -32,9 +37,10 @@ public class JavaStructureViewExtension extends AbstractStructureViewExtension {
             PsiPackage psiPackage = JavaPsiFacade.getInstance(parent.getProject())
                                                  .findPackage(qualifiedClassName);
             if (psiPackage != null) {
+                Predicate<PsiFile> isView = StaplerViewPredicate.EP_NAME.extensions().reduce(Predicate::or).orElseGet(() -> psiFile -> false);
                 PsiFile[] maybeViewFiles = psiPackage.getFiles(getCurrentScope(parent));
                 for (PsiFile file : maybeViewFiles) {
-                    if (file instanceof JellyFile) {
+                    if (isView.test(file)) {
                         files.add(new LeafPsiStructureViewTreeElement(file));
                     }
                 }

@@ -1,0 +1,5 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="Stapler plugin for IntelliJ IDEA">
+    <staplerViewPredicate implementation="io.jenkins.stapler.idea.facets.groovy.GroovyViewPredicate" />
+  </extensions>
+</idea-plugin>
