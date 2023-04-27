@@ -8,6 +8,14 @@
 <!--  <version>1.8</version>-->
 <!--  <idea-version since-build="110.00"/>-->
 
+  <extensionPoints>
+    <extensionPoint name="staplerViewPredicate" interface="org.kohsuke.stapler.idea.extension.JavaStructureViewExtension$StaplerViewPredicate"/>
+  </extensionPoints>
+
+  <extensions defaultExtensionNs="Stapler plugin for IntelliJ IDEA">
+    <staplerViewPredicate implementation="io.jenkins.stapler.idea.facets.jelly.JellyViewPredicate" />
+  </extensions>
+
   <extensions defaultExtensionNs="com.intellij">
     <!--
       REFERENCE:
@@ -137,5 +145,6 @@
   <depends>com.intellij.properties</depends>
   <!-- this is needed for language injection -->
   <!--<depends>org.intellij.intelliLang</depends>-->
+  <depends optional="true" config-file="jenkins-groovy.xml">org.intellij.groovy</depends>
 
 </idea-plugin>
