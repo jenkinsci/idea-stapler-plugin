@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.0"
+version = "3.0.1"
 
 java {
     toolchain {
@@ -62,6 +62,13 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.1</h3>
+      <ul>
+        <li>🚀 Update Jelly Tag Library XSDs.</li>
+        <li>🚀 Add support for groovy views as well as help files in the structure view.</li>
+        <li>🚀 Offer this plugin when a project has dependency on org.jenkins-ci.main:jenkins-core</li>
+        <li><a href="https://github.com/jenkinsci/idea-stapler-plugin/releases/tag/3.0.1">GitHub Release Notes</a></li>
+      </ul>
       <h3>3.0.0</h3>
       <ul>
         <li>💥 Unused Stapler Facet is removed. You might get a warning about it from IntelliJ. Unreadable facet can be safely removed.</li>
