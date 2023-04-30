@@ -66,6 +66,8 @@
     <lang.structureViewExtension implementation="org.kohsuke.stapler.idea.extension.JavaStructureViewExtension"/>
     <!-- Additional link to java file from a jelly file -->
     <lang.structureViewExtension implementation="org.kohsuke.stapler.idea.extension.JellyStructureViewExtension"/>
+
+    <dependencySupport coordinate="org.jenkins-ci.main:jenkins-core" kind="java" displayName="Jenkins core" />
   </extensions>
   <!-- Jelly taglibs XML Schemas -->
   <extensions defaultExtensionNs="com.intellij">
