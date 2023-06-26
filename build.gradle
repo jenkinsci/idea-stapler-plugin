@@ -3,7 +3,7 @@ import java.util.stream.Collectors
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.13.2'
+    id 'org.jetbrains.intellij' version '1.14.2'
 }
 
 group = "org.kohsuke.stapler.idea"
