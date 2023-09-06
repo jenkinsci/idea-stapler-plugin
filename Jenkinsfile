@@ -29,7 +29,7 @@ pipeline {
                     stage('Build Plugin') {
                         steps {
                             script {
-                                String command = "gradlew ${gradleOptions.join ' '} clean check assemble"
+                                String command = "gradlew ${gradleOptions.join ' '} check assemble"
                                 if (isUnix()) {
                                     command = "./${command}"
                                 }
