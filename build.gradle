@@ -3,7 +3,7 @@ import java.util.stream.Collectors
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.13.2'
+    id 'org.jetbrains.intellij' version '1.15.0'
 }
 
 group = "org.kohsuke.stapler.idea"
@@ -30,7 +30,6 @@ dependencies {
     implementation 'net.java.dev.textile-j:textile-j:2.2.864'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:4.9.0'
 }
 
 tasks.withType(JavaCompile) {
