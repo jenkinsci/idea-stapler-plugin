@@ -1,7 +1,5 @@
 package org.kohsuke.stapler.idea;
 
-import java.util.Arrays;
-
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
@@ -13,8 +11,10 @@ import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlText;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.parser.ParseException;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.kohsuke.stapler.idea.psi.JellyFile;
+
+import java.util.Arrays;
 
 
 /**
@@ -265,7 +265,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
                 // OK
                 return null;
             } else {
-                ExpressionFactory.createExpression(StringEscapeUtils.unescapeHtml(expr));
+                ExpressionFactory.createExpression(StringEscapeUtils.unescapeHtml4(expr));
                 return null;
             }
         } catch (ParseException e) {
