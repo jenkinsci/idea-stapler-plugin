@@ -17,8 +17,8 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.util.ArrayUtil;
 import com.intellij.util.ProcessingContext;
-import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -141,7 +141,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
                 @Override
                 @NotNull
                 public Object @NotNull [] getVariants() {
-                    return ArrayUtils.EMPTY_OBJECT_ARRAY;
+                    return ArrayUtil.EMPTY_OBJECT_ARRAY;
                 }
             });
         }

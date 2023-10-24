@@ -22,7 +22,7 @@ import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiPackage;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtilBase;
-import org.apache.commons.lang.ArrayUtils;
+import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -145,7 +145,7 @@ public class GotoViewAction extends GotoActionBase {
             @Override
             @NotNull
             public String @NotNull [] getSeparators() {
-                return ArrayUtils.EMPTY_STRING_ARRAY;
+                return ArrayUtil.EMPTY_STRING_ARRAY;
             }
 
             @Override
