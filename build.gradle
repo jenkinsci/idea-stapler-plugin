@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.1"
+version = "3.0.2"
 
 java {
     toolchain {
@@ -62,6 +62,12 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.2</h3>
+      <ul>
+        <li>✍️ Usages of Apache commons-lang2 are removed for IntelliJ compatibility reasons</li>
+        <li>📦 Build tools are upgrade</li>
+        <li><a href="https://github.com/jenkinsci/idea-stapler-plugin/releases/tag/3.0.2">GitHub Release Notes</a></li>
+      </ul>
       <h3>3.0.1</h3>
       <ul>
         <li>🚀 Update Jelly Tag Library XSDs.</li>
