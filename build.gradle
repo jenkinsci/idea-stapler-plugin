@@ -3,15 +3,15 @@ import java.util.stream.Collectors
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.15.0'
+    id 'org.jetbrains.intellij' version '1.17.0'
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.2"
+version = "3.0.3-SNAPSHOT"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -58,10 +58,11 @@ intellij {
 }
 
 patchPluginXml {
-    sinceBuild = "213.00"
+    sinceBuild = "223.00"
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.3-SNAPSHOT</h3>
       <h3>3.0.2</h3>
       <ul>
         <li>✍️ Usages of Apache commons-lang2 are removed for IntelliJ compatibility reasons</li>
