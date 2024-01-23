@@ -33,7 +33,7 @@ pipeline {
                                 if (isUnix()) {
                                     command = "./${command}"
                                 }
-                                infra.runWithJava(command, "11", extraEnv)
+                                infra.runWithJava(command, "17", extraEnv)
                             }
                         }
                         post {
@@ -49,7 +49,7 @@ pipeline {
                                 if (isUnix()) {
                                     command = "./" + command
                                 }
-                                infra.runWithJava(command, "11", extraEnv)
+                                infra.runWithJava(command, "17", extraEnv)
                             }
                             archiveArtifacts artifacts: '**/build/reports/pluginVerifier/**', fingerprint: false
                             // Look for presence of compatibility warnings or problems
