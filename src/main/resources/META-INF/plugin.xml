@@ -59,6 +59,10 @@
                          groupName="Stapler"
                          implementationClass="org.kohsuke.stapler.idea.I18nInspection" />
     -->
+    <localInspection language="Jelly" enabledByDefault="true" level="WARNING"
+                     displayName="Deprecated Jelly Tag library attribute usage"
+                     groupName="Stapler"
+                     implementationClass="io.jenkins.stapler.idea.jelly.DeprecatedStaplerJellyCustomTagAttributeInspection" />
     <!-- jelly file definition parser -->
     <lang.parserDefinition language="Jelly"
                            implementationClass="org.kohsuke.stapler.idea.language.JellyParserDefinition"/>

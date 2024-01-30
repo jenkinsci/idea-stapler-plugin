@@ -31,4 +31,9 @@ public class AttributeTag extends TagWithHtmlContent {
         Optional<String> mayBeUseAttrValue = Optional.ofNullable(tag.getAttribute("use")).map(XmlAttribute::getValue);
         return mayBeUseAttrValue.isPresent() && mayBeUseAttrValue.get().equals("required");
     }
+
+    public boolean isDeprecated() {
+        Optional<String> mayBeUseAttrValue = Optional.ofNullable(tag.getAttribute("deprecated")).map(XmlAttribute::getValue);
+        return mayBeUseAttrValue.isPresent() && mayBeUseAttrValue.get().equals("true");
+    }
 }
