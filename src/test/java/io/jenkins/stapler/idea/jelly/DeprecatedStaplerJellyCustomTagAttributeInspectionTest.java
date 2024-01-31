@@ -24,6 +24,6 @@ public class DeprecatedStaplerJellyCustomTagAttributeInspectionTest extends Base
 
         List<HighlightInfo> highlightInfos = myFixture.doHighlighting(HighlightSeverity.WARNING);
         assertNotEmpty(highlightInfos);
-        assertEquals("Attribute is deprecated. Use \"Go to declaration\" to find the recommended solution.", highlightInfos.get(0).getDescription());
+        assertEquals("Attribute 'title' is deprecated. Use \"Go to declaration\" to find the recommended solution.", highlightInfos.get(0).getDescription());
     }
 }

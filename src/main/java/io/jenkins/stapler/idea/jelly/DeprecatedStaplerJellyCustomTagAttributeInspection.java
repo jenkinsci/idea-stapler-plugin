@@ -15,7 +15,7 @@ public class DeprecatedStaplerJellyCustomTagAttributeInspection extends LocalIns
             @Override
             public void visitXmlAttribute(@NotNull XmlAttribute attribute) {
                 if (attribute.getDescriptor() instanceof StaplerCustomJellyTagfileXmlAttributeDescriptor descriptor && descriptor.getModel().isDeprecated()) {
-                    holder.registerProblem(attribute, "Attribute is deprecated. Use \"Go to declaration\" to find the recommended solution.");
+                    holder.registerProblem(attribute, String.format("Attribute '%s' is deprecated. Use \"Go to declaration\" to find the recommended solution.", attribute.getName()));
                 }
             }
         };
