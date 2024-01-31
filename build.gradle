@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.3-SNAPSHOT"
+version = "3.0.3"
 
 java {
     toolchain {
@@ -62,7 +62,11 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
-      <h3>3.0.3-SNAPSHOT</h3>
+      <h3>3.0.3</h3>
+      <ul>
+        <li>👻 Compatibility baseline is changed to 2022.3 which also changes Java level to 17. No functional changes are expected.</li>
+        <li>🚀 Report custom tag attributes that are marked deprecated.</li>
+      </ul>
       <h3>3.0.2</h3>
       <ul>
         <li>✍️ Usages of Apache commons-lang2 are removed for IntelliJ compatibility reasons</li>

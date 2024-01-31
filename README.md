@@ -29,6 +29,7 @@ Features include:
 * "Jenkins Jelly View" file template to speed up creation of views
 * Navigation from the Jelly tags to their definitions
   * Integrate `st:documentation` tag into IntelliJ documentation support
+  * Report custom tag attributes that are marked deprecated in `st:documentation`.
 * Error checks and autocompletion on attributes and elements of taglibs
 * `style` attribute and `script` tag contents should be recognized as CSS and JavaScript correspondingly.
 
