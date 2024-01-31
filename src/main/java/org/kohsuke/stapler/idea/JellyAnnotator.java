@@ -27,8 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public class JellyAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement psi, @NotNull AnnotationHolder holder) {
-        if (psi instanceof XmlTag) {
-            XmlTag tag = (XmlTag) psi;
+        if (psi instanceof XmlTag tag) {
             // for elements
             XmlNSDescriptor ns = tag.getDescriptor().getNSDescriptor();
             XmlElementDescriptor e = ns.getElementDescriptor(tag);

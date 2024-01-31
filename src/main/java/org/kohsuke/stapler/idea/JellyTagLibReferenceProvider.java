@@ -70,10 +70,9 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
      */
     private PsiReference[] onAttributeValue(final XmlAttributeValue xav) {
         PsiElement _xa = xav.getParent();
-        if (!(_xa instanceof XmlAttribute))
+        if (!(_xa instanceof XmlAttribute a))
             return PsiReference.EMPTY_ARRAY;
 
-        XmlAttribute a = (XmlAttribute) _xa;
         if(!a.getName().equals("page"))
             return PsiReference.EMPTY_ARRAY;
 

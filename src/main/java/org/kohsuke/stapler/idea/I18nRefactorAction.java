@@ -58,22 +58,20 @@ public class I18nRefactorAction extends EditorAction {
 
                 PsiDocumentManager psiManager = PsiDocumentManager.getInstance(project);
                 PsiFile psiFile = psiManager.getPsiFile(editor.getDocument());
-                if (!(psiFile instanceof PsiJavaFile)) {
+                if (!(psiFile instanceof PsiJavaFile javaFile)) {
                     return; // not a Java source file
                 }
 
                 // look for Messages.properties
-                PsiJavaFile javaFile = (PsiJavaFile) psiFile;
                 PsiFile props = findMessagesDotProperties(project, javaFile);
                 if(props==null) {
                     Messages.showErrorDialog("Can't find Messages.properties","stapler i18n");
                     return;
                 }
-                if(!(props instanceof PropertiesFile)) {
+                if(!(props instanceof PropertiesFile propsFile)) {
                     Messages.showErrorDialog("Messages.properties is not a property file","stapler i18n");
                     return;
                 }
-                final PropertiesFile propsFile = (PropertiesFile) props;
 
                 // find the expression currently selected
                 PsiElement e = findSelectedPsiElement(selectionModel, javaFile);
@@ -110,16 +108,14 @@ public class I18nRefactorAction extends EditorAction {
                     }
 
                     private void process(PsiElement exp) {
-                        if (exp instanceof PsiLiteralExpression) {
-                            PsiLiteralExpression lit = (PsiLiteralExpression) exp;
+                        if (exp instanceof PsiLiteralExpression lit) {
                             if(lit.getType().equals(stringType)) {
                                 escapeAndAppend(lit.getValue().toString());
                                 return;
                             }
                         }
 
-                        if (exp instanceof PsiBinaryExpression) {
-                            PsiBinaryExpression binExp = (PsiBinaryExpression) exp;
+                        if (exp instanceof PsiBinaryExpression binExp) {
                             if(binExp.getOperationTokenType()== JavaTokenType.PLUS) {
                                 process(binExp.getLOperand());
                                 process(binExp.getROperand());

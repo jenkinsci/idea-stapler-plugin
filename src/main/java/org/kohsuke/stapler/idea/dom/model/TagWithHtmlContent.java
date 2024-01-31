@@ -25,11 +25,8 @@ public abstract class TagWithHtmlContent {
     public String generateHtmlDoc() {
         StringBuilder buf = new StringBuilder();
         for (XmlTagChild child : tag.getValue().getChildren()) {
-            if (child instanceof XmlTag) {
-                XmlTag childTag = (XmlTag) child;
-                if(childTag.getNamespace().equals("jelly:stapler"))
-                    continue; // skip <st:* />
-            }
+            if (child instanceof XmlTag childTag && childTag.getNamespace().equals("jelly:stapler"))
+                continue; // skip <st:* />
             buf.append(child.getText());
         }
         // PSI returns "&lt;" in XML as "&lt;" instead of its proper infose '<',

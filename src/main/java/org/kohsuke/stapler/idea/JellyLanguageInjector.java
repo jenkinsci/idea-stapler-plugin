@@ -31,13 +31,11 @@ public class JellyLanguageInjector implements MultiHostInjector {
             return; // not a jelly file
 
         // inject CSS to @style
-        if (context instanceof XmlAttributeValue) {
-            final XmlAttributeValue value = (XmlAttributeValue)context;
+        if (context instanceof XmlAttributeValue value) {
 
-            if (!(value.getParent() instanceof XmlAttribute))
+            if (!(value.getParent() instanceof XmlAttribute a))
                 return; // not an XML attribute, probably an XML PI
 
-            XmlAttribute a = (XmlAttribute) value.getParent();
             if(!a.getName().equals("style"))
                 return; // not a style attribute
 
@@ -53,14 +51,13 @@ public class JellyLanguageInjector implements MultiHostInjector {
         }
         
         // inject JavaScript to <script>
-        if (context instanceof XmlTag) {
+        if (context instanceof XmlTag t) {
             /*
                 IntelliJ reports an assertion error if the we didn't call any addPlace
                 between startInjecting/doneInjection, so we need to call them lazily.
              */
             final boolean[] started = new boolean[1];
 
-            XmlTag t = (XmlTag) context;
             if(!t.getName().equals("script"))
                 return; // not a script element
 
@@ -69,7 +66,7 @@ public class JellyLanguageInjector implements MultiHostInjector {
 
             t.acceptChildren(new XmlElementVisitor() {
                 @Override
-                public void visitXmlText(XmlText text) {
+                public void visitXmlText(@NotNull XmlText text) {
                     int len = text.getTextLength();
                     if (len==0) return;
                     

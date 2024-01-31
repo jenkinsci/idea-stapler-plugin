@@ -31,21 +31,17 @@ public class JellyDocumentationProvider extends AbstractDocumentationProvider {
             return null;
         }
         PsiElement p = originalElement.getParent();
-        if (p instanceof XmlTag) {
-            XmlTag t = (XmlTag) p;
+        if (p instanceof XmlTag t) {
             XmlElementDescriptor d = t.getDescriptor();
-            if (d instanceof StaplerCustomJellyTagfileXmlElementDescriptor) {
-                StaplerCustomJellyTagfileXmlElementDescriptor dd = (StaplerCustomJellyTagfileXmlElementDescriptor) d;
+            if (d instanceof StaplerCustomJellyTagfileXmlElementDescriptor dd) {
                 DocumentationTag m = dd.getModel();
                 if(m==null)     return null;
                 return m.generateHtmlDoc();
             }
         } else
-        if (p instanceof XmlAttribute) {
-            XmlAttribute a = (XmlAttribute) p;
+        if (p instanceof XmlAttribute a) {
             XmlAttributeDescriptor ad = a.getDescriptor();
-            if (ad instanceof StaplerCustomJellyTagfileXmlAttributeDescriptor) {
-                StaplerCustomJellyTagfileXmlAttributeDescriptor o = (StaplerCustomJellyTagfileXmlAttributeDescriptor) ad;
+            if (ad instanceof StaplerCustomJellyTagfileXmlAttributeDescriptor o) {
                 return o.getModel().generateHtmlDoc();
             }
         } else {
