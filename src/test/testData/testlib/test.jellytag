@@ -1,0 +1,7 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
+    <st:documentation>
+        <st:attribute name="title" deprecated="true">title, deprecated use tooltip instead, or htmlTooltip if you intend to pass HTML.</st:attribute>
+    </st:documentation>
+    <p>Test</p>
+</j:jelly>
