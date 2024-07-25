@@ -22,8 +22,6 @@
               fieldName="INSTANCE"
               language="Jelly"
               extensions="jelly;jellytag"/>
-    <!-- Categorizes the Jelly files into separate category for JetBrains' stats. Also contains utilities for checking if a file is a Jelly file -->
-    <fileTypeUsageSchemaDescriptor schema="jelly" implementationClass="io.jenkins.stapler.idea.jelly.JellyFileTypeSchema"/>
     <!-- ? -->
     <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <!-- Completion for Jelly Tags -->
