@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.3"
+version = "3.0.4"
 
 java {
     toolchain {
@@ -62,6 +62,10 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.4</h3>
+      <ul>
+        <li>🐛 Clean up API usage to remain compatible with 2024.2</li>
+      </ul>
       <h3>3.0.3</h3>
       <ul>
         <li>👻 Compatibility baseline is changed to 2022.3 which also changes Java level to 17. No functional changes are expected.</li>
