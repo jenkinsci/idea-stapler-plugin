@@ -20,13 +20,21 @@ import org.kohsuke.stapler.idea.psi.JellyFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.JELLY_EXTENSION;
-import static io.jenkins.stapler.idea.jelly.JellyFileTypeSchema.STAPLER_JELLY_TAG_EXTENSION;
-
 /**
  * @author Kohsuke Kawaguchi
  */
 public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescriptorEx {
+    /**
+     * Extension introduced by Stapler Framework to differentiate Jelly views from Tag Libraries that are made up of script files.
+     * For example:
+     * <a href="https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/CustomTagLibrary.java#L128">CustomTagLibrary.java#L128</a>
+     * <a href="https://github.com/jenkinsci/stapler/blob/1709.ve4c10835694b_/jelly/src/main/java/org/kohsuke/stapler/jelly/ThisTagLibrary.java#L77">ThisTagLibrary.java#L77</a>
+     */
+    private static final String STAPLER_JELLY_TAG_EXTENSION = "jellytag";
+    /**
+     * Default extension of the Apache Commons Jelly
+     */
+    private static final String JELLY_EXTENSION = "jelly";
     /*
      * Stapler's `CustomTagLibrary`[1] introduces its own tag extension in addition to standard Jelly Extension.
      * It is also extensible using `JellyTagFileLoader`-s, the only instance of which is `GroovyTagFileLoader`[2]
