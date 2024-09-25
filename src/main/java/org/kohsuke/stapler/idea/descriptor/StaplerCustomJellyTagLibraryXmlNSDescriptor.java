@@ -99,7 +99,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
      */
     @Override
     @NotNull
-    public XmlElementDescriptor @NotNull [] getRootElementsDescriptors(@Nullable XmlDocument document) {
+    public XmlElementDescriptor[] getRootElementsDescriptors(@Nullable XmlDocument document) {
         List<XmlElementDescriptor> r = new ArrayList<>();
         for(PsiFile f : dir.getFiles()) {
             if(!isTagFile(f))     continue;
@@ -153,7 +153,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     }
 
     @Override
-    public Object @NotNull [] getDependencies() {
+    public Object[] getDependencies() {
         return new Object[]{dir};
     }
 

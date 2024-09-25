@@ -35,7 +35,7 @@ public class LeafPsiStructureViewTreeElement implements StructureViewTreeElement
     }
 
     @Override
-    public TreeElement @NotNull [] getChildren() {
+    public TreeElement[] getChildren() {
         return TreeElement.EMPTY_ARRAY;
     }
 

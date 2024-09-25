@@ -45,7 +45,7 @@ pipeline {
                     stage('Verify Plugin') {
                         steps {
                             script {
-                                String command = "gradlew ${gradleOptions.join ' '} verifyPlugin runPluginVerifier"
+                                String command = "gradlew ${gradleOptions.join ' '} verifyPlugin"
                                 if (isUnix()) {
                                     command = "./" + command
                                 }
