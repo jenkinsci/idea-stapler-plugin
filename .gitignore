@@ -16,3 +16,8 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 .idea
+
+# Manualy added
+## Cache directory of the IntelliJ Platform Gradle Plugin
+## https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html#intellijPlatform-cachePath
+.intellijPlatform/

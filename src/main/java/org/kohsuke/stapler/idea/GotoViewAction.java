@@ -114,7 +114,7 @@ public class GotoViewAction extends GotoActionBase {
 
             @NotNull
             @Override
-            public String @NotNull [] getNames(boolean checkBoxState) {
+            public String[] getNames(boolean checkBoxState) {
                 List<String> r = new ArrayList<>();
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
@@ -130,7 +130,7 @@ public class GotoViewAction extends GotoActionBase {
 
             @Override
             @NotNull
-            public Object @NotNull [] getElementsByName(@NotNull String name, boolean checkBoxState, @NotNull String pattern) {
+            public Object[] getElementsByName(@NotNull String name, boolean checkBoxState, @NotNull String pattern) {
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {
@@ -144,7 +144,7 @@ public class GotoViewAction extends GotoActionBase {
 
             @Override
             @NotNull
-            public String @NotNull [] getSeparators() {
+            public String[] getSeparators() {
                 return ArrayUtil.EMPTY_STRING_ARRAY;
             }
 

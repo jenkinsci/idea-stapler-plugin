@@ -36,7 +36,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
      */
     @Override
     @NotNull
-    public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement e, @NotNull ProcessingContext processingContext) {
+    public PsiReference[] getReferencesByElement(@NotNull PsiElement e, @NotNull ProcessingContext processingContext) {
         /*
         This was the old way of marking references to tag files, but
         with the custom XmlNSDescriptor this is no longer necessary
@@ -139,7 +139,7 @@ public class JellyTagLibReferenceProvider extends PsiReferenceProvider {
 
                 @Override
                 @NotNull
-                public Object @NotNull [] getVariants() {
+                public Object[] getVariants() {
                     return ArrayUtil.EMPTY_OBJECT_ARRAY;
                 }
             });

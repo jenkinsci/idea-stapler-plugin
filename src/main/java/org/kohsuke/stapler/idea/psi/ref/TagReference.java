@@ -80,7 +80,7 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
 
     @NotNull
     @Override
-    public Object @NotNull [] getVariants() {
+    public Object[] getVariants() {
 //        // not sure how to use this
 //        // -> this is used apparently as a quick completion.
 //        // try typing "<a" then hit Ctrl+SPACE.

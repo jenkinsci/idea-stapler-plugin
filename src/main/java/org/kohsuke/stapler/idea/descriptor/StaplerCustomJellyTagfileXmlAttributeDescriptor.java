@@ -99,7 +99,7 @@ public class StaplerCustomJellyTagfileXmlAttributeDescriptor implements XmlAttri
     }
 
     @Override
-    public Object @NotNull [] getDependencies() {
+    public Object[] getDependencies() {
         return new Object[]{def.tag};
     }
 }
