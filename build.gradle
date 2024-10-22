@@ -1,11 +1,15 @@
+// IntelliJ plugins are built with https://github.com/JetBrains/intellij-platform-gradle-plugin
+// which is documented at https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
+
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
+
 import java.nio.file.Files
 import java.util.stream.Collectors
-import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
-import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij.platform' version '2.0.1'
+    id 'org.jetbrains.intellij.platform' version '2.1.0'
 }
 
 group = "org.kohsuke.stapler.idea"
@@ -61,12 +65,7 @@ tasks.withType(JavaCompile) {
     }
 }
 
-// See https://github.com/JetBrains/intellij-platform-gradle-plugin
-// https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html#configuration-intellij-extension
-
-// https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html
-// https://plugins.jetbrains.com/docs/marketplace/product-versions-in-use-statistics.html
-// https://www.jetbrains.com/idea/download/other.html
+// https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
 intellijPlatform {
     pluginConfiguration {
         description = extractPluginDescription()
