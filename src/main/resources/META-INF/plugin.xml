@@ -70,6 +70,8 @@
     <lang.structureViewExtension implementation="org.kohsuke.stapler.idea.extension.JellyStructureViewExtension"/>
 
     <dependencySupport coordinate="org.jenkins-ci.main:jenkins-core" kind="java" displayName="Jenkins core" />
+
+    <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
   </extensions>
   <!-- Jelly taglibs XML Schemas -->
   <extensions defaultExtensionNs="com.intellij">
