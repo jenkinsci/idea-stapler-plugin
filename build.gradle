@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.4"
+version = "3.0.5"
 
 java {
     toolchain {
@@ -62,6 +62,11 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.5</h3>
+      <ul>
+        <li>🚀 Use JetBrains Marketplace exception analyzer</li>
+        <li>👻 Compatibility baseline is changed to 2023.3</li>
+      </ul>
       <h3>3.0.4</h3>
       <ul>
         <li>🐛 Clean up API usage to remain compatible with 2024.2</li>
@@ -100,41 +105,6 @@ patchPluginXml {
       </ul>
       <h3>2.0.8</h3>
         <h4>Plugin is renamed from "Stapler Framework Support" to "Jenkins Development Support"</h4>
-      <h3>2.0.7</h3>
-      <ul>
-        <li>Fix the <code>StackOverflowError</code> in Stapler Custom Jelly Taglibrary</li>
-        <li><code>*.jellytag</code> extension is recognized as Jelly. Stapler supports it for Jelly Taglibraries</li>
-        <li><code>stapler.xsd</code> is formatted to improve readability</li>
-      </ul>
-      <h3>2.0.6</h3>
-      <ul>
-        <li>Switch from deprecated imperative File Type definition to the declarative one. Internal change. No functional changes are expected.</li> 
-      </ul>
-      <h3>2.0.5</h3>
-      <ul>
-        <li>Compatibility baseline is changed to 2020.3 which also changes Java level to 11. No functional changes are expected.</li>
-      </ul>
-      <h3>2.0.4</h3>
-      <ul>
-        <li>Avoid <code>java.lang.NullPointerException</code> at <code>org.kohsuke.stapler.idea.JellyDocumentationProvider.generateDoc()</code>
-        by short-circuiting on <code>null</code> in the nullable parameter.
-        </li>
-      </ul>
-      <h3>2.0.3</h3>
-      <ul>
-        <li>Revert Jelly file type introduced in 2.0.1. It turned out that there is regression in Intellij 2021.2 which 
-        prevents adding extensions to existing File Types (IDEA-277310). Attempt to work it around caused more issues than
-         it fixed. Regression should be fixed in 2021.3. Meanwhile *.jelly can be manually added to XML file type.</li>
-      </ul>
-      <h3>2.0.2</h3>
-      <ul>
-        <li>Deprecation scheduled for removal are addressed to maintain compatibility with 2021.3 onward</li>
-      </ul>
-      <h3>2.0.1</h3>
-      <ul>
-        <li>JEXL Inspection crashes are fixed by addressing logger initialization issue in JEXL</li>
-        <li>Restore the association between *.jelly extension and XML language</li>
-      </ul>
     """
 }
 
