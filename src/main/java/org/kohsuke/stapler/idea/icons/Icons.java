@@ -10,4 +10,5 @@ import javax.swing.*;
 public class Icons {
     public static final Icon STAPLER = IconLoader.getIcon("/org/kohsuke/stapler/idea/icons/stapler.png", Icons.class);
     public static final Icon JELLY = IconLoader.getIcon("/org/kohsuke/stapler/idea/icons/jelly.svg", Icons.class);
+    public static final Icon JENKINS = IconLoader.getIcon("/org/kohsuke/stapler/idea/icons/jenkins.svg", Icons.class);
 }
