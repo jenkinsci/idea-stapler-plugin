@@ -140,6 +140,6 @@ public class JenkinsSymbolFinder implements SymbolFinder {
         symbols.add("weather-icon-health-80plus");
         symbols.add("windows");
 
-        return symbols.stream().map(e -> new Symbol(PREFIX + e, e, JENKINS)).collect(Collectors.toSet());
+        return symbols.stream().map(e -> new Symbol(PREFIX + e, PREFIX + e, null, null, JENKINS)).collect(Collectors.toSet());
     }
 }

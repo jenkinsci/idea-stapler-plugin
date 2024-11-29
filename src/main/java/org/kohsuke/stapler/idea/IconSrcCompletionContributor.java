@@ -49,7 +49,7 @@ public class IconSrcCompletionContributor extends CompletionContributor {
                     PsiElement parent = position.getParent().getParent();
                     if (isInsideLIconSrcAttribute(parent)) {
                         icons.forEach(file -> result.addElement(LookupElementBuilder.create(file.getName())
-                            .withIcon(file.getIcon())));
+                            .withIcon(file.getIcon()).withPresentableText(file.getDisplayText()).withTypeText(file.getGroup())));
                     }
                 }
             });

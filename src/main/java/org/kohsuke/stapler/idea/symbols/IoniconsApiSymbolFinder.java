@@ -1,9 +1,11 @@
 package org.kohsuke.stapler.idea.symbols;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,8 +17,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static org.kohsuke.stapler.idea.icons.Icons.STAPLER;
 
 public class IoniconsApiSymbolFinder implements SymbolFinder {
 
@@ -1390,7 +1390,10 @@ public class IoniconsApiSymbolFinder implements SymbolFinder {
         symbols.add("woman-outline");
         symbols.add("woman-sharp");
         symbols.add("woman");
-        return symbols.stream().map(e -> new Symbol(PREFIX + e + SUFFIX, e, STAPLER)).collect(Collectors.toSet());
+
+        Icon icon = AllIcons.Nodes.Plugin;
+        return symbols.stream().map(e -> new Symbol(PREFIX + e + SUFFIX,
+            PREFIX + e, "plugin-ionicons-api", null, icon)).collect(Collectors.toSet());
     }
 
     private static boolean hasIoniconsApi(Project project) {
