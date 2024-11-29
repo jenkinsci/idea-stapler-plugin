@@ -1,6 +1,6 @@
 package org.kohsuke.stapler.idea.symbols;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 public class Symbol {
 
