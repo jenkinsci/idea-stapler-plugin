@@ -209,6 +209,8 @@ public class JellyCompletionContributor extends CompletionContributor {
         return mergedNamespaceMap;
     }
 
-    public static final Map<String, String> EXPECTED_NAMESPACES = Map.of("j", "jelly:core",
-        "f", "/lib/form", "l", "/lib/layout");
+    public static final Map<String, String> EXPECTED_NAMESPACES = Map.of(
+        "l", "/lib/layout",
+        "f", "/lib/form",
+        "t", "/lib/hudson");
 }
