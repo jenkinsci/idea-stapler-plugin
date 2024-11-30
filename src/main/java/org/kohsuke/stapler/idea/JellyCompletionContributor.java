@@ -5,17 +5,17 @@ import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.codeInsight.lookup.LookupElementPresentation;
-import com.intellij.codeInsight.lookup.LookupElementRenderer;
+import com.intellij.codeInsight.template.Template;
+import com.intellij.codeInsight.template.TemplateManager;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.colors.EditorColors;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
+import com.intellij.openapi.project.Project;
 import com.intellij.patterns.ElementPattern;
 import com.intellij.patterns.XmlElementPattern;
+import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.xml.TagNameReference;
@@ -24,16 +24,18 @@ import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlToken;
-import com.intellij.ui.Gray;
-import com.intellij.ui.JBColor;
 import com.intellij.util.ProcessingContext;
+import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
+import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlAttributeDescriptor;
+import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlElementDescriptor;
 import org.kohsuke.stapler.idea.icons.Icons;
 
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.kohsuke.stapler.idea.MissingNamespaceAnnotator.EXPECTED_NAMESPACES;
@@ -83,11 +85,6 @@ import static org.kohsuke.stapler.idea.MissingNamespaceAnnotator.EXPECTED_NAMESP
  */
 public class JellyCompletionContributor extends CompletionContributor {
 
-    // JAN NOTE
-    // This seems inferior to the (maybe built in?) IntelliJ completion contributor
-    // It doesnt automatically add required props
-    // It causes the <l:l:card /> but with duplicate prefixes
-
     public JellyCompletionContributor() {
         extend(CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
             XML_ELEMENT_NAME_PATTERN,
@@ -95,8 +92,6 @@ public class JellyCompletionContributor extends CompletionContributor {
                 @Override
                 protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
                     XmlElement name = (XmlElement) parameters.getPosition();
-
-                    // this pseudo-tag represents the tag being completed.
                     XmlTag tag = (XmlTag) name.getParent();
                     Module module = ModuleUtil.findModuleForPsiElement(tag);
 
@@ -106,8 +101,18 @@ public class JellyCompletionContributor extends CompletionContributor {
                         StaplerCustomJellyTagLibraryXmlNSDescriptor d = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
 
                         if (d != null) {
-                            for (XmlElementDescriptor e : d.getRootElementsDescriptors(null)) {
-                                createAutocompleteElement(result, prefix, uri, e.getName());
+                            for (@NotNull XmlElementDescriptor e : d.getRootElementsDescriptors(null)) {
+                                List<String> requiredAttributes = new ArrayList<>();
+                                var esd = (StaplerCustomJellyTagfileXmlElementDescriptor) e;
+
+                                for (XmlAttributeDescriptor attributesDescriptor : esd.getAttributesDescriptors(tag)) {
+                                    var mapped = (StaplerCustomJellyTagfileXmlAttributeDescriptor) attributesDescriptor;
+                                    if (mapped.isRequired()) {
+                                        requiredAttributes.add(mapped.getName());
+                                    }
+                                }
+
+                                createAutocompleteElement(result, prefix, uri, e.getName(), requiredAttributes);
                             }
                         }
                     });
@@ -116,22 +121,46 @@ public class JellyCompletionContributor extends CompletionContributor {
         );
     }
 
-    private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, String componentName) {
+    private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, String componentName, List<String> requiredAttributes) {
         result.addElement(LookupElementBuilder.create(prefix + ":" + componentName)
             .withIcon(Icons.JELLY)
-            .withInsertHandler((context2, item) -> {
-                PsiFile psiFile = context2.getFile();
+            .withTypeText(uri)
+            .withInsertHandler((context, item) -> {
+                // Access the current file and project from the context
+                PsiFile psiFile = context.getFile();
+                Project project = context.getProject();
+                Editor editor = context.getEditor();
 
                 if (psiFile instanceof XmlFile xmlFile) {
                     XmlTag rootTag = xmlFile.getRootTag();
 
                     if (rootTag != null) {
-                        // Add the namespace to the root tag
-                        WriteCommandAction.runWriteCommandAction(context2.getProject(), () -> {
+                        // Insert the namespace declaration into the root tag
+                        WriteCommandAction.runWriteCommandAction(project, () -> {
                             rootTag.setAttribute("xmlns:" + prefix, uri);
-                            // Close the tag
-                            context2.getDocument().insertString(context2.getTailOffset(), " />");
                         });
+
+                        // Unblock the document
+                        PsiDocumentManager psiDocumentManager = PsiDocumentManager.getInstance(context.getProject());
+                        psiDocumentManager.doPostponedOperationsAndUnblockDocument(editor.getDocument());
+
+                        // Create a template manager and a new template
+                        TemplateManager templateManager = TemplateManager.getInstance(project);
+                        StringBuilder templateText = new StringBuilder();
+
+                        for (String attributeName : requiredAttributes) {
+                            templateText.append(" ").append(attributeName).append("=\"$").append(attributeName).append("$\"");
+                        }
+                        templateText.append(" />");
+
+                        Template template = templateManager.createTemplate("myTemplate", "Jelly", templateText.toString());
+
+                        for (String attributeName : requiredAttributes) {
+                            // Add each attribute as a placeholder variable for tabbing
+                            template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
+                        }
+
+                        templateManager.startTemplate(editor, template);
                     }
                 }
             }));
