@@ -10,8 +10,8 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.patterns.ElementPattern;
 import com.intellij.patterns.XmlElementPattern;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.xml.TagNameReference;
-import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlDocument;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
@@ -20,6 +20,7 @@ import com.intellij.util.ProcessingContext;
 import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
+import org.kohsuke.stapler.idea.icons.Icons;
 
 
 /**
@@ -65,6 +66,12 @@ import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDesc
  * @author Kohsuke Kawaguchi
  */
 public class JellyCompletionContributor extends CompletionContributor {
+
+    // JAN NOTE
+    // This seems inferior to the (maybe built in?) IntelliJ completion contributor
+    // It doesnt automatically add required props
+    // It causes the <l:l:card /> but with duplicate prefixes
+
     public JellyCompletionContributor() {
         extend(CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
                 XML_ELEMENT_NAME_PATTERN,
@@ -96,28 +103,12 @@ public class JellyCompletionContributor extends CompletionContributor {
                         String[] uris = tag.knownNamespaces();
                         for (String uri : uris) {
                             String prefix = tag.getPrefixByNamespace(uri);
-                            if(prefix!=null && prefix.length()>0)
+                            if(prefix!=null && !prefix.isEmpty())
                                 prefix+=':';
                             StaplerCustomJellyTagLibraryXmlNSDescriptor d = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
                             if(d!=null) {
                                 for( XmlElementDescriptor e : d.getRootElementsDescriptors(null/*I'm not using this parameter*/)) {
-                                    //LookupItem item = LookupItem.fromString(prefix + e.getName());
-                                    /*
-                                        In some context (see completion-test.jelly in particular),
-                                        I noticed that contributions from here and XmlCompletionContributer
-                                        overlaps and the user ends up seeing the same candidate twice.
-                                        To fix this, we need to create the LookupItem such that
-                                        its equals() method returns true when compared with the ones
-                                        from XmlCompletionContributer.
-
-                                        So I'm not sure what the TailType means but this is why we do this.
-                                     */
-                                    //item.setTailType(TailType.UNKNOWN);
-                                    // @duemir: Above must have been true when KK wrote it but is it still true?
-                                    // Both LookupItem constructor and factory method are deprecated for removal so I
-                                    // have implemented the recommended approach but tailType is not available there
-                                    // so I am not sure if there is going to be a regression or not.
-                                    result.addElement(LookupElementBuilder.create(prefix + e.getName()));
+                                    result.addElement(LookupElementBuilder.create(prefix + e.getName()).withIcon(Icons.JELLY));
                                 }
                             }
                         }
@@ -126,29 +117,9 @@ public class JellyCompletionContributor extends CompletionContributor {
         );
     }
 
-    // REFERENCE: the following is useful for figuring out how CompletionParameters
-    // are populated and passed to us.
-    //
-    // On XML completion, type is always BASIC,
-    // and pos for element/attribute name completions are XmlToken.
-    //
-    // TODO: XmlCompletionContributor is another implementation of CompletionContributer.
-//    @Override
-//    public boolean fillCompletionVariants(CompletionParameters parameters, CompletionResultSet result) {
-//        System.out.println("type="+parameters.getCompletionType());
-//        System.out.println("pos ="+parameters.getPosition());
-//        return super.fillCompletionVariants(parameters, result);
-//    }
-
     /**
      * {@link ElementPattern} that matches attribute names.
      */
-    private static final ElementPattern XML_ATTRIBUTE_NAME_PATTERN =
-            new XmlElementPattern(XmlToken.class) {}.withParent(XmlAttribute.class);
-
-    /**
-     * {@link ElementPattern} that matches attribute names.
-     */
-    private static final ElementPattern XML_ELEMENT_NAME_PATTERN =
+    private static final ElementPattern<? extends PsiElement> XML_ELEMENT_NAME_PATTERN =
             new XmlElementPattern(XmlToken.class) {}.withParent(XmlTag.class);
 }
