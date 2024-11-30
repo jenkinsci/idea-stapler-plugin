@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MissingNamespaceAnnotator implements Annotator {
 
-    private static final Map<String, String> EXPECTED_NAMESPACES = Map.of("j", "jelly:core",
+    public static final Map<String, String> EXPECTED_NAMESPACES = Map.of("j", "jelly:core",
         "f", "/lib/form", "l", "/lib/layout");
 
     @Override
