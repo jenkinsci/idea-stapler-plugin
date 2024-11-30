@@ -28,6 +28,7 @@ import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlAttributeDescriptor;
+import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlElementDescriptor;
 import org.kohsuke.stapler.idea.icons.Icons;
 
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class JellyCompletionContributor extends CompletionContributor {
 
                         if (d != null) {
                             for (XmlElementDescriptor component : d.getRootElementsDescriptors(null)) {
-                                createAutocompleteElement(result, prefix, uri, component, tag, existingPrefix != null);
+                                createAutocompleteElement(result, prefix, uri, (StaplerCustomJellyTagfileXmlElementDescriptor) component, tag, existingPrefix != null);
                             }
                         }
                     });
@@ -111,7 +112,7 @@ public class JellyCompletionContributor extends CompletionContributor {
         );
     }
 
-    private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, XmlElementDescriptor component, XmlTag tag, boolean includePrefix) {
+    private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, StaplerCustomJellyTagfileXmlElementDescriptor component, XmlTag tag, boolean includePrefix) {
         result.addElement(LookupElementBuilder.create((includePrefix ? "" : prefix + ":") + component.getName())
             .withPresentableText(prefix + ":" + component.getName())
             .withIcon(Icons.COMPONENT)
@@ -135,13 +136,13 @@ public class JellyCompletionContributor extends CompletionContributor {
                         psiDocumentManager.doPostponedOperationsAndUnblockDocument(editor.getDocument());
 
                         // Suffix required attributes and tab the user to the first one
-                        createRequiredAttributesTemplate(component, tag, project, editor);
+                        createRequiredAttributesTemplate(component, tag, project, editor, prefix);
                     }
                 }
             }));
     }
 
-    private static void createRequiredAttributesTemplate(XmlElementDescriptor component, XmlTag tag, Project project, Editor editor) {
+    private static void createRequiredAttributesTemplate(StaplerCustomJellyTagfileXmlElementDescriptor component, XmlTag tag, Project project, Editor editor, String prefix) {
         TemplateManager templateManager = TemplateManager.getInstance(project);
         StringBuilder templateText = new StringBuilder();
 
@@ -149,7 +150,12 @@ public class JellyCompletionContributor extends CompletionContributor {
         for (String attributeName : requiredAttributes) {
             templateText.append(" ").append(attributeName).append("=\"$").append(attributeName).append("$\"");
         }
-        templateText.append(" />");
+
+        if (component.getContentType() == XmlElementDescriptor.CONTENT_TYPE_ANY) {
+            templateText.append(">\n  $content$\n</" + prefix + ":" + component.getName() + ">");
+        } else {
+            templateText.append(" />");
+        }
 
         Template template = templateManager.createTemplate("myTemplate", "Jelly", templateText.toString());
 
@@ -157,11 +163,12 @@ public class JellyCompletionContributor extends CompletionContributor {
             // Add each attribute as a placeholder variable for tabbing
             template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
         }
+        template.addVariable("content", "", "content", true);
 
         templateManager.startTemplate(editor, template);
     }
 
-    private static List<String> getRequiredAttributes(XmlElementDescriptor component, XmlTag tag) {
+    private static List<String> getRequiredAttributes(StaplerCustomJellyTagfileXmlElementDescriptor component, XmlTag tag) {
         List<String> requiredAttributes = new ArrayList<>();
         for (XmlAttributeDescriptor attributesDescriptor : component.getAttributesDescriptors(tag)) {
             var mapped = (StaplerCustomJellyTagfileXmlAttributeDescriptor) attributesDescriptor;
