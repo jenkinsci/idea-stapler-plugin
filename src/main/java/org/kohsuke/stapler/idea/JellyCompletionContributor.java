@@ -47,14 +47,14 @@ import java.util.Map;
  * The problem is when we have text like the following:
  *
  * <pre><xmp>
- * <j:jelly xmlns:t="/lib" xmlns:j="jelly:core">
- * <html>
- * <body>
- * <!-- hit t, ctrl+space to make sure completion kicks in  -->
- * <t:
- * </body>
- * </html>
- * </j:jelly>
+   <j:jelly xmlns:t="/lib" xmlns:j="jelly:core">
+       <html>
+           <body>
+               <!-- hit t, ctrl+space to make sure completion kicks in  -->
+               <t:
+           </body>
+       </html>
+   </j:jelly>
  * </xmp></pre>
  *
  * <p>
