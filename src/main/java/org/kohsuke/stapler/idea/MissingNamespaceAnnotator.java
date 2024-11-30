@@ -11,20 +11,26 @@ import java.util.Map;
 
 public class MissingNamespaceAnnotator implements Annotator {
 
-    Map<String, String> mappedNamespaces = Map.of("l", "/lib/layout");
+    private static final Map<String, String> EXPECTED_NAMESPACES = Map.of("j", "jelly:core",
+        "f", "/lib/form", "l", "/lib/layout");
 
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (!(element instanceof XmlTag tag)) return;
 
-        if ("l".equals(tag.getNamespacePrefix()) && !isNamespaceDeclared(tag)) {
-            holder.newAnnotation(HighlightSeverity.ERROR, "Missing namespace for prefix 'l'")
-                .withFix(new AddNamespaceQuickFix())
-                .create();
-        }
-    }
+        // Check if the prefix is one of the expected ones
+        String prefix = tag.getNamespacePrefix();
 
-    private boolean isNamespaceDeclared(XmlTag tag) {
-        return "/lib/layout".equals(tag.getNamespace());
+        if (EXPECTED_NAMESPACES.containsKey(prefix)) {
+            String expectedNamespace = EXPECTED_NAMESPACES.get(prefix);
+
+            // Check if the namespace is missing or incorrect
+            if (!expectedNamespace.equals(tag.getNamespace())) {
+                holder.newAnnotation(HighlightSeverity.ERROR,
+                        String.format("Missing or incorrect namespace for prefix '%s'. Expected: '%s'", prefix, expectedNamespace))
+                    .withFix(new AddNamespaceQuickFix(prefix, expectedNamespace))
+                    .create();
+            }
+        }
     }
 }
