@@ -13,10 +13,8 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
-import com.intellij.patterns.ElementPattern;
-import com.intellij.patterns.XmlElementPattern;
+import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.xml.TagNameReference;
 import com.intellij.psi.xml.XmlDocument;
@@ -30,7 +28,6 @@ import com.intellij.xml.XmlElementDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlAttributeDescriptor;
-import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlElementDescriptor;
 import org.kohsuke.stapler.idea.icons.Icons;
 
 import java.util.ArrayList;
@@ -87,7 +84,7 @@ public class JellyCompletionContributor extends CompletionContributor {
 
     public JellyCompletionContributor() {
         extend(CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
-            XML_ELEMENT_NAME_PATTERN,
+            PlatformPatterns.psiElement(XmlToken.class).withParent(XmlTag.class),
             new CompletionProvider<>() {
                 @Override
                 protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
@@ -100,19 +97,15 @@ public class JellyCompletionContributor extends CompletionContributor {
                     createMergedNamespaceMap(tag).forEach((prefix, uri) -> {
                         StaplerCustomJellyTagLibraryXmlNSDescriptor d = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
 
+                        // If a user has already provided a prefix then only include results from that namespace
+                        String existingPrefix = getPrefix(tag.getName());
+                        if (existingPrefix != null && !existingPrefix.equalsIgnoreCase(prefix)) {
+                            return;
+                        }
+
                         if (d != null) {
-                            for (@NotNull XmlElementDescriptor e : d.getRootElementsDescriptors(null)) {
-                                List<String> requiredAttributes = new ArrayList<>();
-                                var esd = (StaplerCustomJellyTagfileXmlElementDescriptor) e;
-
-                                for (XmlAttributeDescriptor attributesDescriptor : esd.getAttributesDescriptors(tag)) {
-                                    var mapped = (StaplerCustomJellyTagfileXmlAttributeDescriptor) attributesDescriptor;
-                                    if (mapped.isRequired()) {
-                                        requiredAttributes.add(mapped.getName());
-                                    }
-                                }
-
-                                createAutocompleteElement(result, prefix, uri, e.getName(), requiredAttributes);
+                            for (XmlElementDescriptor component : d.getRootElementsDescriptors(null)) {
+                                createAutocompleteElement(result, prefix, uri, component, tag, existingPrefix != null);
                             }
                         }
                     });
@@ -121,12 +114,12 @@ public class JellyCompletionContributor extends CompletionContributor {
         );
     }
 
-    private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, String componentName, List<String> requiredAttributes) {
-        result.addElement(LookupElementBuilder.create(prefix + ":" + componentName)
+    private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, XmlElementDescriptor component, XmlTag tag, boolean includePrefix) {
+        result.addElement(LookupElementBuilder.create((includePrefix ? "" : prefix + ":") + component.getName())
+            .withPresentableText(prefix + ":" + component.getName())
             .withIcon(Icons.JELLY)
             .withTypeText(uri)
             .withInsertHandler((context, item) -> {
-                // Access the current file and project from the context
                 PsiFile psiFile = context.getFile();
                 Project project = context.getProject();
                 Editor editor = context.getEditor();
@@ -135,7 +128,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                     XmlTag rootTag = xmlFile.getRootTag();
 
                     if (rootTag != null) {
-                        // Insert the namespace declaration into the root tag
+                        // Import the namespace if necessary
                         WriteCommandAction.runWriteCommandAction(project, () -> {
                             rootTag.setAttribute("xmlns:" + prefix, uri);
                         });
@@ -144,26 +137,60 @@ public class JellyCompletionContributor extends CompletionContributor {
                         PsiDocumentManager psiDocumentManager = PsiDocumentManager.getInstance(context.getProject());
                         psiDocumentManager.doPostponedOperationsAndUnblockDocument(editor.getDocument());
 
-                        // Create a template manager and a new template
-                        TemplateManager templateManager = TemplateManager.getInstance(project);
-                        StringBuilder templateText = new StringBuilder();
-
-                        for (String attributeName : requiredAttributes) {
-                            templateText.append(" ").append(attributeName).append("=\"$").append(attributeName).append("$\"");
-                        }
-                        templateText.append(" />");
-
-                        Template template = templateManager.createTemplate("myTemplate", "Jelly", templateText.toString());
-
-                        for (String attributeName : requiredAttributes) {
-                            // Add each attribute as a placeholder variable for tabbing
-                            template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
-                        }
-
-                        templateManager.startTemplate(editor, template);
+                        // Suffix required attributes and tab the user to the first one
+                        createRequiredAttributesTemplate(component, tag, project, editor);
                     }
                 }
             }));
+    }
+
+    private static void createRequiredAttributesTemplate(XmlElementDescriptor component, XmlTag tag, Project project, Editor editor) {
+        TemplateManager templateManager = TemplateManager.getInstance(project);
+        StringBuilder templateText = new StringBuilder();
+
+        List<String> requiredAttributes = getRequiredAttributes(component, tag);
+        for (String attributeName : requiredAttributes) {
+            templateText.append(" ").append(attributeName).append("=\"$").append(attributeName).append("$\"");
+        }
+        templateText.append(" />");
+
+        Template template = templateManager.createTemplate("myTemplate", "Jelly", templateText.toString());
+
+        for (String attributeName : requiredAttributes) {
+            // Add each attribute as a placeholder variable for tabbing
+            template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
+        }
+
+        templateManager.startTemplate(editor, template);
+    }
+
+    private static List<String> getRequiredAttributes(XmlElementDescriptor component, XmlTag tag) {
+        List<String> requiredAttributes = new ArrayList<>();
+        for (XmlAttributeDescriptor attributesDescriptor : component.getAttributesDescriptors(tag)) {
+            var mapped = (StaplerCustomJellyTagfileXmlAttributeDescriptor) attributesDescriptor;
+            if (mapped.isRequired()) {
+                requiredAttributes.add(mapped.getName());
+            }
+        }
+        return requiredAttributes;
+    }
+
+    public static String getPrefix(String tagName) {
+        if (tagName == null || !tagName.contains(":")) {
+            return null;
+        }
+
+        // Remove the opening '<' and check if there is a colon in the string
+        tagName = tagName.replaceAll("^<", "");
+        int colonIndex = tagName.indexOf(':');
+
+        // If there's no colon or the colon is at the start, return null
+        if (colonIndex <= 0) {
+            return null;
+        }
+
+        // Return the prefix, which is the substring before the first ':'
+        return tagName.substring(0, colonIndex);
     }
 
     // We have a list of default namespaces (e.g. l:layout) that we want to suggest,
@@ -172,7 +199,6 @@ public class JellyCompletionContributor extends CompletionContributor {
         String[] uris = tag.knownNamespaces();
         Map<String, String> namespaceMap = new HashMap<>();
 
-        // Populate the namespace map with known namespaces from the tag
         for (String uri : uris) {
             String prefix = tag.getPrefixByNamespace(uri);
             if (prefix != null && !prefix.isEmpty()) {
@@ -180,17 +206,9 @@ public class JellyCompletionContributor extends CompletionContributor {
             }
         }
 
-        // Merge the EXPECTED_NAMESPACES into the namespace map, ensuring that the expected namespaces take precedence
         Map<String, String> mergedNamespaceMap = new HashMap<>(EXPECTED_NAMESPACES);
-        mergedNamespaceMap.putAll(namespaceMap); // This adds entries from `namespaceMap`, overriding if keys are the same
+        mergedNamespaceMap.putAll(namespaceMap);
 
         return mergedNamespaceMap;
     }
-
-    /**
-     * {@link ElementPattern} that matches attribute names.
-     */
-    private static final ElementPattern<? extends PsiElement> XML_ELEMENT_NAME_PATTERN =
-        new XmlElementPattern(XmlToken.class) {
-        }.withParent(XmlTag.class);
 }
