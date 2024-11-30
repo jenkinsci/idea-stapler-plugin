@@ -72,6 +72,7 @@
     <dependencySupport coordinate="org.jenkins-ci.main:jenkins-core" kind="java" displayName="Jenkins core" />
 
     <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
+    <annotator language="Jelly" implementationClass="org.kohsuke.stapler.idea.MissingNamespaceAnnotator"/>
   </extensions>
   <!-- Jelly taglibs XML Schemas -->
   <extensions defaultExtensionNs="com.intellij">
