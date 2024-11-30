@@ -37,7 +37,6 @@ import java.util.Map;
 
 import static org.kohsuke.stapler.idea.MissingNamespaceAnnotator.EXPECTED_NAMESPACES;
 
-
 /**
  * Tag name completion for Jelly tag libraries defined as tag files.
  *
@@ -117,8 +116,8 @@ public class JellyCompletionContributor extends CompletionContributor {
     private static void createAutocompleteElement(CompletionResultSet result, String prefix, String uri, XmlElementDescriptor component, XmlTag tag, boolean includePrefix) {
         result.addElement(LookupElementBuilder.create((includePrefix ? "" : prefix + ":") + component.getName())
             .withPresentableText(prefix + ":" + component.getName())
-            .withIcon(Icons.JELLY)
-            .withTypeText(uri)
+            .withIcon(Icons.COMPONENT)
+            .withTailText(uri, true)
             .withInsertHandler((context, item) -> {
                 PsiFile psiFile = context.getFile();
                 Project project = context.getProject();
