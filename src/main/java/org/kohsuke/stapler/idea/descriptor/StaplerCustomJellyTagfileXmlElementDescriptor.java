@@ -14,39 +14,39 @@ import com.intellij.xml.XmlNSDescriptor;
 import com.intellij.xml.impl.dtd.BaseXmlElementDescriptorImpl;
 import com.intellij.xml.impl.schema.AnyXmlElementDescriptor;
 import com.intellij.xml.util.XmlUtil;
+import java.util.HashMap;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.stapler.idea.dom.model.AttributeTag;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
-import java.util.HashMap;
-import java.util.List;
-
-/**
- * @author Kohsuke Kawaguchi
- */
+/** @author Kohsuke Kawaguchi */
 public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElementDescriptorImpl {
     private final StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor;
     private final XmlFile tagFile;
     private volatile Boolean hasInvokeBody;
-    private static final SimpleFieldCache<Boolean, StaplerCustomJellyTagfileXmlElementDescriptor> hasInvokeBodyCache = new SimpleFieldCache<>() {
-        @Override
-        protected Boolean compute(StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
-            return xmlElementDescriptor.lookForInvokeBody();
-        }
+    private static final SimpleFieldCache<Boolean, StaplerCustomJellyTagfileXmlElementDescriptor> hasInvokeBodyCache =
+            new SimpleFieldCache<>() {
+                @Override
+                protected Boolean compute(StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
+                    return xmlElementDescriptor.lookForInvokeBody();
+                }
 
-        @Override
-        protected Boolean getValue(StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
-            return xmlElementDescriptor.hasInvokeBody;
-        }
+                @Override
+                protected Boolean getValue(StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
+                    return xmlElementDescriptor.hasInvokeBody;
+                }
 
-        @Override
-        protected void putValue(Boolean hasInvokeBody, StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
-            xmlElementDescriptor.hasInvokeBody = hasInvokeBody;
-        }
-    };
+                @Override
+                protected void putValue(
+                        Boolean hasInvokeBody, StaplerCustomJellyTagfileXmlElementDescriptor xmlElementDescriptor) {
+                    xmlElementDescriptor.hasInvokeBody = hasInvokeBody;
+                }
+            };
 
-    public StaplerCustomJellyTagfileXmlElementDescriptor(StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor, XmlFile tagFile) {
+    public StaplerCustomJellyTagfileXmlElementDescriptor(
+            StaplerCustomJellyTagLibraryXmlNSDescriptor nsDescriptor, XmlFile tagFile) {
         this.nsDescriptor = nsDescriptor;
         this.tagFile = tagFile;
     }
@@ -68,32 +68,33 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     @Override
     protected XmlElementDescriptor[] doCollectXmlDescriptors(XmlTag xmlTag) {
-        // Must be overridden because this class extends from base DTD class but not used since `getElementDescriptor` is implemented
+        // Must be overridden because this class extends from base DTD class but not used since `getElementDescriptor`
+        // is implemented
         return new XmlElementDescriptor[0];
     }
 
     @Override
     protected XmlAttributeDescriptor[] collectAttributeDescriptors(XmlTag xmlTag) {
         DocumentationTag tag = getModel();
-        if(tag==null)   return XmlAttributeDescriptor.EMPTY;
+        if (tag == null) return XmlAttributeDescriptor.EMPTY;
         List<AttributeTag> atts = tag.getAttributes();
         XmlAttributeDescriptor[] descriptors = new XmlAttributeDescriptor[atts.size()];
-        int i=0;
+        int i = 0;
         for (AttributeTag a : atts) {
-            descriptors[i++] = new StaplerCustomJellyTagfileXmlAttributeDescriptor(this,a);
+            descriptors[i++] = new StaplerCustomJellyTagfileXmlAttributeDescriptor(this, a);
         }
         return descriptors;
     }
 
     @Nullable
     public DocumentationTag getModel() {
-        assert tagFile!=null;
+        assert tagFile != null;
         XmlDocument doc = tagFile.getDocument();
-        if(doc==null)   return null;
+        if (doc == null) return null;
         XmlTag root = doc.getRootTag();
-        if(root==null)  return null;
+        if (root == null) return null;
         XmlTag[] docs = root.findSubTags("documentation", "jelly:stapler");
-        if(docs.length==0)  return null;
+        if (docs.length == 0) return null;
 
         return new DocumentationTag(docs[0]);
     }
@@ -101,16 +102,14 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
     @Override
     protected HashMap<String, XmlAttributeDescriptor> collectAttributeDescriptorsMap(XmlTag xmlTag) {
         HashMap<String, XmlAttributeDescriptor> r = new HashMap<>();
-        for (XmlAttributeDescriptor a : getAttributesDescriptors(xmlTag))
-            r.put(a.getName(xmlTag),a);
+        for (XmlAttributeDescriptor a : getAttributesDescriptors(xmlTag)) r.put(a.getName(xmlTag), a);
         return r;
     }
 
     @Override
     protected HashMap<String, XmlElementDescriptor> collectElementDescriptorsMap(XmlTag xmlTag) {
         HashMap<String, XmlElementDescriptor> r = new HashMap<>();
-        for (XmlElementDescriptor e : getElementsDescriptors(xmlTag))
-            r.put(e.getName(xmlTag),e);
+        for (XmlElementDescriptor e : getElementsDescriptors(xmlTag)) r.put(e.getName(xmlTag), e);
         return r;
     }
 
@@ -153,8 +152,7 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
             XmlTag xmltag = PsiTreeUtil.getParentOfType(context, XmlTag.class, false);
             if (xmltag != null) {
                 String prefix = xmltag.getPrefixByNamespace(nsDescriptor.getName());
-                if (prefix != null && prefix.length() > 0)
-                    return prefix + ':' + n;
+                if (prefix != null && prefix.length() > 0) return prefix + ':' + n;
             }
         }
         return n;
@@ -163,7 +161,7 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
     @Override
     public String getName() {
         String fileName = tagFile.getName();
-        return fileName.substring(0,fileName.length()-6); // cut off extension
+        return fileName.substring(0, fileName.length() - 6); // cut off extension
     }
 
     @Override
@@ -173,7 +171,7 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     @Override
     public Object @NotNull [] getDependencies() {
-        return new Object[] {nsDescriptor,tagFile};
+        return new Object[] {nsDescriptor, tagFile};
     }
 
     private boolean invokesBody() {
@@ -183,14 +181,16 @@ public class StaplerCustomJellyTagfileXmlElementDescriptor extends BaseXmlElemen
 
     private boolean lookForInvokeBody() {
         final Ref<XmlTag> result = new Ref<>();
-        XmlUtil.processXmlElements(tagFile,
+        XmlUtil.processXmlElements(
+                tagFile,
                 element -> {
                     if (element instanceof XmlTag && isJellyDefineInvokeBodyTag((XmlTag) element)) {
                         result.set((XmlTag) element);
                         return false;
                     }
                     return true;
-                }, true);
+                },
+                true);
         return !result.isNull();
     }
 

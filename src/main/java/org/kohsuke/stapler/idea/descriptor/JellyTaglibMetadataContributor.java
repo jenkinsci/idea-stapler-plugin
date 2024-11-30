@@ -15,10 +15,7 @@ public class JellyTaglibMetadataContributor implements MetaDataContributor {
         // this is so that we can create an XmlFile whose getRootElement().getMetaData()
         // returns StaplerCustomJellyTagLibraryXmlNSDescriptor. This is necessary to load schemas on the fly
         registrar.registerMetaData(
-                new AndFilter(
-                        new ClassFilter(XmlDocument.class),
-                        new NamespaceFilter(DUMMY_SCHEMA_URL)),
-                StaplerCustomJellyTagLibraryXmlNSDescriptor.class
-        );
+                new AndFilter(new ClassFilter(XmlDocument.class), new NamespaceFilter(DUMMY_SCHEMA_URL)),
+                StaplerCustomJellyTagLibraryXmlNSDescriptor.class);
     }
 }

@@ -4,6 +4,7 @@ import java.util.stream.Collectors
 plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '1.17.4'
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
 group = "org.kohsuke.stapler.idea"
@@ -133,5 +134,11 @@ String extractPluginDescription() {
             throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
         }
         return description
+    }
+}
+
+spotless {
+    java {
+        palantirJavaFormat('2.39.0').formatJavadoc(true)
     }
 }

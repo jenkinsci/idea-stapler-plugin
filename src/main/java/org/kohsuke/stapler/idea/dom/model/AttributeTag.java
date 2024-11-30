@@ -2,9 +2,8 @@ package org.kohsuke.stapler.idea.dom.model;
 
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlTag;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@link XmlTag} that wraps &lt;st:attribute>.
@@ -16,10 +15,7 @@ public class AttributeTag extends TagWithHtmlContent {
         super(tag);
     }
 
-    /**
-     * Return the name attribute value, except that if it's not specified,
-     * this method returns "" to avoid NPE.
-     */
+    /** Return the name attribute value, except that if it's not specified, this method returns "" to avoid NPE. */
     @NotNull
     public String getName() {
         return Optional.ofNullable(tag.getAttribute("name"))
@@ -28,12 +24,14 @@ public class AttributeTag extends TagWithHtmlContent {
     }
 
     public boolean isRequired() {
-        Optional<String> mayBeUseAttrValue = Optional.ofNullable(tag.getAttribute("use")).map(XmlAttribute::getValue);
+        Optional<String> mayBeUseAttrValue =
+                Optional.ofNullable(tag.getAttribute("use")).map(XmlAttribute::getValue);
         return mayBeUseAttrValue.isPresent() && mayBeUseAttrValue.get().equals("required");
     }
 
     public boolean isDeprecated() {
-        Optional<String> mayBeUseAttrValue = Optional.ofNullable(tag.getAttribute("deprecated")).map(XmlAttribute::getValue);
+        Optional<String> mayBeUseAttrValue =
+                Optional.ofNullable(tag.getAttribute("deprecated")).map(XmlAttribute::getValue);
         return mayBeUseAttrValue.isPresent() && mayBeUseAttrValue.get().equals("true");
     }
 }

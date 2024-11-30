@@ -12,18 +12,14 @@ import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlAttribute
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlElementDescriptor;
 import org.kohsuke.stapler.idea.dom.model.DocumentationTag;
 
-/**
- * @author Kohsuke Kawaguchi
- */
+/** @author Kohsuke Kawaguchi */
 public class JellyDocumentationProvider extends AbstractDocumentationProvider {
 
     /**
      * This method is called upon Ctrl+Q on usages.
      *
-     * @param element
-     *      This represents the declaration, not the originalElement.
-     * @param originalElement
-     *      This is where Ctrl+Q is invoked.
+     * @param element This represents the declaration, not the originalElement.
+     * @param originalElement This is where Ctrl+Q is invoked.
      */
     @Override
     public String generateDoc(PsiElement element, @Nullable PsiElement originalElement) {
@@ -35,11 +31,10 @@ public class JellyDocumentationProvider extends AbstractDocumentationProvider {
             XmlElementDescriptor d = t.getDescriptor();
             if (d instanceof StaplerCustomJellyTagfileXmlElementDescriptor dd) {
                 DocumentationTag m = dd.getModel();
-                if(m==null)     return null;
+                if (m == null) return null;
                 return m.generateHtmlDoc();
             }
-        } else
-        if (p instanceof XmlAttribute a) {
+        } else if (p instanceof XmlAttribute a) {
             XmlAttributeDescriptor ad = a.getDescriptor();
             if (ad instanceof StaplerCustomJellyTagfileXmlAttributeDescriptor o) {
                 return o.getModel().generateHtmlDoc();
@@ -48,20 +43,19 @@ public class JellyDocumentationProvider extends AbstractDocumentationProvider {
             // if the nearest namespaced tag is <st:documentation> or <st:attribute>,
             // render that document. This is just like what happens when you hit Ctrl+Q
             // inside javadoc.
-            for( XmlTag tag = PsiTreeUtil.getParentOfType(originalElement, XmlTag.class);
-                 tag!=null;
-                 tag = tag.getParentTag() ) {
+            for (XmlTag tag = PsiTreeUtil.getParentOfType(originalElement, XmlTag.class);
+                    tag != null;
+                    tag = tag.getParentTag()) {
                 String ns = tag.getNamespace();
-                if(ns.equals("jelly:stapler")) {
+                if (ns.equals("jelly:stapler")) {
                     String ln = tag.getLocalName();
-                    if(ln.equals("documentation") || ln.equals("attribute")) {
+                    if (ln.equals("documentation") || ln.equals("attribute")) {
                         // to be pedantic, it could be new AttributeTag as well,
                         // but that doesn't make any difference in the end result.
                         return new DocumentationTag(tag).generateHtmlDoc();
                     }
                 }
-                if(!ns.equals(""))
-                    break;
+                if (!ns.equals("")) break;
             }
         }
         return null;

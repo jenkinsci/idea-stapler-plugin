@@ -6,14 +6,12 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiPackage;
-import java.util.Set;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Additional jelly files in java structure view
- * Items are retrieved in related src/main/java directory
+ * Additional jelly files in java structure view Items are retrieved in related src/main/java directory
  *
  * @author Julien Greffe
  */
@@ -29,8 +27,8 @@ public class JavaStructureViewExtension extends AbstractStructureViewExtension {
         final List<LeafPsiStructureViewTreeElement> files = new ArrayList<>();
         String qualifiedClassName = ((PsiClass) parent).getQualifiedName();
         if (qualifiedClassName != null) {
-            PsiPackage psiPackage = JavaPsiFacade.getInstance(parent.getProject())
-                                                 .findPackage(qualifiedClassName);
+            PsiPackage psiPackage =
+                    JavaPsiFacade.getInstance(parent.getProject()).findPackage(qualifiedClassName);
             if (psiPackage != null) {
                 PsiFile[] maybeViewFiles = psiPackage.getFiles(getCurrentScope(parent));
                 for (PsiFile file : maybeViewFiles) {

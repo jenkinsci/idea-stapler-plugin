@@ -13,7 +13,7 @@ public class XmlElementDescriptorProviderImpl implements XmlElementDescriptorPro
     @Override
     public XmlElementDescriptor getDescriptor(XmlTag tag) {
         StaplerCustomJellyTagLibraryXmlNSDescriptor ns = StaplerCustomJellyTagLibraryXmlNSDescriptor.get(tag);
-        if(ns!=null)    return ns.getElementDescriptor(tag);
+        if (ns != null) return ns.getElementDescriptor(tag);
         return null;
     }
 }

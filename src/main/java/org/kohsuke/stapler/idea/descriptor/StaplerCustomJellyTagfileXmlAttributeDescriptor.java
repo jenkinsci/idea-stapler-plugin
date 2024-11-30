@@ -10,18 +10,15 @@ import org.kohsuke.stapler.idea.dom.model.AttributeTag;
  * {@link XmlAttributeDescriptor} for a tag file.
  *
  * @author Kohsuke Kawaguchi
-*/
+ */
 public class StaplerCustomJellyTagfileXmlAttributeDescriptor implements XmlAttributeDescriptor {
-    /**
-     * Which element do we belong?
-     */
+    /** Which element do we belong? */
     private StaplerCustomJellyTagfileXmlElementDescriptor element;
-    /**
-     * Definition of this attribute.
-     */
+    /** Definition of this attribute. */
     private final AttributeTag def;
 
-    StaplerCustomJellyTagfileXmlAttributeDescriptor(StaplerCustomJellyTagfileXmlElementDescriptor element, AttributeTag def) {
+    StaplerCustomJellyTagfileXmlAttributeDescriptor(
+            StaplerCustomJellyTagfileXmlElementDescriptor element, AttributeTag def) {
         this.element = element;
         this.def = def;
     }
@@ -31,10 +28,9 @@ public class StaplerCustomJellyTagfileXmlAttributeDescriptor implements XmlAttri
     }
 
     /**
-     * This only seems to be used when a new tag is inserted,
-     * to automatically complete all required attributes.
+     * This only seems to be used when a new tag is inserted, to automatically complete all required attributes.
      *
-     * But not having a required attribute missing in XML doesn't automatically flag an error annotation.
+     * <p>But not having a required attribute missing in XML doesn't automatically flag an error annotation.
      */
     @Override
     public boolean isRequired() {
@@ -71,9 +67,7 @@ public class StaplerCustomJellyTagfileXmlAttributeDescriptor implements XmlAttri
         return new String[0];
     }
 
-    /**
-     * Validates the attribute value and returns an error message, if there's an error.
-     */
+    /** Validates the attribute value and returns an error message, if there's an error. */
     @Override
     public String validateValue(XmlElement context, String value) {
         return null;
@@ -95,11 +89,10 @@ public class StaplerCustomJellyTagfileXmlAttributeDescriptor implements XmlAttri
     }
 
     @Override
-    public void init(PsiElement element) {
-    }
+    public void init(PsiElement element) {}
 
     @Override
     public Object @NotNull [] getDependencies() {
-        return new Object[]{def.tag};
+        return new Object[] {def.tag};
     }
 }
