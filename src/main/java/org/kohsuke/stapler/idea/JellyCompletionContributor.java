@@ -35,8 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.kohsuke.stapler.idea.MissingNamespaceAnnotator.EXPECTED_NAMESPACES;
-
 /**
  * Tag name completion for Jelly tag libraries defined as tag files.
  *
@@ -210,4 +208,7 @@ public class JellyCompletionContributor extends CompletionContributor {
 
         return mergedNamespaceMap;
     }
+
+    public static final Map<String, String> EXPECTED_NAMESPACES = Map.of("j", "jelly:core",
+        "f", "/lib/form", "l", "/lib/layout");
 }
