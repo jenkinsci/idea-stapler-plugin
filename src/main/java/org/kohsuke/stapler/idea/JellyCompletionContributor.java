@@ -81,14 +81,10 @@ public class JellyCompletionContributor extends CompletionContributor {
                                 return;
                             }
                             if (d != null) {
-                                for (XmlElementDescriptor component : d.getRootElementsDescriptors2()) {
+                                for (StaplerCustomJellyTagfileXmlElementDescriptor tagDescriptor :
+                                        d.getTagDescriptors()) {
                                     createAutocompleteElement(
-                                            result,
-                                            prefix,
-                                            uri,
-                                            (StaplerCustomJellyTagfileXmlElementDescriptor) component,
-                                            tag,
-                                            existingPrefix != null);
+                                            result, prefix, uri, tagDescriptor, tag, existingPrefix != null);
                                 }
                             }
                         });
