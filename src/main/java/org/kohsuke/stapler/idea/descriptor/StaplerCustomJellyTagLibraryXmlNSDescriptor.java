@@ -163,12 +163,7 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
         JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(module.getProject());
 
         // TODO - Validate this change
-        String pkgName;
-        if (nsUri.startsWith("/")) {
-            pkgName = nsUri.substring(1).replace('/', '.');
-        } else {
-            pkgName = nsUri.replace('/', '.');
-        }
+        String pkgName = nsUri.substring(1).replace('/', '.');
 
         // this invocation below successfully finds packages that include invalid characters like 'a-b-c'
         PsiPackage pkg = javaPsi.findPackage(pkgName);
