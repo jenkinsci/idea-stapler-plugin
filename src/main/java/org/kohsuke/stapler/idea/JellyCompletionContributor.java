@@ -108,6 +108,7 @@ public class JellyCompletionContributor extends CompletionContributor {
             StaplerCustomJellyTagfileXmlElementDescriptor component,
             XmlTag tag,
             boolean includePrefix) {
+        System.out.println("Adding autocomplete element: " + component.getName());
         result.addElement(LookupElementBuilder.create((includePrefix ? "" : prefix + ":") + component.getName())
                 .withPresentableText(prefix + ":" + component.getName())
                 .withIcon(Icons.COMPONENT)
