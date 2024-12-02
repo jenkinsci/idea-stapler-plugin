@@ -16,8 +16,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.source.xml.TagNameReference;
-import com.intellij.psi.xml.XmlDocument;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
@@ -36,45 +34,34 @@ import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagfileXmlElementDe
 import org.kohsuke.stapler.idea.icons.Icons;
 
 /**
- * Tag name completion for Jelly tag libraries defined as tag files.
+ * Provides tag name completion for Jelly templates.
  *
- * <p>One would think that contributing {@link StaplerCustomJellyTagLibraryXmlNSDescriptor} and implementing
- * {@link StaplerCustomJellyTagLibraryXmlNSDescriptor#getRootElementsDescriptors(XmlDocument)} is enough to cause the
- * IDEA XML module to show tag name completions, but apparently it is not.
+ * <p>IntelliJ offers completions automatically, however these aren't extensible and
+ * don't work for custom taglibs. As a result of this we've created our own custom completion
+ * contributor to handle completions</p>
  *
- * <p>The problem is when we have text like the following:
- *
- * <pre><xmp>
- * <j:jelly xmlns:t="/lib" xmlns:j="jelly:core">
- * <html>
- * <body>
- * <!-- hit t, ctrl+space to make sure completion kicks in  -->
- * <t:
- * </body>
- * </html>
- * </j:jelly>
- * </xmp></pre>
- *
- * <p>The html/body tags get dtd.XmlElementDescriptorImpl as their {@link XmlElementDescriptor} (they represent
- * in-memory for-this-document-only temporary DTDs), and unless the body tag appear elsewhere and have some children, it
- * will return null from its {@link XmlElementDescriptor#getElementDescriptor(XmlTag, XmlTag)} when given
- * &lt;t:something/>, and {@link TagNameReference}, which calls
- * {@link StaplerCustomJellyTagLibraryXmlNSDescriptor#getRootElementsDescriptors(XmlDocument)} to list up possible
- * children, uses this as a signal that &lt;t:something/> is not a valid child in this context.
- *
- * <p>While the above doesn't really explain why &lt;j:*> can be completed in this context, I eventually decided that
- * just writing another {@link CompletionContributor} on its own is the easiest thing to do here.
- *
- * <p>So what this {@link CompletionContributor} does is to list up all the legal Jelly tags available in the current
- * namespace bindings as completion candidates.
- *
- * @author Kohsuke Kawaguchi
+ * <ul>
+ *   <li>Suggests components from both default and user-defined namespaces.</li>
+ *   <li>Automatically imports namespaces if they are not already present.</li>
+ *   <li>Generates templates for components with required attributes, offering them
+ *       to the user as completion suggestions.</li>
+ * </ul>
  */
 public class JellyCompletionContributor extends CompletionContributor {
 
+    /**
+     * Default namespaces to suggest for Jelly files that do not define any namespaces.
+     * These default namespaces ensure that autocomplete functionality remains useful
+     * even in files without declared namespaces.
+     */
+    private static final Map<String, String> DEFAULT_NAMESPACES = Map.of(
+        "l", "/lib/layout",
+        "f", "/lib/form",
+        "t", "/lib/hudson");
+
     public JellyCompletionContributor() {
         extend(
-                CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
+                CompletionType.BASIC,
                 PlatformPatterns.psiElement(XmlToken.class).withParent(XmlTag.class),
                 new CompletionProvider<>() {
                     @Override
@@ -86,6 +73,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                         XmlTag tag = (XmlTag) name.getParent();
                         Module module = ModuleUtil.findModuleForPsiElement(tag);
 
+                        // Disable IntelliJ's default suggestions
                         result.stopHere();
 
                         createMergedNamespaceMap(tag).forEach((prefix, uri) -> {
@@ -171,15 +159,15 @@ public class JellyCompletionContributor extends CompletionContributor {
         }
 
         if (component.getContentType() == XmlElementDescriptor.CONTENT_TYPE_ANY) {
-            templateText.append(">\n  $content$\n</" + prefix + ":" + component.getName() + ">");
+            templateText.append(">\n  $content$\n</").append(prefix).append(":").append(component.getName()).append(">");
         } else {
             templateText.append(" />");
         }
 
         Template template = templateManager.createTemplate("myTemplate", "Jelly", templateText.toString());
 
+        // Add each attribute as a placeholder variable for tabbing
         for (String attributeName : requiredAttributes) {
-            // Add each attribute as a placeholder variable for tabbing
             template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
         }
         template.addVariable("content", "", "content", true);
@@ -230,14 +218,9 @@ public class JellyCompletionContributor extends CompletionContributor {
             }
         }
 
-        Map<String, String> mergedNamespaceMap = new HashMap<>(EXPECTED_NAMESPACES);
+        Map<String, String> mergedNamespaceMap = new HashMap<>(DEFAULT_NAMESPACES);
         mergedNamespaceMap.putAll(namespaceMap);
 
         return mergedNamespaceMap;
     }
-
-    public static final Map<String, String> EXPECTED_NAMESPACES = Map.of(
-            "l", "/lib/layout",
-            "f", "/lib/form",
-            "t", "/lib/hudson");
 }
