@@ -1,9 +1,0 @@
-<j:jelly xmlns:j="jelly:core">
-    <j:if test="${it.myBoolean}">
-        ${it.myString}
-    </j:if>
-    <j:set var="myVar" value="${something.split(&quot;#&quot;)}"/>
-    <j:if test="${minimum &gt; 0 &amp;&amp; minimum &lt; 2}">
-        ${it.something}
-    </j:if>
-</j:jelly>
