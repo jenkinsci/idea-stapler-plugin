@@ -85,7 +85,6 @@ public class JellyCompletionContributor extends CompletionContributor {
                             if (existingPrefix != null && !existingPrefix.equalsIgnoreCase(prefix)) {
                                 return;
                             }
-
                             if (d != null) {
                                 for (XmlElementDescriptor component : d.getRootElementsDescriptors(null)) {
                                     createAutocompleteElement(
@@ -170,7 +169,9 @@ public class JellyCompletionContributor extends CompletionContributor {
         for (String attributeName : requiredAttributes) {
             template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
         }
-        template.addVariable("content", "", "content", true);
+        if (component.getContentType() == XmlElementDescriptor.CONTENT_TYPE_ANY) {
+            template.addVariable("content", "", "content", true);
+        }
 
         templateManager.startTemplate(editor, template);
     }
