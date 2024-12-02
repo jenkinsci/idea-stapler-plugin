@@ -95,7 +95,6 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
     public XmlElementDescriptor @NotNull [] getRootElementsDescriptors2() {
         List<XmlElementDescriptor> r = new ArrayList<>();
         for (PsiFile f : dir.getFiles()) {
-            System.out.println(f);
             if (!isTagFile(f)) continue;
             if (f instanceof XmlFile) r.add(new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile) f));
         }

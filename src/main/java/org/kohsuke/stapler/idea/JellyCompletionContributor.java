@@ -71,9 +71,6 @@ public class JellyCompletionContributor extends CompletionContributor {
                         XmlTag tag = (XmlTag) name.getParent();
                         Module module = ModuleUtil.findModuleForPsiElement(tag);
 
-                        // Disable IntelliJ's default suggestions
-                        result.stopHere();
-
                         createMergedNamespaceMap(tag).forEach((prefix, uri) -> {
                             StaplerCustomJellyTagLibraryXmlNSDescriptor d =
                                     StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
@@ -106,7 +103,6 @@ public class JellyCompletionContributor extends CompletionContributor {
             StaplerCustomJellyTagfileXmlElementDescriptor component,
             XmlTag tag,
             boolean includePrefix) {
-        System.out.println("Adding autocomplete element: " + component.getName());
         result.addElement(LookupElementBuilder.create((includePrefix ? "" : prefix + ":") + component.getName())
                 .withPresentableText(prefix + ":" + component.getName())
                 .withIcon(Icons.COMPONENT)
