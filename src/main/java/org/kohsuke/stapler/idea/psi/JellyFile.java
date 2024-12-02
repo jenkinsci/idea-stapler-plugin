@@ -7,5 +7,4 @@ import com.intellij.psi.xml.XmlFile;
  *
  * @author Julien Greffe
  */
-public interface JellyFile extends XmlFile {
-}
+public interface JellyFile extends XmlFile {}
