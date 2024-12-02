@@ -10,13 +10,15 @@ public class JellyCompletionContributorTest extends BasePlatformTestCase {
     }
 
     public void testDefaultTagLibrary() {
-        assertDefaultTagLibrary("""
+        assertDefaultTagLibrary(
+                """
             <?xml version="1.0" encoding="UTF-8"?>
             <?jelly escape-by-default='true'?>
             <j:jelly xmlns:j="jelly:core">
                 <l:b<caret>
             </j:jelly>
-        """, """
+        """,
+                """
             <?xml version="1.0" encoding="UTF-8"?>
             <?jelly escape-by-default='true'?>
             <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">
@@ -26,13 +28,15 @@ public class JellyCompletionContributorTest extends BasePlatformTestCase {
     }
 
     public void testRequiredAttributes() {
-        assertDefaultTagLibrary("""
+        assertDefaultTagLibrary(
+                """
             <?xml version="1.0" encoding="UTF-8"?>
             <?jelly escape-by-default='true'?>
             <j:jelly xmlns:j="jelly:core">
                 <l:req<caret>
             </j:jelly>
-        """, """
+        """,
+                """
             <?xml version="1.0" encoding="UTF-8"?>
             <?jelly escape-by-default='true'?>
             <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">
@@ -42,13 +46,15 @@ public class JellyCompletionContributorTest extends BasePlatformTestCase {
     }
 
     public void testInvokeBody() {
-        assertDefaultTagLibrary("""
+        assertDefaultTagLibrary(
+                """
             <?xml version="1.0" encoding="UTF-8"?>
             <?jelly escape-by-default='true'?>
             <j:jelly xmlns:j="jelly:core">
                 <l:child<caret>
             </j:jelly>
-        """, """
+        """,
+                """
             <?xml version="1.0" encoding="UTF-8"?>
             <?jelly escape-by-default='true'?>
             <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">

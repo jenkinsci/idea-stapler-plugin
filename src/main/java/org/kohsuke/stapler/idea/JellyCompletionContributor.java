@@ -36,28 +36,26 @@ import org.kohsuke.stapler.idea.icons.Icons;
 /**
  * Provides tag name completion for Jelly templates.
  *
- * <p>IntelliJ offers completions automatically, however these aren't extensible and
- * don't work for custom taglibs. As a result of this we've created our own custom completion
- * contributor to handle completions</p>
+ * <p>IntelliJ offers completions automatically, however these aren't extensible and don't work for custom taglibs. As a
+ * result of this we've created our own custom completion contributor to handle completions
  *
  * <ul>
- *   <li>Suggests components from both default and user-defined namespaces.</li>
- *   <li>Automatically imports namespaces if they are not already present.</li>
- *   <li>Generates templates for components with required attributes, offering them
- *       to the user as completion suggestions.</li>
+ *   <li>Suggests components from both default and user-defined namespaces.
+ *   <li>Automatically imports namespaces if they are not already present.
+ *   <li>Generates templates for components with required attributes, offering them to the user as completion
+ *       suggestions.
  * </ul>
  */
 public class JellyCompletionContributor extends CompletionContributor {
 
     /**
-     * Default namespaces to suggest for Jelly files that do not define any namespaces.
-     * These default namespaces ensure that autocomplete functionality remains useful
-     * even in files without declared namespaces.
+     * Default namespaces to suggest for Jelly files that do not define any namespaces. These default namespaces ensure
+     * that autocomplete functionality remains useful even in files without declared namespaces.
      */
     private static final Map<String, String> DEFAULT_NAMESPACES = Map.of(
-        "l", "/lib/layout",
-        "f", "/lib/form",
-        "t", "/lib/hudson");
+            "l", "/lib/layout",
+            "f", "/lib/form",
+            "t", "/lib/hudson");
 
     public JellyCompletionContributor() {
         extend(
@@ -159,7 +157,12 @@ public class JellyCompletionContributor extends CompletionContributor {
         }
 
         if (component.getContentType() == XmlElementDescriptor.CONTENT_TYPE_ANY) {
-            templateText.append(">\n  $content$\n</").append(prefix).append(":").append(component.getName()).append(">");
+            templateText
+                    .append(">\n  $content$\n</")
+                    .append(prefix)
+                    .append(":")
+                    .append(component.getName())
+                    .append(">");
         } else {
             templateText.append(" />");
         }
