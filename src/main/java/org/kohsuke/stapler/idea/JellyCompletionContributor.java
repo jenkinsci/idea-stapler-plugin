@@ -84,7 +84,7 @@ public class JellyCompletionContributor extends CompletionContributor {
                                 return;
                             }
                             if (d != null) {
-                                for (XmlElementDescriptor component : d.getRootElementsDescriptors(null)) {
+                                for (XmlElementDescriptor component : d.getRootElementsDescriptors2()) {
                                     createAutocompleteElement(
                                             result,
                                             prefix,

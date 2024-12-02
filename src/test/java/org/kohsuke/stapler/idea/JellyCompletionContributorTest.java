@@ -65,6 +65,30 @@ public class JellyCompletionContributorTest extends BasePlatformTestCase {
         """);
     }
 
+    public void testCustomTagLibrary() {
+        myFixture.copyDirectoryToProject("testlib", "testlib");
+        myFixture.configureByText(
+                "basic.jelly",
+                """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <?jelly escape-by-default='true'?>
+            <j:jelly xmlns:j="jelly:core" xmlns:t="/testlib">
+                <t:t<caret>
+            </j:jelly>
+        """);
+
+        myFixture.completeBasic();
+
+        myFixture.checkResult(
+                """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <?jelly escape-by-default='true'?>
+            <j:jelly xmlns:j="jelly:core" xmlns:t="/testlib">
+                <t:test />
+            </j:jelly>
+        """);
+    }
+
     private void assertDefaultTagLibrary(String body, String expected) {
         // Simulate the default tag libraries in core
         myFixture.copyDirectoryToProject("lib", "lib");
