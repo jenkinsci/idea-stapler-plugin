@@ -139,7 +139,10 @@ String extractPluginDescription() {
 
 spotless {
     java {
-        lineEndings 'UNIX'
         palantirJavaFormat('2.39.0').formatJavadoc(true)
+        indentWithSpaces()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
     }
 }
