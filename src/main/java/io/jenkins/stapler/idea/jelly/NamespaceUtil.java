@@ -33,8 +33,8 @@ public class NamespaceUtil {
                                     continue;
                                 }
 
-                                // Ignore local prefixes as these aren't for global usage
-                                if (prefix.equals("local")) {
+                                // Ignore local prefixes as they're not for global usage
+                                if (prefix.equals("local") || prefix.equals("this")) {
                                     continue;
                                 }
 
