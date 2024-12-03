@@ -52,7 +52,7 @@ public class JellyCompletionContributor extends CompletionContributor {
      * Default namespaces to suggest for Jelly files that do not define any namespaces. These default namespaces ensure
      * that autocomplete functionality remains useful even in files without declared namespaces.
      */
-    private static final Map<String, String> DEFAULT_NAMESPACES = Map.of(
+    private static final Map<String, String> CORE_NAMESPACES = Map.of(
             "l", "/lib/layout",
             "f", "/lib/form",
             "t", "/lib/hudson");
@@ -184,7 +184,7 @@ public class JellyCompletionContributor extends CompletionContributor {
         return requiredAttributes;
     }
 
-    public static String getPrefix(String tagName) {
+    private static String getPrefix(String tagName) {
         if (tagName == null || !tagName.contains(":")) {
             return null;
         }
@@ -202,9 +202,9 @@ public class JellyCompletionContributor extends CompletionContributor {
         return tagName.substring(0, colonIndex);
     }
 
-    // We have a list of default namespaces (e.g. l:layout) that we want to suggest,
-    // but we also want to suggest the users custom ones
-    public static Map<String, String> createMergedNamespaceMap(XmlTag tag) {
+    // We have a list of core namespaces (e.g. l:layout) that we want to suggest by default,
+    // but we also want to suggest namespaces the user has already declared
+    private static Map<String, String> createMergedNamespaceMap(XmlTag tag) {
         String[] uris = tag.knownNamespaces();
         Map<String, String> namespaceMap = new HashMap<>();
 
@@ -215,7 +215,7 @@ public class JellyCompletionContributor extends CompletionContributor {
             }
         }
 
-        Map<String, String> mergedNamespaceMap = new HashMap<>(DEFAULT_NAMESPACES);
+        Map<String, String> mergedNamespaceMap = new HashMap<>(CORE_NAMESPACES);
         mergedNamespaceMap.putAll(namespaceMap);
 
         return mergedNamespaceMap;
