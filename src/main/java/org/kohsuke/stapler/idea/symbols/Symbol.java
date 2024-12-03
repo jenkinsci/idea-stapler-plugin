@@ -44,9 +44,6 @@ public class Symbol {
 
     @Override
     public String toString() {
-        return "Symbol{" +
-            "name='" + name + '\'' +
-            ", path='" + path + '\'' +
-            '}';
+        return "Symbol{" + "name='" + name + '\'' + ", path='" + path + '\'' + '}';
     }
 }

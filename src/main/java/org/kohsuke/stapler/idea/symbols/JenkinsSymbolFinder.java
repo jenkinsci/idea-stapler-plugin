@@ -1,22 +1,19 @@
 package org.kohsuke.stapler.idea.symbols;
 
-import com.intellij.openapi.project.Project;
+import static org.kohsuke.stapler.idea.ProjectHelper.getArtifactId;
+import static org.kohsuke.stapler.idea.icons.Icons.JENKINS;
 
+import com.intellij.openapi.project.Project;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.kohsuke.stapler.idea.ProjectHelper.getArtifactId;
-import static org.kohsuke.stapler.idea.icons.Icons.JENKINS;
-
 public class JenkinsSymbolFinder implements SymbolFinder {
 
     private static final String PREFIX = "symbol-";
 
-    /**
-     * Adds the core Jenkins symbols if the project is a plugin
-     */
+    /** Adds the core Jenkins symbols if the project is a plugin */
     @Override
     public Set<Symbol> getSymbols(Project project) {
         if (Objects.equals(getArtifactId(project), "jenkins-parent")) {
@@ -140,6 +137,8 @@ public class JenkinsSymbolFinder implements SymbolFinder {
         symbols.add("weather-icon-health-80plus");
         symbols.add("windows");
 
-        return symbols.stream().map(e -> new Symbol(PREFIX + e, PREFIX + e, null, null, JENKINS)).collect(Collectors.toSet());
+        return symbols.stream()
+                .map(e -> new Symbol(PREFIX + e, PREFIX + e, null, null, JENKINS))
+                .collect(Collectors.toSet());
     }
 }

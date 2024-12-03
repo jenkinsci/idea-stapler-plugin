@@ -3,10 +3,9 @@ package org.kohsuke.stapler.idea.icons;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SVGLoader;
-
-import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import javax.swing.*;
 
 /** @author Kohsuke Kawaguchi */
 public class Icons {
@@ -14,12 +13,13 @@ public class Icons {
     public static final Icon JENKINS = IconLoader.getIcon("/org/kohsuke/stapler/idea/icons/jenkins.svg", Icons.class);
 
     public static String convertSymbol(String svgContent) {
-        return svgContent.replaceAll("var(--blue)", "currentColor")
-            .replaceAll("var(--yellow)", "currentColor")
-            .replaceAll("var(--red)", "currentColor")
-            .replaceAll("var(--text-color-secondary)", "currentColor")
-            .replaceAll("var(--text-color)", "currentColor")
-            .replaceAll("currentColor", "#CED0D6");
+        return svgContent
+                .replaceAll("var(--blue)", "currentColor")
+                .replaceAll("var(--yellow)", "currentColor")
+                .replaceAll("var(--red)", "currentColor")
+                .replaceAll("var(--text-color-secondary)", "currentColor")
+                .replaceAll("var(--text-color)", "currentColor")
+                .replaceAll("currentColor", "#CED0D6");
     }
 
     public static Icon convertSymbolToIcon(VirtualFile svgFile) {
