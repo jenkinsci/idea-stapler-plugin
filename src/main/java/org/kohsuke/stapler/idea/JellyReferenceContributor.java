@@ -5,9 +5,7 @@ import com.intellij.psi.PsiReferenceContributor;
 import com.intellij.psi.PsiReferenceRegistrar;
 import com.intellij.psi.xml.XmlAttributeValue;
 
-/**
- * @author Kohsuke Kawaguchi
- */
+/** @author Kohsuke Kawaguchi */
 public class JellyReferenceContributor extends PsiReferenceContributor {
     @Override
     public void registerReferenceProviders(PsiReferenceRegistrar registrar) {

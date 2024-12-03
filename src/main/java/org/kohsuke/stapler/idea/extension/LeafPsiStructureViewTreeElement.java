@@ -9,14 +9,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.SmartPointerManager;
 import com.intellij.psi.SmartPsiElementPointer;
+import javax.swing.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-
-/**
- * Generic Structure View tree element which renders a named PSI element without any children.
- */
+/** Generic Structure View tree element which renders a named PSI element without any children. */
 public class LeafPsiStructureViewTreeElement implements StructureViewTreeElement, ItemPresentation {
     private final SmartPsiElementPointer<PsiNamedElement> value;
 

@@ -21,36 +21,30 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class TagReference extends PsiReferenceBase<XmlTag> {
     public TagReference(XmlTag ref) {
-        super(ref,calcTagNameRange(ref));
+        super(ref, calcTagNameRange(ref));
     }
 
-    /**
-     * Returns true if the given XML tag is a reference to a Jelly tag.
-     */
+    /** Returns true if the given XML tag is a reference to a Jelly tag. */
     public static boolean isApplicable(XmlTag ref) {
         return ref.getNamespace().startsWith("/");
     }
 
-    /**
-     * Calculate the text range withtin {@link XmlTag} that represents
-     * the tag name.
-     */
+    /** Calculate the text range withtin {@link XmlTag} that represents the tag name. */
     private static TextRange calcTagNameRange(XmlTag t) {
         // reference is only for the element name.
         // text range is relative to this element
         TextRange tr = t.getFirstChild().getNextSibling().getTextRange();
         return tr.shiftRight(-t.getTextRange().getStartOffset());
-
     }
 
     @Override
     public XmlFile resolve() {
         String localName = myElement.getLocalName();
         String nsUri = myElement.getNamespace();
-        if(nsUri.length()==0)   return null;
+        if (nsUri.length() == 0) return null;
 
         Module m = ModuleUtil.findModuleForPsiElement(myElement);
-        if(m==null) return null; // just trying to be defensive
+        if (m == null) return null; // just trying to be defensive
 
         JavaPsiFacade javaPsi = JavaPsiFacade.getInstance(myElement.getProject());
 
@@ -58,22 +52,21 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
         // this invocation below successfully finds packages that includes
         // invalid characters like 'a-b-c'
         PsiPackage pkg = javaPsi.findPackage(pkgName);
-        if(pkg==null)   return null;
+        if (pkg == null) return null;
 
         PsiDirectory[] dirs = pkg.getDirectories(GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(m, false));
 
         for (PsiDirectory dir : dirs) {
             PsiFile tagFile = dir.findFile(localName + ".jelly");
-            if (tagFile instanceof XmlFile)
-                return (XmlFile) tagFile;
+            if (tagFile instanceof XmlFile) return (XmlFile) tagFile;
         }
 
-//        // TODO: this is just a test
-//        PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
-//        VirtualFile module = m.getModuleFile().getParent();
-//        VirtualFile child = module.findChild(localName + ".txt");
-//        if(child!=null)
-//            return psiManager.findFile(child);
+        //        // TODO: this is just a test
+        //        PsiManager psiManager = PsiManager.getInstance(myElement.getProject());
+        //        VirtualFile module = m.getModuleFile().getParent();
+        //        VirtualFile child = module.findChild(localName + ".txt");
+        //        if(child!=null)
+        //            return psiManager.findFile(child);
 
         return null;
     }
@@ -81,10 +74,10 @@ public final class TagReference extends PsiReferenceBase<XmlTag> {
     @NotNull
     @Override
     public Object @NotNull [] getVariants() {
-//        // not sure how to use this
-//        // -> this is used apparently as a quick completion.
-//        // try typing "<a" then hit Ctrl+SPACE.
-//        return new String[]{"abc","def","ghi"};
+        //        // not sure how to use this
+        //        // -> this is used apparently as a quick completion.
+        //        // try typing "<a" then hit Ctrl+SPACE.
+        //        return new String[]{"abc","def","ghi"};
         return new Object[0];
     }
 }

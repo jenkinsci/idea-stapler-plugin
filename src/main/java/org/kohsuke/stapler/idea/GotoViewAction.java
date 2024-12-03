@@ -23,11 +23,10 @@ import com.intellij.psi.PsiPackage;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtilBase;
 import com.intellij.util.ArrayUtil;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Select stapler views from a Java class.
@@ -42,32 +41,33 @@ public class GotoViewAction extends GotoActionBase {
 
         final Project project = anactionevent.getData(PlatformDataKeys.PROJECT);
         Editor editor = anactionevent.getData(PlatformDataKeys.EDITOR);
-        if(editor == null || project == null)   return;
+        if (editor == null || project == null) return;
 
         PsiFile file = PsiUtilBase.getPsiFileInEditor(editor, project);
-        if(!(file instanceof PsiJavaFile))  return; // not a Java file
+        if (!(file instanceof PsiJavaFile)) return; // not a Java file
 
         JavaPsiFacade facade = JavaPsiFacade.getInstance(project);
 
         // from which class are we invoked?
-        PsiElement e = PsiUtilBase.getElementAtOffset(file, editor.getCaretModel().getOffset());
+        PsiElement e =
+                PsiUtilBase.getElementAtOffset(file, editor.getCaretModel().getOffset());
         PsiClass clazz = PsiTreeUtil.getParentOfType(e, PsiClass.class);
 
         // if we are invoked from inside anonymous class, go up the tree
         // until we find a named class.
-        while(clazz!=null && clazz.getQualifiedName()==null)
-            clazz = PsiTreeUtil.getParentOfType(clazz,PsiClass.class);
+        while (clazz != null && clazz.getQualifiedName() == null)
+            clazz = PsiTreeUtil.getParentOfType(clazz, PsiClass.class);
 
         // build up packages that contain jelly views, in the order of preference
         // through inheritance hierarchy of the class
         final List<PsiPackage> viewPackages = new ArrayList<>();
-        while(clazz!=null) {
+        while (clazz != null) {
             PsiPackage pkg = facade.findPackage(clazz.getQualifiedName());
-            if(pkg!=null)   viewPackages.add(pkg);
+            if (pkg != null) viewPackages.add(pkg);
             clazz = clazz.getSuperClass();
         }
 
-        if(viewPackages.isEmpty())  return; // no views
+        if (viewPackages.isEmpty()) return; // no views
 
         ChooseByNameModel model = new ChooseByNameModel() {
             @Override
@@ -92,7 +92,7 @@ public class GotoViewAction extends GotoActionBase {
 
             @Override
             public String getCheckBoxName() {
-                return null;    // no check box
+                return null; // no check box
             }
 
             @Override
@@ -120,8 +120,8 @@ public class GotoViewAction extends GotoActionBase {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {
                             String name = file.getName();
-                            if(name.endsWith(".jelly") || name.endsWith(".groovy"))
-                                r.add(name.substring(0,name.lastIndexOf('.')));
+                            if (name.endsWith(".jelly") || name.endsWith(".groovy"))
+                                r.add(name.substring(0, name.lastIndexOf('.')));
                         }
                     }
                 }
@@ -130,12 +130,13 @@ public class GotoViewAction extends GotoActionBase {
 
             @Override
             @NotNull
-            public Object @NotNull [] getElementsByName(@NotNull String name, boolean checkBoxState, @NotNull String pattern) {
+            public Object @NotNull [] getElementsByName(
+                    @NotNull String name, boolean checkBoxState, @NotNull String pattern) {
                 for (PsiPackage pkg : viewPackages) {
                     for (PsiDirectory dir : pkg.getDirectories()) {
                         for (PsiFile file : dir.getFiles()) {
-                            if(file.getName().equals(name+".jelly") || file.getName().equals(name+".groovy"))
-                                return new Object[]{file};
+                            if (file.getName().equals(name + ".jelly")
+                                    || file.getName().equals(name + ".groovy")) return new Object[] {file};
                         }
                     }
                 }
@@ -179,20 +180,20 @@ public class GotoViewAction extends GotoActionBase {
         };
 
         PsiDocumentManager.getInstance(project).commitAllDocuments();
-        ChooseByNamePopup choosebynamepopup = ChooseByNamePopup.createPopup(project,
-                model, context);
-        choosebynamepopup.invoke(new Callback() {
-            @Override
-            public void onClose() {
-                if (GotoActionBase.myInAction==GotoViewAction.class)
-                    GotoActionBase.myInAction = null;
-            }
+        ChooseByNamePopup choosebynamepopup = ChooseByNamePopup.createPopup(project, model, context);
+        choosebynamepopup.invoke(
+                new Callback() {
+                    @Override
+                    public void onClose() {
+                        if (GotoActionBase.myInAction == GotoViewAction.class) GotoActionBase.myInAction = null;
+                    }
 
-            @Override
-            public void elementChosen(Object obj) {
-                ((NavigationItem) obj).navigate(true);
-            }
-        }, ModalityState.current(), true);
+                    @Override
+                    public void elementChosen(Object obj) {
+                        ((NavigationItem) obj).navigate(true);
+                    }
+                },
+                ModalityState.current(),
+                true);
     }
 }
-

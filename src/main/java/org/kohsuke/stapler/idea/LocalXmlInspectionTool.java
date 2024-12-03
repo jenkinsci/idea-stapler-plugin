@@ -4,17 +4,15 @@ import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.XmlElementVisitor;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlText;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * {@link LocalInspectionTool} with enhancements to handle XML files.
- * 
+ *
  * @author Kohsuke Kawaguchi
  */
 public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
@@ -45,10 +43,10 @@ public abstract class LocalXmlInspectionTool extends LocalInspectionTool {
         return EMPTY_ARRAY;
     }
 
-    protected ProblemDescriptor[] checkXmlAttributeValue(XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
+    protected ProblemDescriptor[] checkXmlAttributeValue(
+            XmlAttributeValue text, InspectionManager manager, boolean onTheFly) {
         return EMPTY_ARRAY;
     }
-
 
     protected static final ProblemDescriptor[] EMPTY_ARRAY = new ProblemDescriptor[0];
 }

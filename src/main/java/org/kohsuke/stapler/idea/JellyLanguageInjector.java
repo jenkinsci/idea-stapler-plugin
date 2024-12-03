@@ -12,12 +12,10 @@ import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlText;
-import org.jetbrains.annotations.NotNull;
-import org.kohsuke.stapler.idea.psi.JellyFile;
-
 import java.util.Arrays;
 import java.util.List;
-
+import org.jetbrains.annotations.NotNull;
+import org.kohsuke.stapler.idea.psi.JellyFile;
 
 /**
  * Injects CSS and JavaScript to suitable places
@@ -27,39 +25,37 @@ import java.util.List;
 public class JellyLanguageInjector implements MultiHostInjector {
     @Override
     public void getLanguagesToInject(@NotNull final MultiHostRegistrar registrar, @NotNull PsiElement context) {
-        if(!(context.getContainingFile() instanceof JellyFile))
-            return; // not a jelly file
+        if (!(context.getContainingFile() instanceof JellyFile)) return; // not a jelly file
 
         // inject CSS to @style
         if (context instanceof XmlAttributeValue value) {
 
-            if (!(value.getParent() instanceof XmlAttribute a))
-                return; // not an XML attribute, probably an XML PI
+            if (!(value.getParent() instanceof XmlAttribute a)) return; // not an XML attribute, probably an XML PI
 
-            if(!a.getName().equals("style"))
-                return; // not a style attribute
+            if (!a.getName().equals("style")) return; // not a style attribute
 
             Language language = findLanguage("CSS");
             if (language == null || value.getTextLength() < 2) return;
-            
+
             registrar.startInjecting(language);
-            registrar.addPlace("dummy_selector {", "}",
-                               (PsiLanguageInjectionHost) value,
-                               TextRange.from(1, value.getTextLength() - 2));
+            registrar.addPlace(
+                    "dummy_selector {",
+                    "}",
+                    (PsiLanguageInjectionHost) value,
+                    TextRange.from(1, value.getTextLength() - 2));
             registrar.doneInjecting();
             return;
         }
-        
+
         // inject JavaScript to <script>
         if (context instanceof XmlTag t) {
             /*
-                IntelliJ reports an assertion error if the we didn't call any addPlace
-                between startInjecting/doneInjection, so we need to call them lazily.
-             */
+               IntelliJ reports an assertion error if the we didn't call any addPlace
+               between startInjecting/doneInjection, so we need to call them lazily.
+            */
             final boolean[] started = new boolean[1];
 
-            if(!t.getName().equals("script"))
-                return; // not a script element
+            if (!t.getName().equals("script")) return; // not a script element
 
             final Language language = findLanguage("JavaScript");
             if (language == null) return;
@@ -68,26 +64,21 @@ public class JellyLanguageInjector implements MultiHostInjector {
                 @Override
                 public void visitXmlText(@NotNull XmlText text) {
                     int len = text.getTextLength();
-                    if (len==0) return;
-                    
-                    if(!started[0]) {
+                    if (len == 0) return;
+
+                    if (!started[0]) {
                         started[0] = true;
                         registrar.startInjecting(language);
                     }
-                    registrar.addPlace(null,null,
-                            (PsiLanguageInjectionHost)text,
-                            TextRange.from(0, len));
+                    registrar.addPlace(null, null, (PsiLanguageInjectionHost) text, TextRange.from(0, len));
                 }
             });
-            if(started[0])
-                registrar.doneInjecting();
+            if (started[0]) registrar.doneInjecting();
         }
     }
 
     private Language findLanguage(String id) {
-        for( Language l : Language.getRegisteredLanguages())
-            if(l.getID().equals(id))
-                return l;
+        for (Language l : Language.getRegisteredLanguages()) if (l.getID().equals(id)) return l;
         return null;
     }
 
@@ -97,5 +88,6 @@ public class JellyLanguageInjector implements MultiHostInjector {
         return INJECTION_TARGET;
     }
 
-    private static final List<Class<? extends XmlElement>> INJECTION_TARGET = Arrays.asList(XmlAttributeValue.class, XmlTag.class);
+    private static final List<Class<? extends XmlElement>> INJECTION_TARGET =
+            Arrays.asList(XmlAttributeValue.class, XmlTag.class);
 }

@@ -1,8 +1,7 @@
 package org.kohsuke.stapler.idea.language;
 
-import javax.swing.*;
-
 import com.intellij.ide.highlighter.XmlLikeFileType;
+import javax.swing.*;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,5 +39,4 @@ public class JellyFileType extends XmlLikeFileType {
     public @Nullable Icon getIcon() {
         return Icons.JELLY;
     }
-
 }
