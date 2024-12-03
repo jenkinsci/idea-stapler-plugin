@@ -1,146 +1,247 @@
 package org.kohsuke.stapler.idea;
 
+import static io.jenkins.stapler.idea.jelly.NamespaceUtil.collectProjectNamespaces;
+import static io.jenkins.stapler.idea.jelly.suggestions.XsdParser.getTagsFromSchema;
+
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.codeInsight.template.Template;
+import com.intellij.codeInsight.template.TemplateManager;
+import com.intellij.icons.AllIcons;
+import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.patterns.ElementPattern;
-import com.intellij.patterns.XmlElementPattern;
-import com.intellij.psi.impl.source.xml.TagNameReference;
-import com.intellij.psi.xml.XmlAttribute;
-import com.intellij.psi.xml.XmlDocument;
+import com.intellij.openapi.project.Project;
+import com.intellij.patterns.PlatformPatterns;
+import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.xml.XmlElement;
+import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlToken;
 import com.intellij.util.ProcessingContext;
+import com.intellij.xml.XmlAttributeDescriptor;
 import com.intellij.xml.XmlElementDescriptor;
+import io.jenkins.stapler.idea.jelly.suggestions.JellyElement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlNSDescriptor;
+import org.kohsuke.stapler.idea.icons.Icons;
 
 /**
- * Tag name completion for Jelly tag libraries defined as tag files.
+ * Provides tag name completion for Jelly templates.
  *
- * <p>One would think that contributing {@link StaplerCustomJellyTagLibraryXmlNSDescriptor} and implementing
- * {@link StaplerCustomJellyTagLibraryXmlNSDescriptor#getRootElementsDescriptors(XmlDocument)} is enough to cause the
- * IDEA XML module to show tag name completions, but apparently it is not.
+ * <p>IntelliJ offers completions automatically, however these aren't extensible and don't work for custom taglibs. As a
+ * result of this we've created our own custom completion contributor to handle completions
  *
- * <p>The problem is when we have text like the following:
- *
- * <pre><xmp>
- * <j:jelly xmlns:t="/lib" xmlns:j="jelly:core">
- * <html>
- * <body>
- * <!-- hit t, ctrl+space to make sure completion kicks in  -->
- * <t:
- * </body>
- * </html>
- * </j:jelly>
- * </xmp></pre>
- *
- * <p>The html/body tags get dtd.XmlElementDescriptorImpl as their {@link XmlElementDescriptor} (they represent
- * in-memory for-this-document-only temporary DTDs), and unless the body tag appear elsewhere and have some children, it
- * will return null from its {@link XmlElementDescriptor#getElementDescriptor(XmlTag, XmlTag)} when given
- * &lt;t:something/>, and {@link TagNameReference}, which calls
- * {@link StaplerCustomJellyTagLibraryXmlNSDescriptor#getRootElementsDescriptors(XmlDocument)} to list up possible
- * children, uses this as a signal that &lt;t:something/> is not a valid child in this context.
- *
- * <p>While the above doesn't really explain why &lt;j:*> can be completed in this context, I eventually decided that
- * just writing another {@link CompletionContributor} on its own is the easiest thing to do here.
- *
- * <p>So what this {@link CompletionContributor} does is to list up all the legal Jelly tags available in the current
- * namespace bindings as completion candidates.
- *
- * @author Kohsuke Kawaguchi
+ * <ul>
+ *   <li>Suggests components from both default and user-defined namespaces.
+ *   <li>Automatically imports namespaces if they are not already present.
+ *   <li>Generates templates for components with required attributes, offering them to the user as completion
+ *       suggestions.
+ * </ul>
  */
 public class JellyCompletionContributor extends CompletionContributor {
+
+    /**
+     * Core namespaces to suggest for Jelly files that do not yet define any namespaces. These namespaces ensure that
+     * autocomplete functionality remains useful even in files without declared namespaces.
+     */
+    private static final Map<String, String> CORE_NAMESPACES = Map.of(
+            "l", "/lib/layout",
+            "f", "/lib/form",
+            "t", "/lib/hudson",
+            "j", "jelly:core",
+            "st", "jelly:stapler",
+            "d", "jelly:define");
+
     public JellyCompletionContributor() {
         extend(
-                CompletionType.BASIC, // in case of XML completion, this always seems to be BASIC
-                XML_ELEMENT_NAME_PATTERN,
+                CompletionType.BASIC,
+                PlatformPatterns.psiElement(XmlToken.class).withParent(XmlTag.class),
                 new CompletionProvider<>() {
-                    // REFERENCE: spring plugin adds CompletionContributor as well.
                     @Override
                     protected void addCompletions(
                             @NotNull CompletionParameters parameters,
                             @NotNull ProcessingContext context,
                             @NotNull CompletionResultSet result) {
                         XmlElement name = (XmlElement) parameters.getPosition();
-
-                        // this pseudo-tag represents the tag being completed.
                         XmlTag tag = (XmlTag) name.getParent();
                         Module module = ModuleUtil.findModuleForPsiElement(tag);
 
-                        /*
-                        When completion is invoked after text like "<p:",
-                        the following code gives us "p:".
-                        This would potentially speed up the following "knownNamespaces" loop.
-                        --------------------
-                        System.out.println("Completing tag name for "+tag.getName());
-                        PsiElement opos = parameters.getOriginalPosition();
-                        System.out.println("originalPos:"+ opos);
-                        if (opos instanceof XmlToken) {
-                            XmlToken originalToken = (XmlToken) opos;
-                            System.out.println(originalToken.getParent());
-                        }
-                        */
+                        // Disable IntelliJ's default suggestions
+                        result.stopHere();
 
-                        // just add every available jelly tags in the current namespaace
-                        String[] uris = tag.knownNamespaces();
-                        for (String uri : uris) {
-                            String prefix = tag.getPrefixByNamespace(uri);
-                            if (prefix != null && prefix.length() > 0) prefix += ':';
-                            StaplerCustomJellyTagLibraryXmlNSDescriptor d =
-                                    StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
-                            if (d != null) {
-                                for (XmlElementDescriptor e :
-                                        d.getRootElementsDescriptors(null /*I'm not using this parameter*/)) {
-                                    // LookupItem item = LookupItem.fromString(prefix + e.getName());
-                                    /*
-                                       In some context (see completion-test.jelly in particular),
-                                       I noticed that contributions from here and XmlCompletionContributer
-                                       overlaps and the user ends up seeing the same candidate twice.
-                                       To fix this, we need to create the LookupItem such that
-                                       its equals() method returns true when compared with the ones
-                                       from XmlCompletionContributer.
-
-                                       So I'm not sure what the TailType means but this is why we do this.
-                                    */
-                                    // item.setTailType(TailType.UNKNOWN);
-                                    // @duemir: Above must have been true when KK wrote it but is it still true?
-                                    // Both LookupItem constructor and factory method are deprecated for removal so I
-                                    // have implemented the recommended approach but tailType is not available there
-                                    // so I am not sure if there is going to be a regression or not.
-                                    result.addElement(LookupElementBuilder.create(prefix + e.getName()));
-                                }
+                        createMergedNamespaceMap(tag).forEach((prefix, uri) -> {
+                            // If a user has already provided a prefix then only include results from that namespace
+                            String existingPrefix = getPrefix(tag.getName());
+                            if (existingPrefix != null && !existingPrefix.equalsIgnoreCase(prefix)) {
+                                return;
                             }
-                        }
+
+                            List<JellyElement> descriptors = getDescriptorsFromNamespace(uri, module, tag);
+                            descriptors.forEach(descriptor ->
+                                    addAutocompleteElement(result, prefix, uri, descriptor, existingPrefix != null));
+                        });
                     }
                 });
     }
 
-    // REFERENCE: the following is useful for figuring out how CompletionParameters
-    // are populated and passed to us.
-    //
-    // On XML completion, type is always BASIC,
-    // and pos for element/attribute name completions are XmlToken.
-    //
-    // TODO: XmlCompletionContributor is another implementation of CompletionContributer.
-    //    @Override
-    //    public boolean fillCompletionVariants(CompletionParameters parameters, CompletionResultSet result) {
-    //        System.out.println("type="+parameters.getCompletionType());
-    //        System.out.println("pos ="+parameters.getPosition());
-    //        return super.fillCompletionVariants(parameters, result);
-    //    }
+    private static List<JellyElement> getDescriptorsFromNamespace(String uri, Module module, XmlTag tag) {
+        // We don't have access to 'jelly:' descriptors, so pull them from our own resources
+        if (uri.startsWith("jelly:")) {
+            return getTagsFromSchema(uri.substring(6)).stream()
+                    .map(e -> new JellyElement(
+                            e,
+                            XmlElementDescriptor.CONTENT_TYPE_EMPTY,
+                            Collections.emptyList(),
+                            AllIcons.FileTypes.Xhtml))
+                    .toList();
+        }
 
-    /** {@link ElementPattern} that matches attribute names. */
-    private static final ElementPattern XML_ATTRIBUTE_NAME_PATTERN =
-            new XmlElementPattern(XmlToken.class) {}.withParent(XmlAttribute.class);
+        StaplerCustomJellyTagLibraryXmlNSDescriptor tagLibrary =
+                StaplerCustomJellyTagLibraryXmlNSDescriptor.get(uri, module);
 
-    /** {@link ElementPattern} that matches attribute names. */
-    private static final ElementPattern XML_ELEMENT_NAME_PATTERN =
-            new XmlElementPattern(XmlToken.class) {}.withParent(XmlTag.class);
+        if (tagLibrary == null) {
+            return List.of();
+        }
+
+        return Arrays.stream(tagLibrary.getTagDescriptors()).toList().stream()
+                .map(e -> new JellyElement(
+                        e.getName(), e.getContentType(), List.of(e.getAttributesDescriptors(tag)), Icons.COMPONENT))
+                .collect(Collectors.toList());
+    }
+
+    private static void addAutocompleteElement(
+            CompletionResultSet result, String prefix, String uri, JellyElement component, boolean includePrefix) {
+        result.addElement(LookupElementBuilder.create((includePrefix ? "" : prefix + ":") + component.name())
+                .withPresentableText(prefix + ":" + component.name())
+                .withIcon(component.icon())
+                .withTailText(uri, true)
+                .withInsertHandler((context, item) -> {
+                    PsiFile psiFile = context.getFile();
+                    Project project = context.getProject();
+                    Editor editor = context.getEditor();
+
+                    if (psiFile instanceof XmlFile xmlFile) {
+                        XmlTag rootTag = xmlFile.getRootTag();
+
+                        if (rootTag != null) {
+                            // Import the namespace if necessary
+                            WriteCommandAction.runWriteCommandAction(project, () -> {
+                                rootTag.setAttribute("xmlns:" + prefix, uri);
+                            });
+
+                            // Unblock the document
+                            PsiDocumentManager psiDocumentManager =
+                                    PsiDocumentManager.getInstance(context.getProject());
+                            psiDocumentManager.doPostponedOperationsAndUnblockDocument(editor.getDocument());
+
+                            // Suffix required attributes and tab the user to the first one
+                            createRequiredAttributesTemplate(component, project, editor, prefix);
+                        }
+                    }
+                }));
+    }
+
+    private static void createRequiredAttributesTemplate(
+            JellyElement component, Project project, Editor editor, String prefix) {
+        TemplateManager templateManager = TemplateManager.getInstance(project);
+        StringBuilder templateText = new StringBuilder();
+
+        List<String> requiredAttributes = getRequiredAttributes(component);
+        for (String attributeName : requiredAttributes) {
+            templateText
+                    .append(" ")
+                    .append(attributeName)
+                    .append("=\"$")
+                    .append(attributeName)
+                    .append("$\"");
+        }
+
+        if (component.contentType() == XmlElementDescriptor.CONTENT_TYPE_ANY) {
+            templateText
+                    .append(">\n  $content$\n</")
+                    .append(prefix)
+                    .append(":")
+                    .append(component.name())
+                    .append(">");
+        } else {
+            templateText.append(" />");
+        }
+
+        Template template = templateManager.createTemplate("myTemplate", "Jelly", templateText.toString());
+
+        // Add each attribute as a placeholder variable for tabbing
+        for (String attributeName : requiredAttributes) {
+            template.addVariable(attributeName, "", attributeName.toLowerCase(), true);
+        }
+        if (component.contentType() == XmlElementDescriptor.CONTENT_TYPE_ANY) {
+            template.addVariable("content", "", "content", true);
+        }
+
+        templateManager.startTemplate(editor, template);
+    }
+
+    private static List<String> getRequiredAttributes(JellyElement component) {
+        List<String> requiredAttributes = new ArrayList<>();
+        for (XmlAttributeDescriptor attributesDescriptor : component.attributesDescriptors()) {
+            if (attributesDescriptor.isRequired()) {
+                requiredAttributes.add(attributesDescriptor.getName());
+            }
+        }
+        return requiredAttributes;
+    }
+
+    private static String getPrefix(String tagName) {
+        if (tagName == null || !tagName.contains(":")) {
+            return null;
+        }
+
+        // Remove the opening '<' and check if there is a colon in the string
+        tagName = tagName.replaceAll("^<", "");
+        int colonIndex = tagName.indexOf(':');
+
+        // If there's no colon or the colon is at the start, return null
+        if (colonIndex <= 0) {
+            return null;
+        }
+
+        // Return the prefix, which is the substring before the first ':'
+        return tagName.substring(0, colonIndex);
+    }
+
+    /**
+     * Creates a merged map of namespaces with their corresponding URIs, combining core namespaces, project-specific
+     * namespaces, and namespaces declared in the current file, in that order of precedence.
+     */
+    private static Map<String, String> createMergedNamespaceMap(XmlTag tag) {
+        Map<String, String> projectNamespaces = collectProjectNamespaces(tag.getProject());
+        String[] uris = tag.knownNamespaces();
+        Map<String, String> namespaceMap = new HashMap<>();
+
+        for (String uri : uris) {
+            String prefix = tag.getPrefixByNamespace(uri);
+            if (prefix != null && !prefix.isEmpty()) {
+                namespaceMap.put(prefix, uri);
+            }
+        }
+
+        Map<String, String> mergedNamespaceMap = new HashMap<>(CORE_NAMESPACES);
+        mergedNamespaceMap.putAll(projectNamespaces);
+        mergedNamespaceMap.putAll(namespaceMap);
+
+        return mergedNamespaceMap;
+    }
 }
