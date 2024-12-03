@@ -49,7 +49,7 @@ import org.kohsuke.stapler.idea.icons.Icons;
 public class JellyCompletionContributor extends CompletionContributor {
 
     /**
-     * Default namespaces to suggest for Jelly files that do not define any namespaces. These default namespaces ensure
+     * Core namespaces to suggest for Jelly files that do not yet define any namespaces. These namespaces ensure
      * that autocomplete functionality remains useful even in files without declared namespaces.
      */
     private static final Map<String, String> CORE_NAMESPACES = Map.of(
