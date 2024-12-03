@@ -1,5 +1,7 @@
 package org.kohsuke.stapler.idea;
 
+import static io.jenkins.stapler.idea.jelly.NamespaceUtil.collectProjectNamespaces;
+
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
@@ -202,9 +204,12 @@ public class JellyCompletionContributor extends CompletionContributor {
         return tagName.substring(0, colonIndex);
     }
 
-    // We have a list of core namespaces (e.g. l:layout) that we want to suggest by default,
-    // but we also want to suggest namespaces the user has already declared
+    /**
+     * Creates a merged map of namespaces with their corresponding URIs, combining core namespaces, project-specific
+     * namespaces, and namespaces declared in the current file, in that order of precedence.
+     */
     private static Map<String, String> createMergedNamespaceMap(XmlTag tag) {
+        Map<String, String> projectNamespaces = collectProjectNamespaces(tag.getProject());
         String[] uris = tag.knownNamespaces();
         Map<String, String> namespaceMap = new HashMap<>();
 
@@ -216,6 +221,7 @@ public class JellyCompletionContributor extends CompletionContributor {
         }
 
         Map<String, String> mergedNamespaceMap = new HashMap<>(CORE_NAMESPACES);
+        mergedNamespaceMap.putAll(projectNamespaces);
         mergedNamespaceMap.putAll(namespaceMap);
 
         return mergedNamespaceMap;
