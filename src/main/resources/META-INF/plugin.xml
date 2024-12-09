@@ -26,6 +26,9 @@
     <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <!-- Completion for Jelly Tags -->
     <completion.contributor language="Jelly" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor"/>
+
+    <completion.contributor language="Jelly" implementationClass="org.kohsuke.stapler.idea.IconSrcCompletionContributor" />
+
     <!-- ? -->
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
     <!-- I initially thought of using this to drive auto-completion,
