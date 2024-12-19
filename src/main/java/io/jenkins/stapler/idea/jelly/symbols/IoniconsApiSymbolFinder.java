@@ -1,11 +1,11 @@
 package io.jenkins.stapler.idea.jelly.symbols;
 
+import static org.kohsuke.stapler.idea.MavenProjectHelper.hasDependency;
+
 import com.intellij.openapi.project.Project;
 import io.jenkins.plugins.ionicons.Ionicons;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static org.kohsuke.stapler.idea.MavenProjectHelper.hasDependency;
 
 public class IoniconsApiSymbolFinder implements SymbolFinder {
 
