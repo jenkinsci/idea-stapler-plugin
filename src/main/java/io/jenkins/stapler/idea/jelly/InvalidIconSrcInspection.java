@@ -1,9 +1,14 @@
 package io.jenkins.stapler.idea.jelly;
 
+import static io.jenkins.stapler.idea.jelly.symbols.ClosestStringFinder.findClosestString;
 import static io.jenkins.stapler.idea.jelly.symbols.SymbolFinder.getAvailableSymbols;
 
 import com.intellij.codeInspection.LocalInspectionTool;
+import com.intellij.codeInspection.LocalQuickFix;
+import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
+import com.intellij.codeInspection.util.IntentionFamilyName;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.XmlElementVisitor;
@@ -26,9 +31,33 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
                             .map(Symbol::name)
                             .collect(Collectors.toSet());
                     if (!symbols.contains(attribute.getValue())) {
-                        holder.registerProblem(
-                                attribute.getValueElement(),
-                                String.format("'%s' is an invalid symbol", attribute.getValue()));
+                        String closestSymbol = findClosestString(attribute.getValue(), symbols);
+
+                        if (closestSymbol == null) {
+                            holder.registerProblem(
+                                    attribute.getValueElement(),
+                                    String.format("'%s' is an invalid Jenkins Symbol", attribute.getValue()));
+                        } else {
+                            holder.registerProblem(
+                                    attribute.getValueElement(),
+                                    String.format("'%s' is an invalid Jenkins Symbol", attribute.getValue()),
+                                    new LocalQuickFix() {
+                                        @Override
+                                        public @IntentionFamilyName @NotNull String getFamilyName() {
+                                            return "Replace with '" + closestSymbol + "'";
+                                        }
+
+                                        @Override
+                                        public void applyFix(
+                                                @NotNull Project project, @NotNull ProblemDescriptor descriptor) {
+                                            PsiElement element = descriptor.getPsiElement();
+                                            if (element != null
+                                                    && element.getParent() instanceof XmlAttribute attribute) {
+                                                attribute.setValue(closestSymbol);
+                                            }
+                                        }
+                                    });
+                        }
                     }
                 }
             }
