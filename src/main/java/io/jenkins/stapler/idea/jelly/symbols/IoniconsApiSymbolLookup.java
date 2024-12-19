@@ -7,7 +7,7 @@ import io.jenkins.plugins.ionicons.Ionicons;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class IoniconsApiSymbolFinder implements SymbolFinder {
+public class IoniconsApiSymbolLookup implements SymbolLookup {
 
     private static final String PREFIX = "symbol-";
     private static final String SUFFIX = " plugin-ionicons-api";

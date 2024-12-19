@@ -9,7 +9,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import java.util.HashSet;
 import java.util.Set;
 
-public class LocalSymbolFinder implements SymbolFinder {
+public class LocalSymbolLookup implements SymbolLookup {
 
     /** Adds project-specific symbols */
     @Override

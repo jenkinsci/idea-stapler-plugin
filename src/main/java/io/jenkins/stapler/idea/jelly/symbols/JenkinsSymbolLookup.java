@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class JenkinsSymbolFinder implements SymbolFinder {
+public class JenkinsSymbolLookup implements SymbolLookup {
 
     private static final String PREFIX = "symbol-";
 

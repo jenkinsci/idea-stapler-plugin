@@ -75,6 +75,12 @@
     <dependencySupport coordinate="org.jenkins-ci.main:jenkins-core" kind="java" displayName="Jenkins core" />
 
     <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
+    <localInspection language="Jelly"
+                     enabledByDefault="true"
+                     level="WARNING"
+                     displayName="Invalid symbol name"
+                     groupName="Stapler"
+                     implementationClass="io.jenkins.stapler.idea.jelly.InvalidIconSrcInspection" />
   </extensions>
   <!-- Jelly taglibs XML Schemas -->
   <extensions defaultExtensionNs="com.intellij">
