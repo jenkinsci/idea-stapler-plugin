@@ -12,15 +12,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.xml.XmlAttributeImpl;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.ProcessingContext;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.jetbrains.annotations.NotNull;
 import io.jenkins.stapler.idea.jelly.symbols.IoniconsApiSymbolFinder;
 import io.jenkins.stapler.idea.jelly.symbols.JenkinsSymbolFinder;
 import io.jenkins.stapler.idea.jelly.symbols.LocalSymbolFinder;
 import io.jenkins.stapler.idea.jelly.symbols.Symbol;
 import io.jenkins.stapler.idea.jelly.symbols.SymbolFinder;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
 
 public class IconSrcCompletionContributor extends CompletionContributor {
 
