@@ -14,13 +14,14 @@ public class LocalSymbolFinder implements SymbolFinder {
     /** Adds project-specific symbols */
     @Override
     public Set<Symbol> getSymbols(Project project) {
+        String artifactId = getArtifactId(project);
         Set<Symbol> svgFiles = new HashSet<>();
 
         FileTypeIndex.processFiles(
                 SvgFileType.INSTANCE,
                 file -> {
                     if (isValidSymbolFile(file)) {
-                        processSvgFile(project, file, svgFiles);
+                        processSvgFile(artifactId, file, svgFiles);
                     }
                     return true;
                 },
@@ -43,12 +44,11 @@ public class LocalSymbolFinder implements SymbolFinder {
     /**
      * Processes a valid SVG file and adds it to the set of symbols.
      *
-     * @param project The current project.
+     * @param artifactId The name of the project
      * @param file The SVG file to process.
      * @param svgFiles The set to which the new symbol will be added.
      */
-    private void processSvgFile(Project project, VirtualFile file, Set<Symbol> svgFiles) {
-        String artifactId = getArtifactId(project);
+    private void processSvgFile(String artifactId, VirtualFile file, Set<Symbol> svgFiles) {
         boolean isCore = file.getPath().contains("/war/");
 
         String name = "symbol-" + file.getNameWithoutExtension();
