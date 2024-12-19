@@ -35,6 +35,10 @@ public class IoniconsApiSymbolFinder implements SymbolFinder {
     private static boolean hasIoniconsApi(Project project) {
         File pomFile = new File(project.getBasePath() + "/pom.xml");
 
+        if (!pomFile.exists()) {
+            return false;
+        }
+
         // Create a DocumentBuilderFactory
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;

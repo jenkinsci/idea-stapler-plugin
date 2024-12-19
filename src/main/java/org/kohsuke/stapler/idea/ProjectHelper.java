@@ -17,6 +17,10 @@ public class ProjectHelper {
     public static String getArtifactId(Project project) {
         File pomFile = new File(project.getBasePath() + "/pom.xml");
 
+        if (!pomFile.exists()) {
+            return null;
+        }
+
         // Create a DocumentBuilderFactory
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
