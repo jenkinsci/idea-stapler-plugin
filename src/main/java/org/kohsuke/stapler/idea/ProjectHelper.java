@@ -14,14 +14,13 @@ import org.xml.sax.SAXException;
 
 public class ProjectHelper {
 
-    public static String getArtifactId(Project project) {
+    public static Document getPomFile(Project project) {
         File pomFile = new File(project.getBasePath() + "/pom.xml");
 
         if (!pomFile.exists()) {
             return null;
         }
 
-        // Create a DocumentBuilderFactory
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         try {
@@ -29,12 +28,15 @@ public class ProjectHelper {
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
-        Document document;
         try {
-            document = builder.parse(pomFile);
+            return builder.parse(pomFile);
         } catch (SAXException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getArtifactId(Project project) {
+        Document document = getPomFile(project);
 
         try {
             // Create an XPath object
