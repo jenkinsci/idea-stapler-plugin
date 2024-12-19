@@ -36,11 +36,11 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
                         if (closestSymbol == null) {
                             holder.registerProblem(
                                     attribute.getValueElement(),
-                                    String.format("'%s' is an invalid Jenkins Symbol", attribute.getValue()));
+                                    String.format("'%s' isn't a valid symbol", attribute.getValue()));
                         } else {
                             holder.registerProblem(
                                     attribute.getValueElement(),
-                                    String.format("'%s' is an invalid Jenkins Symbol", attribute.getValue()),
+                                    String.format("'%s' isn't a valid symbol", attribute.getValue()),
                                     new LocalQuickFix() {
                                         @Override
                                         public @IntentionFamilyName @NotNull String getFamilyName() {
