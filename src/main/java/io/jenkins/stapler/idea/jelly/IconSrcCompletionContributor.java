@@ -42,11 +42,11 @@ public class IconSrcCompletionContributor extends CompletionContributor {
                             @NotNull ProcessingContext context,
                             @NotNull CompletionResultSet result) {
                         PsiElement position = parameters.getPosition();
-                        Project project = position.getProject();
-                        Set<Symbol> icons = ICONS_CACHE.computeIfAbsent(project, e -> computeSymbols(project));
                         PsiElement parent = position.getParent().getParent();
 
                         if (isInsideLIconSrcAttribute(parent)) {
+                            Project project = position.getProject();
+                            Set<Symbol> icons = ICONS_CACHE.computeIfAbsent(project, e -> computeSymbols(project));
                             icons.forEach(file -> result.addElement(LookupElementBuilder.create(file.name())
                                     .withPresentableText(file.displayText())
                                     .withTypeText(file.group())));
