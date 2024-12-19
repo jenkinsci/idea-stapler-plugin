@@ -27,7 +27,8 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
                             .collect(Collectors.toSet());
                     if (!symbols.contains(attribute.getValue())) {
                         holder.registerProblem(
-                                attribute, String.format("'%s' is an invalid symbol", attribute.getValue()));
+                                attribute.getValueElement(),
+                                String.format("'%s' is an invalid symbol", attribute.getValue()));
                     }
                 }
             }
