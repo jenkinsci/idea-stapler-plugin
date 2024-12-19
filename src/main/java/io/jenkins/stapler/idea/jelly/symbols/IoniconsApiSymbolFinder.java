@@ -28,7 +28,7 @@ public class IoniconsApiSymbolFinder implements SymbolFinder {
         }
 
         return Ionicons.getAvailableIcons().keySet().stream()
-                .map(e -> new Symbol(PREFIX + e + SUFFIX, PREFIX + e, "plugin-ionicons-api", null))
+                .map(e -> new Symbol(PREFIX + e + SUFFIX, PREFIX + e, "plugin-ionicons-api"))
                 .collect(Collectors.toSet());
     }
 

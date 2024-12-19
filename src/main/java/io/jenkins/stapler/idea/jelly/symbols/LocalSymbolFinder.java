@@ -41,8 +41,7 @@ public class LocalSymbolFinder implements SymbolFinder {
                                 svgFiles.add(new Symbol(
                                         name + (isCore ? "" : " plugin-" + artifactId),
                                         name,
-                                        isCore ? null : "plugin-" + artifactId,
-                                        file.getPath()));
+                                        isCore ? null : "plugin-" + artifactId));
                             }
                         }
                     }

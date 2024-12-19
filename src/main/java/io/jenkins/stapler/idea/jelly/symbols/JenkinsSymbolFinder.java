@@ -137,7 +137,7 @@ public class JenkinsSymbolFinder implements SymbolFinder {
         symbols.add("windows");
 
         return symbols.stream()
-                .map(e -> new Symbol(PREFIX + e, PREFIX + e, null, null))
+                .map(e -> new Symbol(PREFIX + e, PREFIX + e, null))
                 .collect(Collectors.toSet());
     }
 }
