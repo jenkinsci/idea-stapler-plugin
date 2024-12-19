@@ -1,4 +1,4 @@
-package org.kohsuke.stapler.idea;
+package io.jenkins.stapler.idea.jelly;
 
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
-import org.kohsuke.stapler.idea.symbols.IoniconsApiSymbolFinder;
-import org.kohsuke.stapler.idea.symbols.JenkinsSymbolFinder;
-import org.kohsuke.stapler.idea.symbols.LocalSymbolFinder;
-import org.kohsuke.stapler.idea.symbols.Symbol;
-import org.kohsuke.stapler.idea.symbols.SymbolFinder;
+import io.jenkins.stapler.idea.jelly.symbols.IoniconsApiSymbolFinder;
+import io.jenkins.stapler.idea.jelly.symbols.JenkinsSymbolFinder;
+import io.jenkins.stapler.idea.jelly.symbols.LocalSymbolFinder;
+import io.jenkins.stapler.idea.jelly.symbols.Symbol;
+import io.jenkins.stapler.idea.jelly.symbols.SymbolFinder;
 
 public class IconSrcCompletionContributor extends CompletionContributor {
 
@@ -46,10 +46,9 @@ public class IconSrcCompletionContributor extends CompletionContributor {
 
                         PsiElement parent = position.getParent().getParent();
                         if (isInsideLIconSrcAttribute(parent)) {
-                            icons.forEach(file -> result.addElement(LookupElementBuilder.create(file.getName())
-                                    .withIcon(file.getIcon())
-                                    .withPresentableText(file.getDisplayText())
-                                    .withTypeText(file.getGroup())));
+                            icons.forEach(file -> result.addElement(LookupElementBuilder.create(file.name())
+                                    .withPresentableText(file.displayText())
+                                    .withTypeText(file.group())));
                         }
                     }
                 });

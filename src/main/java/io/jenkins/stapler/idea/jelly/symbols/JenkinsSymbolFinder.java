@@ -1,7 +1,6 @@
-package org.kohsuke.stapler.idea.symbols;
+package io.jenkins.stapler.idea.jelly.symbols;
 
 import static org.kohsuke.stapler.idea.ProjectHelper.getArtifactId;
-import static org.kohsuke.stapler.idea.icons.Icons.JENKINS;
 
 import com.intellij.openapi.project.Project;
 import java.util.HashSet;
@@ -138,7 +137,7 @@ public class JenkinsSymbolFinder implements SymbolFinder {
         symbols.add("windows");
 
         return symbols.stream()
-                .map(e -> new Symbol(PREFIX + e, PREFIX + e, null, null, JENKINS))
+                .map(e -> new Symbol(PREFIX + e, PREFIX + e, null, null))
                 .collect(Collectors.toSet());
     }
 }

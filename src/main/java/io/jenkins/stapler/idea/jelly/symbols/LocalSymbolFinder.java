@@ -1,7 +1,6 @@
-package org.kohsuke.stapler.idea.symbols;
+package io.jenkins.stapler.idea.jelly.symbols;
 
 import static org.kohsuke.stapler.idea.ProjectHelper.getArtifactId;
-import static org.kohsuke.stapler.idea.icons.Icons.convertSymbolToIcon;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -43,8 +42,7 @@ public class LocalSymbolFinder implements SymbolFinder {
                                         name + (isCore ? "" : " plugin-" + artifactId),
                                         name,
                                         isCore ? null : "plugin-" + artifactId,
-                                        file.getPath(),
-                                        convertSymbolToIcon(file)));
+                                        file.getPath()));
                             }
                         }
                     }

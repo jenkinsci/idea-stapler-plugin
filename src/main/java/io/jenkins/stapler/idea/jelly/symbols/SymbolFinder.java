@@ -1,4 +1,4 @@
-package org.kohsuke.stapler.idea.symbols;
+package io.jenkins.stapler.idea.jelly.symbols;
 
 import com.intellij.openapi.project.Project;
 import java.util.Set;

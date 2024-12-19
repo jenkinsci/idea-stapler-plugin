@@ -1,19 +1,11 @@
-package org.kohsuke.stapler.idea.symbols;
-
-import static org.kohsuke.stapler.idea.icons.Icons.convertSymbol;
-import static org.kohsuke.stapler.idea.icons.Icons.convertSymbolToIcon;
+package io.jenkins.stapler.idea.jelly.symbols;
 
 import com.intellij.openapi.project.Project;
 import io.jenkins.plugins.ionicons.Ionicons;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,7 +28,7 @@ public class IoniconsApiSymbolFinder implements SymbolFinder {
         }
 
         return Ionicons.getAvailableIcons().keySet().stream()
-                .map(e -> new Symbol(PREFIX + e + SUFFIX, PREFIX + e, "plugin-ionicons-api", null, readSvg(e)))
+                .map(e -> new Symbol(PREFIX + e + SUFFIX, PREFIX + e, "plugin-ionicons-api", null))
                 .collect(Collectors.toSet());
     }
 
@@ -71,27 +63,5 @@ public class IoniconsApiSymbolFinder implements SymbolFinder {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public static Icon readSvg(String name) {
-        // Get the resource path for the SVG
-        InputStream fileStream = Ionicons.class.getResourceAsStream("/images/symbols/" + name + ".svg");
-
-        if (fileStream == null) {
-            throw new IllegalArgumentException("SVG file not found: " + name);
-        }
-
-        // Use BufferedReader to read the file as a String
-        StringBuilder svgContent = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                svgContent.append(line).append("\n");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error reading SVG file: " + name, e);
-        }
-
-        return convertSymbolToIcon(convertSymbol(svgContent.toString()));
     }
 }
