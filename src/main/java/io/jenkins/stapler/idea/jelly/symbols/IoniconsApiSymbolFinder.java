@@ -51,12 +51,10 @@ public class IoniconsApiSymbolFinder implements SymbolFinder {
         }
 
         try {
-            // Create an XPath object
             XPath xPath = XPathFactory.newInstance().newXPath();
             String expression =
                     "/project/dependencies/dependency[groupId='io.jenkins.plugins']/artifactId[text()='ionicons-api']";
 
-            // Evaluate the XPath expression and return the result
             String artifactId = (String) xPath.evaluate(expression, document, XPathConstants.STRING);
             return !artifactId.isEmpty();
         } catch (Exception e) {
