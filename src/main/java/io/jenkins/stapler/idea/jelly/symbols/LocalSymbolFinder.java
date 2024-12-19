@@ -1,6 +1,6 @@
 package io.jenkins.stapler.idea.jelly.symbols;
 
-import static org.kohsuke.stapler.idea.ProjectHelper.getArtifactId;
+import static org.kohsuke.stapler.idea.MavenProjectHelper.getArtifactId;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;

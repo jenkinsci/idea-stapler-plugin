@@ -144,6 +144,8 @@
   <depends>com.intellij.modules.java</depends>
   <!-- needed for i18n support -->
   <depends>com.intellij.properties</depends>
+  <!-- For handling Maven projects -->
+  <depends>org.jetbrains.idea.maven</depends>
   <!-- this is needed for language injection -->
   <!--<depends>org.intellij.intelliLang</depends>-->
 
