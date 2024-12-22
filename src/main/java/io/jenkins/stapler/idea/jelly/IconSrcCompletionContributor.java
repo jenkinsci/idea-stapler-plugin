@@ -47,7 +47,7 @@ public class IconSrcCompletionContributor extends CompletionContributor {
             if ("src".equals(attribute.getName())) {
                 PsiElement parent = attribute.getParent();
                 if (parent instanceof XmlTag xmlTag) {
-                    return "icon".equals(xmlTag.getLocalName()) && "l".equals(xmlTag.getNamespacePrefix());
+                    return "icon".equals(xmlTag.getLocalName()) && "/lib/layout".equals(xmlTag.getNamespace());
                 }
             }
         }
