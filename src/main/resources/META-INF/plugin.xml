@@ -152,5 +152,5 @@
   <depends>com.intellij.properties</depends>
   <!-- this is needed for language injection -->
   <!--<depends>org.intellij.intelliLang</depends>-->
-
+  <depends>com.intellij.platform.images</depends>
 </idea-plugin>

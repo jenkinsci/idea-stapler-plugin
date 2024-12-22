@@ -8,6 +8,7 @@ import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import java.util.HashSet;
 import java.util.Set;
+import org.intellij.images.fileTypes.impl.SvgFileType;
 
 public class LocalSymbolLookup implements SymbolLookup {
 
