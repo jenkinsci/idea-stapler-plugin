@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 
 public final class SymbolFinder {
 
-    private static final ConcurrentMap<Project, Set<Symbol>> ICONS_CACHE = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Set<Symbol>> ICONS_CACHE = new ConcurrentHashMap<>();
 
     private static final List<SymbolLookup> SYMBOL_LOOKUPS =
             List.of(new LocalSymbolLookup(), new JenkinsSymbolLookup(), new IoniconsApiSymbolLookup());
 
     public static Set<Symbol> getAvailableSymbols(Project project) {
-        return ICONS_CACHE.computeIfAbsent(project, SymbolFinder::computeSymbols);
+        return ICONS_CACHE.computeIfAbsent(project.getName(), e -> computeSymbols(project));
     }
 
     private static Set<Symbol> computeSymbols(Project project) {
