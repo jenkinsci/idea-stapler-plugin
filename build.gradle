@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.5"
+version = "3.0.6"
 
 java {
     toolchain {
@@ -69,6 +69,10 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.6</h3>
+      <ul>
+        <li>🚀 Jenkins Symbols suggestions are now available when using the icon component</li>
+      </ul>
       <h3>3.0.5</h3>
       <ul>
         <li>🚀 Use JetBrains Marketplace exception analyzer</li>
