@@ -75,7 +75,8 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
                 }
                 return "icon".equals(xmlTag.getLocalName())
                         && "/lib/layout".equals(xmlTag.getNamespace())
-                        && attribute.getValue().startsWith("symbol-");
+                        && attribute.getValue().startsWith("symbol-")
+                        && !attribute.getValue().contains("${"); // In some cases symbols are dynamically generated
             }
         }
         return false;
