@@ -39,7 +39,9 @@ public class LocalSymbolLookup implements SymbolLookup {
      */
     private boolean isValidSymbolFile(VirtualFile file) {
         VirtualFile parent = file.getParent();
-        return parent != null && parent.getPath().contains("images/symbols");
+        return parent != null
+                && parent.getPath().contains("images/symbols")
+                && !parent.getPath().contains("test");
     }
 
     /**

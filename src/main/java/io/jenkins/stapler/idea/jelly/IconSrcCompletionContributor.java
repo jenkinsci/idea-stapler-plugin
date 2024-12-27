@@ -1,7 +1,5 @@
 package io.jenkins.stapler.idea.jelly;
 
-import static io.jenkins.stapler.idea.jelly.symbols.SymbolFinder.getAvailableSymbols;
-
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
@@ -14,6 +12,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.xml.XmlAttributeImpl;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.ProcessingContext;
+import io.jenkins.stapler.idea.jelly.symbols.SymbolFinder;
 import org.jetbrains.annotations.NotNull;
 
 public class IconSrcCompletionContributor extends CompletionContributor {
@@ -33,7 +32,8 @@ public class IconSrcCompletionContributor extends CompletionContributor {
 
                         if (isInsideLIconSrcAttribute(parent)) {
                             Project project = position.getProject();
-                            getAvailableSymbols(project)
+                            SymbolFinder.getInstance(project)
+                                    .getAvailableSymbols()
                                     .forEach(file -> result.addElement(LookupElementBuilder.create(file.name())
                                             .withPresentableText(file.displayText())
                                             .withTypeText(file.group())));

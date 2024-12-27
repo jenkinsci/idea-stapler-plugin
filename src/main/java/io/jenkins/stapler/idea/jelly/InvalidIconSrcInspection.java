@@ -1,7 +1,6 @@
 package io.jenkins.stapler.idea.jelly;
 
 import static io.jenkins.stapler.idea.jelly.symbols.ClosestStringFinder.findClosestString;
-import static io.jenkins.stapler.idea.jelly.symbols.SymbolFinder.getAvailableSymbols;
 
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.LocalQuickFix;
@@ -15,6 +14,7 @@ import com.intellij.psi.XmlElementVisitor;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlTag;
 import io.jenkins.stapler.idea.jelly.symbols.Symbol;
+import io.jenkins.stapler.idea.jelly.symbols.SymbolFinder;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
@@ -27,9 +27,10 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
             @Override
             public void visitXmlAttribute(@NotNull XmlAttribute attribute) {
                 if (validAttributeToScan(attribute)) {
-                    Set<String> symbols = getAvailableSymbols(attribute.getProject()).stream()
-                            .map(Symbol::name)
-                            .collect(Collectors.toSet());
+                    Set<String> symbols =
+                            SymbolFinder.getInstance(attribute.getProject()).getAvailableSymbols().stream()
+                                    .map(Symbol::name)
+                                    .collect(Collectors.toSet());
                     if (!symbols.contains(attribute.getValue())) {
                         String closestSymbol = findClosestString(attribute.getValue(), symbols);
 
