@@ -69,6 +69,10 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
         if ("src".equals(attribute.getName())) {
             PsiElement parent = attribute.getParent();
             if (parent instanceof XmlTag xmlTag) {
+                String attributeValue = attribute.getValue();
+                if (attributeValue == null) {
+                    return false;
+                }
                 return "icon".equals(xmlTag.getLocalName())
                         && "/lib/layout".equals(xmlTag.getNamespace())
                         && attribute.getValue().startsWith("symbol-");
