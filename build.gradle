@@ -67,7 +67,30 @@ intellij {
 patchPluginXml {
     sinceBuild = "233.00"
     untilBuild = ""
-    pluginDescription = extractPluginDescription()
+    pluginDescription = """
+        <p>
+        Support for developing Jenkins plugins and Jenkins core.
+        Essential if you are a developer making a change to Jenkins or a Jenkins plugin.
+        </p>
+        
+        <h2>Key features</h2>
+        <ul>
+            <li>Jelly syntax highlighting</li>
+            <li>Displays Jelly tag documentation</li>
+            <li>Autocomplete Jelly tags and attributes</li>
+            <li>Navigation from the Jelly tags to their definitions</li>
+            <li>Autocomplete available Jenkins symbols for <code>l:icon src="symbol-..."</code></li>
+        </ul>
+        
+        <h2>Adds support for</h2>
+        <ul>
+          <li><a href="https://github.com/jenkinsci/stapler/blob/master/docs/what-is.adoc">Stapler framework</a></li>
+          <li><a href="https://commons.apache.org/proper/commons-jelly/index.html">Jelly : Executable XML</a></li>
+          <li><a href="https://commons.apache.org/proper/commons-jexl/">Java Expression Language (JEXL)</a></li>
+        </ul>
+
+        <p>For more features see the <a href="https://github.com/jenkinsci/idea-stapler-plugin">documentation</a>.</p>
+    """
     changeNotes = """
       <h3>3.0.6</h3>
       <ul>
@@ -131,21 +154,6 @@ publishPlugin {
     token = intellijPublishToken
 }
 
-// Avoids duplication, but hard to troubleshoot if fails. For some reason exception is not printed in the output.
-// It just says: "No signature of method: build_XXX.patchPluginXml() is applicable for argument types: ..."
-String extractPluginDescription() {
-    def final start = "<!-- Plugin description -->"
-    def final end = "<!-- Plugin description end -->"
-    try (def lines = Files.lines(file("README.md").toPath())) {
-        def description = lines.dropWhile({it != start})
-            .takeWhile({it != end})
-            .collect(Collectors.joining('\n'))
-        if (!description) {
-            throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
-        }
-        return description
-    }
-}
 
 spotless {
     java {
