@@ -26,6 +26,9 @@
     <!--    <dom.fileDescription implementation="org.kohsuke.stapler.idea.dom.model.JellyDomDescription"/>-->
     <!-- Completion for Jelly Tags -->
     <completion.contributor language="Jelly" implementationClass="org.kohsuke.stapler.idea.JellyCompletionContributor"/>
+
+    <completion.contributor language="Jelly" implementationClass="io.jenkins.stapler.idea.jelly.IconSrcCompletionContributor" />
+
     <!-- ? -->
     <!--<xml.elementDescriptorProvider implementation="org.kohsuke.stapler.idea.descriptor.XmlElementDescriptorProviderImpl" />-->
     <!-- I initially thought of using this to drive auto-completion,
@@ -72,6 +75,12 @@
     <dependencySupport coordinate="org.jenkins-ci.main:jenkins-core" kind="java" displayName="Jenkins core" />
 
     <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
+    <localInspection language="Jelly"
+                     enabledByDefault="true"
+                     level="WARNING"
+                     displayName="Invalid symbol name"
+                     groupName="Stapler"
+                     implementationClass="io.jenkins.stapler.idea.jelly.InvalidIconSrcInspection" />
   </extensions>
   <!-- Jelly taglibs XML Schemas -->
   <extensions defaultExtensionNs="com.intellij">
@@ -143,5 +152,5 @@
   <depends>com.intellij.properties</depends>
   <!-- this is needed for language injection -->
   <!--<depends>org.intellij.intelliLang</depends>-->
-
+  <depends>com.intellij.platform.images</depends>
 </idea-plugin>
