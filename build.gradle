@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.5"
+version = "3.0.6"
 
 java {
     toolchain {
@@ -29,7 +29,13 @@ dependencies {
         exclude group: "commons-logging", module: "commons-logging"
     }
     implementation 'net.java.dev.textile-j:textile-j:2.2.864'
-    implementation 'org.apache.commons:commons-text:1.10.0'
+    implementation 'org.apache.commons:commons-text:1.13.0'
+    implementation('io.jenkins.plugins:ionicons-api:74.v93d5eb_813d5f') {
+        artifact {
+            name = "ionicons-api"
+            type = "jar" // Force Gradle to use the JAR artifact
+        }
+    }
 
     testImplementation 'junit:junit:4.13.2'
 }
@@ -63,6 +69,10 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = extractPluginDescription()
     changeNotes = """
+      <h3>3.0.6</h3>
+      <ul>
+        <li>🚀 Jenkins Symbols suggestions are now available when using the icon component</li>
+      </ul>
       <h3>3.0.5</h3>
       <ul>
         <li>🚀 Use JetBrains Marketplace exception analyzer</li>
