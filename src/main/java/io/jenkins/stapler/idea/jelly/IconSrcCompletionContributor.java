@@ -6,10 +6,13 @@ import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.xml.XmlAttributeImpl;
+import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.ProcessingContext;
 import io.jenkins.stapler.idea.jelly.symbols.SymbolFinder;
@@ -34,9 +37,20 @@ public class IconSrcCompletionContributor extends CompletionContributor {
                             Project project = position.getProject();
                             SymbolFinder.getInstance(project)
                                     .getAvailableSymbols()
-                                    .forEach(file -> result.addElement(LookupElementBuilder.create(file.name())
-                                            .withPresentableText(file.displayText())
-                                            .withTypeText(file.group())));
+                                    .forEach(symbol -> result.addElement(LookupElementBuilder.create(symbol.name())
+                                            .withPresentableText(symbol.displayText())
+                                            .withTypeText(symbol.group())
+                                            .withInsertHandler((insertionContext, item) -> {
+                                                XmlAttribute attribute = PsiTreeUtil.getParentOfType(
+                                                        insertionContext
+                                                                .getFile()
+                                                                .findElementAt(insertionContext.getStartOffset()),
+                                                        XmlAttribute.class);
+                                                if (attribute != null) {
+                                                    WriteCommandAction.runWriteCommandAction(
+                                                            project, () -> attribute.setValue(symbol.name()));
+                                                }
+                                            })));
                         }
                     }
                 });
