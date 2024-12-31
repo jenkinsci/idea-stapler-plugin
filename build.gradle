@@ -69,8 +69,7 @@ patchPluginXml {
     untilBuild = ""
     pluginDescription = """
         <p>
-        Support for developing Jenkins plugins and Jenkins core.
-        Essential if you are a developer making a change to Jenkins or a Jenkins plugin.
+        Essential support for developing Jenkins plugins and Jenkins itself.
         </p>
         
         <h2>Key features</h2>
