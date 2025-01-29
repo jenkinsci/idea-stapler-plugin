@@ -66,19 +66,24 @@ public class InvalidIconSrcInspection extends LocalInspectionTool {
     }
 
     private boolean validAttributeToScan(@NotNull XmlAttribute attribute) {
-        if ("src".equals(attribute.getName())) {
+        String attributeName = attribute.getName();
+        String attributeValue = attribute.getValue();
+
+        // Ignore values that aren't symbols and ignore cases where symbols are dynamically generated
+        if (attributeValue == null || !attributeValue.startsWith("symbol-") || attributeValue.contains("${")) {
+            return false;
+        }
+
+        // If "src" is inside <l:icon>, allow it
+        if ("src".equals(attributeName)) {
             PsiElement parent = attribute.getParent();
             if (parent instanceof XmlTag xmlTag) {
-                String attributeValue = attribute.getValue();
-                if (attributeValue == null) {
-                    return false;
-                }
-                return "icon".equals(xmlTag.getLocalName())
-                        && "/lib/layout".equals(xmlTag.getNamespace())
-                        && attribute.getValue().startsWith("symbol-")
-                        && !attribute.getValue().contains("${"); // In some cases symbols are dynamically generated
+                return "icon".equals(xmlTag.getLocalName()) && "/lib/layout".equals(xmlTag.getNamespace());
             }
+            return false;
         }
-        return false;
+
+        // "icon" is allowed anywhere, as long as it meets the value conditions
+        return "icon".equals(attributeName);
     }
 }
