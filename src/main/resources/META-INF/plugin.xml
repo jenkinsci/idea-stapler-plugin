@@ -40,8 +40,6 @@
     <xml.schemaProvider implementation="org.kohsuke.stapler.idea.descriptor.StaplerCustomJellyTagLibraryXmlSchemaProvider"/>
     <!-- Provide Metadata for Dummy Schemas -->
     <metaDataContributor implementation="org.kohsuke.stapler.idea.descriptor.JellyTaglibMetadataContributor"/>
-    <!-- ? -->
-    <annotator language="Jelly" implementationClass="org.kohsuke.stapler.idea.JellyAnnotator"/>
     <!-- Show Documentation for Jelly Tag Libraries
        https://plugins.jetbrains.com/docs/intellij/documentation.html#implementation
     -->
