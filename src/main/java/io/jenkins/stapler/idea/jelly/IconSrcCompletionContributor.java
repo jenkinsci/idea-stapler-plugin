@@ -63,7 +63,7 @@ public class IconSrcCompletionContributor extends CompletionContributor {
                 if (parent instanceof XmlTag xmlTag) {
                     return "icon".equals(xmlTag.getLocalName()) && "/lib/layout".equals(xmlTag.getNamespace());
                 }
-            }
+            } else return "icon".equals(attribute.getName());
         }
         return false;
     }
