@@ -93,7 +93,8 @@ patchPluginXml {
     changeNotes = """
       <h3>3.0.7</h3>
       <ul>
-        <li>🚀 Jenkins Symbols suggestions are now available in "icon" attributes/li>
+        <li>🚀 Jenkins Symbols suggestions are now available in "icon" attributes</li>
+        <li>🐛 Fix occasional NPEs by removing the JellyAnnotator which caused them</li>
       </ul>
       <h3>3.0.6</h3>
       <ul>
