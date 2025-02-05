@@ -79,21 +79,26 @@ public class StaplerCustomJellyTagLibraryXmlNSDescriptor implements XmlNSDescrip
         return null;
     }
 
-    /**
-     * Returns all the possible root elements.
-     *
-     * <p>This appears to be used for code completion. When I returned an empty array, the code completion didn't show
-     * me anything.
-     */
+    /** Returns an empty array to disable IntelliJ's autocomplete */
     @Override
     @NotNull
     public XmlElementDescriptor @NotNull [] getRootElementsDescriptors(@Nullable XmlDocument document) {
-        List<XmlElementDescriptor> r = new ArrayList<>();
+        return new XmlElementDescriptor[0];
+    }
+
+    /**
+     * Returns all possible tags for the library.
+     *
+     * <p>This is used for generating autocomplete suggestions.
+     */
+    @NotNull
+    public StaplerCustomJellyTagfileXmlElementDescriptor @NotNull [] getTagDescriptors() {
+        List<StaplerCustomJellyTagfileXmlElementDescriptor> r = new ArrayList<>();
         for (PsiFile f : dir.getFiles()) {
             if (!isTagFile(f)) continue;
             if (f instanceof XmlFile) r.add(new StaplerCustomJellyTagfileXmlElementDescriptor(this, (XmlFile) f));
         }
-        return r.toArray(new XmlElementDescriptor[0]);
+        return r.toArray(new StaplerCustomJellyTagfileXmlElementDescriptor[0]);
     }
 
     private boolean isTagFile(PsiFile file) {
