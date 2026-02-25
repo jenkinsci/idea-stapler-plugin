@@ -12,6 +12,7 @@
 * Java Structure tool window shows Jelly views as members
 * Jelly Structure tool window shows an owner class besides XML tree
 * Select a string expression, then "Refactor" > "i18n for Stapler" to create a message resource
+* Detect of deprecated reflective access
 
 ### Jelly
 

@@ -12,6 +12,12 @@
 
     <psi.referenceContributor language="Jelly" implementation="io.jenkins.stapler.idea.jelly.JellyReferenceContributor"/>
 
+    <localInspection language="JAVA"
+                     enabledByDefault="true"
+                     level="WARNING"
+                     groupName="Stapler"
+                     displayName="Stapler deprecated reflective access"
+                     implementationClass="io.jenkins.stapler.idea.jelly.JenkinsDeprecatedReflectiveAccessInspection" />
 
     <!--
       REFERENCE:
