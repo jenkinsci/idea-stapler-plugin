@@ -12,6 +12,13 @@
 
     <deadCode implementation="io.jenkins.stapler.idea.jelly.JenkinsEntryPoint"/>
 
+    <localInspection language="JAVA"
+                     enabledByDefault="true"
+                     level="WARNING"
+                     groupName="Stapler"
+                     displayName="Stapler deprecated reflective access"
+                     implementationClass="io.jenkins.stapler.idea.jelly.JenkinsDeprecatedReflectiveAccessInspection" />
+
     <!--
       REFERENCE:
       to find out how to register a given extension point,
