@@ -47,7 +47,7 @@ public class JexlInspection extends LocalXmlInspectionTool {
      * limitations under the License.
      */
     /**
-     * Checks JEXL expresisons and return problem descriptors if found.
+     * Checks JEXL expressions and return problem descriptors if found.
      *
      * @param text The text value that may contain JEXL expressions.
      * @param range
