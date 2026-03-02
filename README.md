@@ -21,6 +21,7 @@
 * Navigation from the Jelly tags to their definitions
   * Integrate `st:documentation` tag into IntelliJ documentation support
   * Report custom tag attributes that are marked deprecated in `st:documentation`.
+* Navigation from Jelly attribute `field` in `entry` tags to their Java definition
 * Error checks and autocompletion on attributes and elements of taglibs
 * `style` attribute and `script` tag contents should be recognized as CSS and JavaScript correspondingly.
 * [Jenkins Symbols](https://weekly.ci.jenkins.io/design-library/symbols/) suggestions are available when using `<l:icon src="..." />`
