@@ -65,12 +65,7 @@ tasks.withType(JavaCompile) {
 
 intellijPlatform {
     pluginConfiguration {
-        ideaVersion {
-//             Should by default be matching the selected intellijPlatform above
-//            sinceBuild = "233.00"
-//             To keep the open upper bound v2 of gradle plugin expects this option omitted instead of set to ""
-//            untilBuild = ""
-        }
+        // `ideaVersion` can be used to specify the compatibility range. The default is sensible. It is based on the intellijPlatform dependency.
         description = """
             <p>
             Essential support for developing Jenkins plugins and Jenkins itself.
