@@ -9,6 +9,10 @@
 <!--  <idea-version since-build="110.00"/>-->
 
   <extensions defaultExtensionNs="com.intellij">
+
+    <psi.referenceContributor language="Jelly" implementation="io.jenkins.stapler.idea.jelly.JellyReferenceContributor"/>
+
+
     <!--
       REFERENCE:
       to find out how to register a given extension point,
