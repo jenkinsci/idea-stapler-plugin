@@ -6,7 +6,7 @@ import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 plugins {
     id 'java'
     id 'org.jetbrains.intellij.platform' version '2.11.0'
-    id 'com.diffplug.spotless' version '6.25.0'
+    id 'com.diffplug.spotless' version '8.4.0'
 }
 
 group = "org.kohsuke.stapler.idea"
