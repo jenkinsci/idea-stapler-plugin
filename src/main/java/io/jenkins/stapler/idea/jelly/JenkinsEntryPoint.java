@@ -2,14 +2,14 @@ package io.jenkins.stapler.idea.jelly;
 
 import com.intellij.codeInspection.reference.EntryPoint;
 import com.intellij.codeInspection.reference.RefElement;
-import com.intellij.configurationStore.XmlSerializer;
+import com.intellij.openapi.util.DefaultJDOMExternalizer;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiMethod;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 import org.jdom.Element;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,17 @@ public class JenkinsEntryPoint extends EntryPoint {
     private static final String EXPORTED_BEAN_ANNOTATION = "org.kohsuke.stapler.export.ExportedBean";
     private static final String EXPORTED_ANNOTATION = "org.kohsuke.stapler.export.Exported";
 
-    private boolean selected = true;
+    private static final List<Visitor> visitors = List.of(
+            new ExtensionPointVisitor(),
+            new ExtensionVisitor(),
+            new InitializerVisitor(),
+            new TerminatorVisitor(),
+            new ExportedBeanVisitor(),
+            new ExportedVisitor(),
+            new DataBoundSetterVisitor(),
+            new DataBoundConstructorVisitor());
+
+    public boolean ADD_JENKINS_TO_ENTRIES = true;
 
     @Override
     public @NotNull @Nls String getDisplayName() {
@@ -39,39 +49,32 @@ public class JenkinsEntryPoint extends EntryPoint {
 
     @Override
     public boolean isEntryPoint(@NotNull PsiElement psiElement) {
-        if (selected) {
-            Stream<Visitor> visitorStream = Stream.of(
-                    new ExtensionPointVisitor(),
-                    new ExtensionVisitor(),
-                    new InitializerVisitor(),
-                    new TerminatorVisitor(),
-                    new ExportedBeanVisitor(),
-                    new ExportedVisitor(),
-                    new DataBoundSetterVisitor(),
-                    new DataBoundConstructorVisitor());
-            return visitorStream.anyMatch(visitor -> visitor.visit(psiElement));
+        if (ADD_JENKINS_TO_ENTRIES) {
+            return visitors.stream().anyMatch(visitor -> visitor.visit(psiElement));
         }
         return false;
     }
 
     @Override
     public boolean isSelected() {
-        return selected;
+        return ADD_JENKINS_TO_ENTRIES;
     }
 
     @Override
     public void setSelected(boolean selected) {
-        this.selected = selected;
+        this.ADD_JENKINS_TO_ENTRIES = selected;
     }
 
     @Override
     public void readExternal(Element element) {
-        XmlSerializer.deserializeInto(element, this);
+        DefaultJDOMExternalizer.readExternal(this, element);
     }
 
     @Override
     public void writeExternal(Element element) {
-        XmlSerializer.serializeObjectInto(this, element);
+        if (!ADD_JENKINS_TO_ENTRIES) {
+            DefaultJDOMExternalizer.writeExternal(this, element);
+        }
     }
 
     interface Visitor {
