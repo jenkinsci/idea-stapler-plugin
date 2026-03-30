@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "org.kohsuke.stapler.idea"
-version = "3.0.8-SNAPSHOT"
+version = "3.0.8"
 
 java {
     toolchain {
@@ -24,7 +24,7 @@ repositories {
         defaultRepositories()
     }
     maven {
-        url "https://repo.jenkins-ci.org/releases/"
+        url = "https://repo.jenkins-ci.org/releases/"
     }
 }
 
@@ -70,7 +70,7 @@ intellijPlatform {
             <p>
             Essential support for developing Jenkins plugins and Jenkins itself.
             </p>
-            
+
             <h2>Key features</h2>
             <ul>
                 <li>Jelly syntax highlighting</li>
@@ -79,17 +79,24 @@ intellijPlatform {
                 <li>Navigation from the Jelly tags to their definitions</li>
                 <li>Autocomplete available Jenkins symbols for <code>l:icon src="symbol-..."</code></li>
             </ul>
-            
+
             <h2>Adds support for</h2>
             <ul>
               <li><a href="https://github.com/jenkinsci/stapler/blob/master/docs/what-is.adoc">Stapler framework</a></li>
               <li><a href="https://commons.apache.org/proper/commons-jelly/index.html">Jelly : Executable XML</a></li>
               <li><a href="https://commons.apache.org/proper/commons-jexl/">Java Expression Language (JEXL)</a></li>
             </ul>
-    
+
             <p>For more features see the <a href="https://github.com/jenkinsci/idea-stapler-plugin">documentation</a>.</p>
         """
         changeNotes = """
+          <h3>3.0.8</h3>
+          <ul>
+            <li>🚀 Detect several Jenkins entrypoints to avoid unused declaration warnings</li>
+            <li>🚀 Navigate from Jelly attribute <code>field</code> in <code>entry</code> tags to their Java definition</li>
+            <li>🚀 Detect deprecated Stapler reflective access</li>
+            <li>👻 Compatibility baseline is changed to 2024.3</li>
+          </ul>
           <h3>3.0.7</h3>
           <ul>
             <li>🚀 Jenkins Symbols suggestions are now available in "icon" attributes</li>
