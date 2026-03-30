@@ -10,6 +10,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
 
+    <deadCode implementation="io.jenkins.stapler.idea.jelly.JenkinsEntryPoint"/>
     <psi.referenceContributor language="Jelly" implementation="io.jenkins.stapler.idea.jelly.JellyReferenceContributor"/>
 
 

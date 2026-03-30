@@ -28,3 +28,7 @@
 ## JEXL
 
 * Syntax error checks on JEXL expressions
+
+## Java 
+
+* Detection of Jenkins entrypoints (Extension, Initializer, DataBoundConstructor, Exported, etc )
